@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#ffffff;color-scheme:light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="color-scheme" content="light">
+<title>Creator OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --off: #f5f4f1;
+  --off2: #eeecea;
+  --border: #e5e3de;
+  --border-dark: #ccc9c2;
+  --text: #111110;
+  --muted: #96938d;
+  --muted2: #c2bfb8;
+  --black: #111110;
+  --warm-dark: #2c2a26;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+@media (prefers-color-scheme: dark) { html { background: #ffffff; } }
+html,body{height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;display:flex;flex-direction:column;height:100vh;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:var(--border-dark);border-radius:2px;}
+
+/* SCREENS */
+.screen{display:none;flex-direction:column;height:100vh;overflow:hidden;}
+.screen.active{display:flex;}
+
+/* SCROLLABLE BODY */
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+
+/* NAV */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border-bottom:1px solid var(--border);flex-shrink:0;}
+.nav-title{font-family:'Instrument Serif',serif;font-size:1.1rem;letter-spacing:-0.01em;}
+.nav-back{width:34px;height:34px;border-radius:50%;background:var(--off);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;flex-shrink:0;}
+.nav-back:active{background:var(--border);}
+.nav-action{font-size:0.8rem;font-weight:600;color:var(--black);background:none;border:none;cursor:pointer;padding:0.4rem 0.75rem;border-radius:var(--radius-xs);background:var(--off);}
+.nav-settings{width:34px;height:34px;border-radius:50%;background:var(--off);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;}
+
+/* TYPOGRAPHY */
+.serif{font-family:'Instrument Serif',serif;}
+.display{font-family:'Instrument Serif',serif;font-size:2.2rem;line-height:1;letter-spacing:-0.02em;}
+.label{font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);}
+
+/* BUTTONS */
+.btn{width:100%;padding:0.95rem;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;border:none;transition:opacity 0.15s,transform 0.1s;letter-spacing:0.01em;}
+.btn:active{transform:scale(0.98);}
+.btn:disabled{opacity:0.3;cursor:not-allowed;}
+.btn-black{background:var(--black);color:#fff;}
+.btn-outline{background:none;border:1.5px solid var(--border-dark);color:var(--black);}
+.btn-outline:active{background:var(--off);}
+.btn-ghost{background:var(--off);color:var(--text);border:none;}
+.btn-ghost:active{background:var(--off2);}
+.btn-sm{padding:0.5rem 1rem;border-radius:var(--radius-xs);font-size:0.78rem;font-weight:500;cursor:pointer;border:none;background:var(--off);color:var(--text);}
+.btn-sm:active{background:var(--border);}
+
+/* INPUTS */
+.field{margin-bottom:1rem;}
+.field-label{font-size:0.72rem;font-weight:600;color:var(--muted);margin-bottom:0.4rem;letter-spacing:0.02em;}
+input[type=text],input[type=password],input[type=number],textarea,select{width:100%;background:var(--bg);border:1.5px solid var(--border-dark);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:0.8rem 1rem;outline:none;-webkit-appearance:none;transition:border-color 0.2s;}
+input:focus,textarea:focus,select:focus{border-color:var(--black);}
+input::placeholder,textarea::placeholder{color:var(--muted2);}
+textarea{resize:none;line-height:1.6;}
+select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2396938d' d='M5 7L1 3h8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;}
+select option{background:#fff;}
+
+/* CARDS */
+.card{background:#f5f4f1;border-radius:var(--radius);padding:1.1rem;margin-bottom:0.75rem;}
+.card-border{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.1rem;margin-bottom:0.75rem;}
+
+/* OUTPUT */
+.out-label{font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem;}
+.out-text{font-size:0.9rem;line-height:1.7;color:var(--text);}
+.out-footer{margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid var(--border);display:flex;justify-content:flex-end;}
+
+/* RESULT ITEMS */
+.result-item{border:1.5px solid var(--border);border-radius:var(--radius);padding:1rem;margin-bottom:0.6rem;background:var(--bg);cursor:pointer;transition:border-color 0.15s,background 0.15s;}
+.result-item:active{background:var(--off);}
+.result-item.selected{border-color:var(--black);background:var(--off);}
+.result-num{font-size:0.65rem;font-weight:600;color:var(--muted);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.35rem;}
+.result-text{font-family:'Instrument Serif',serif;font-size:1rem;line-height:1.5;color:var(--text);}
+.result-text.sans{font-family:'DM Sans',sans-serif;font-size:0.88rem;}
+
+/* LOADING */
+.loading{display:flex;flex-direction:column;align-items:center;padding:3rem 1rem;gap:0.85rem;}
+.spinner{width:28px;height:28px;border:2px solid var(--border-dark);border-top-color:var(--black);border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-size:0.82rem;color:var(--muted);font-weight:500;}
+
+/* STATUS PILL */
+.status-pill{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.9rem;background:var(--off);border-radius:var(--radius-sm);cursor:pointer;}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--muted2);flex-shrink:0;}
+.status-dot.on{background:#22c55e;}
+.status-text{font-size:0.78rem;color:var(--muted);flex:1;}
+.status-action{font-size:0.75rem;font-weight:600;color:var(--black);}
+
+/* KEY WARN */
+.key-warn{background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius-sm);padding:0.85rem 1rem;font-size:0.82rem;color:#92400e;margin-bottom:1rem;line-height:1.5;}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(60px);background:var(--black);color:#fff;padding:0.6rem 1.4rem;border-radius:24px;font-size:0.8rem;font-weight:500;z-index:9999;transition:transform 0.25s ease;white-space:nowrap;pointer-events:none;box-shadow:0 4px 24px rgba(0,0,0,0.15);}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:1.25rem 0;}
+
+/* TAGS */
+.tag{font-size:0.62rem;font-weight:500;padding:0.2rem 0.6rem;border-radius:20px;flex-shrink:0;}
+.tag-free{background:#f0fdf4;color:#16a34a;}
+.tag-ai{background:var(--off2);color:var(--muted);}
+.tag-opt{background:#fefce8;color:#a16207;}
+
+/* WORKFLOW STEPS */
+.wf-step-bar{display:flex;gap:0.3rem;padding:0.85rem 1.25rem;border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;scrollbar-width:none;}
+.wf-step-bar::-webkit-scrollbar{display:none;}
+.wf-step{display:flex;align-items:center;gap:0.35rem;white-space:nowrap;}
+.wf-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border-dark);display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;color:var(--muted);flex-shrink:0;transition:all 0.2s;}
+.wf-dot.done{background:var(--black);border-color:var(--black);color:#fff;}
+.wf-dot.active{border-color:var(--black);color:var(--black);}
+.wf-label{font-size:0.65rem;font-weight:500;color:var(--muted);}
+.wf-label.active{color:var(--black);font-weight:600;}
+.wf-sep{width:16px;height:1px;background:var(--border-dark);flex-shrink:0;}
+
+/* CAPTION LAYER */
+.layer-card{border:1.5px solid var(--border);border-radius:var(--radius);margin-bottom:0.6rem;overflow:hidden;background:var(--bg);}
+.layer-head{display:flex;align-items:center;padding:0.85rem 1rem;gap:0.75rem;cursor:pointer;transition:background 0.1s;}
+.layer-head:active{background:var(--off);}
+.layer-badge{width:24px;height:24px;border-radius:50%;background:var(--black);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;flex-shrink:0;}
+.layer-prev{flex:1;font-size:0.88rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.layer-time{font-size:0.7rem;color:var(--muted);flex-shrink:0;}
+.layer-del{background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:0.2rem 0.4rem;}
+.layer-body{border-top:1px solid var(--border);padding:1rem;display:none;}
+.layer-body.open{display:block;}
+.time-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.75rem;}
+
+/* PREVIEW FRAME */
+.preview-frame{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:9/16;max-height:52vh;background:var(--black);margin-bottom:0.75rem;}
+.preview-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;}
+.preview-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 55%);}
+.preview-dots{position:absolute;top:0.75rem;left:0;right:0;display:flex;justify-content:center;gap:0.3rem;z-index:3;}
+.pdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.3);transition:all 0.2s;}
+.pdot.on{background:#fff;transform:scale(1.4);}
+.preview-caption-wrap{position:absolute;z-index:3;left:0;right:0;padding:0 1.5rem;text-align:center;}
+.preview-caption-wrap.bottom{bottom:15%;}
+.preview-caption-wrap.middle{top:50%;transform:translateY(-50%);}
+.preview-caption-wrap.top{top:15%;}
+.preview-caption{line-height:1.55;text-shadow:0 2px 20px rgba(0,0,0,0.9);min-height:1.5rem;}
+.preview-caption.serif-italic{font-family:'Instrument Serif',serif;font-size:clamp(1rem,4.5vw,1.4rem);color:#fff;font-style:italic;}
+.preview-caption.bold-sans{font-family:'DM Sans',sans-serif;font-size:clamp(0.9rem,4vw,1.2rem);color:#fff;font-weight:700;}
+.preview-caption.clean{font-family:'DM Sans',sans-serif;font-size:clamp(0.85rem,3.5vw,1.1rem);color:#fff;font-weight:400;}
+.preview-caption.all-caps{font-family:'DM Sans',sans-serif;font-size:clamp(0.8rem,3.5vw,1rem);color:#fff;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;}
+.cursor-blink{display:inline-block;width:2px;height:0.9em;background:#fff;margin-left:2px;vertical-align:middle;animation:blink 0.75s step-end infinite;}
+@keyframes blink{50%{opacity:0;}}
+.no-image-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;background:var(--off);cursor:pointer;}
+.no-image-text{font-size:0.75rem;color:var(--muted);letter-spacing:0.05em;}
+
+/* PLAYBAR */
+.playbar{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;}
+.play-btn{width:42px;height:42px;border-radius:50%;background:var(--black);border:none;color:#fff;font-size:0.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.progress-track{flex:1;height:3px;background:var(--border-dark);border-radius:2px;}
+.progress-fill{height:100%;background:var(--black);border-radius:2px;width:0%;transition:width 0.1s linear;}
+.time-label{font-size:0.7rem;color:var(--muted);white-space:nowrap;}
+
+/* SRT */
+.srt-box{background:var(--black);border-radius:var(--radius-sm);padding:1rem;font-size:0.68rem;color:#86efac;font-family:monospace;white-space:pre;overflow-x:auto;max-height:160px;overflow-y:auto;line-height:1.7;margin-bottom:0.75rem;}
+
+/* EXPORT OPTIONS */
+.export-opt{display:flex;align-items:center;gap:1rem;padding:1rem;border:1.5px solid var(--border);border-radius:var(--radius);margin-bottom:0.6rem;cursor:pointer;transition:all 0.15s;background:var(--bg);}
+.export-opt:active{background:var(--off);}
+.export-icon{font-size:1.5rem;flex-shrink:0;}
+.export-info{flex:1;}
+.export-title{font-weight:600;font-size:0.9rem;margin-bottom:0.15rem;}
+.export-desc{font-size:0.75rem;color:var(--muted);line-height:1.4;}
+.export-arrow{color:var(--muted);font-size:1rem;}
+
+/* STYLE PICKER */
+.style-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.75rem;}
+.style-chip{padding:0.75rem 0.5rem;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--bg);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.72rem;cursor:pointer;text-align:center;transition:all 0.15s;line-height:1.4;}
+.style-chip.on{border-color:var(--black);color:var(--black);background:var(--off);}
+
+/* POSITION PICKER */
+.pos-row{display:flex;gap:0.5rem;margin-bottom:0.75rem;}
+.pos-chip{flex:1;padding:0.6rem 0.3rem;border-radius:var(--radius-xs);border:1.5px solid var(--border);background:var(--bg);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.72rem;cursor:pointer;text-align:center;transition:all 0.15s;}
+.pos-chip.on{border-color:var(--black);color:var(--black);background:var(--off);}
+
+/* VOICE LAYER */
+.voice-item{display:flex;align-items:center;gap:0.75rem;padding:0.85rem 0;border-bottom:1px solid var(--border);}
+.voice-item:last-child{border-bottom:none;}
+.voice-num{width:22px;height:22px;border-radius:50%;background:var(--off2);display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;color:var(--muted);flex-shrink:0;}
+.voice-text{flex:1;font-size:0.82rem;color:var(--text);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.voice-status{font-size:0.65rem;font-weight:600;flex-shrink:0;}
+.voice-status.ready{color:#16a34a;}
+.voice-status.pending{color:var(--muted);}
+.voice-status.loading{color:#d97706;}
+.voice-play{background:none;border:none;color:var(--black);font-size:1rem;cursor:pointer;flex-shrink:0;}
+
+/* GUIDE STEPS */
+.guide-step{display:flex;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.guide-step:last-child{border-bottom:none;}
+.guide-num{width:22px;height:22px;border-radius:50%;background:var(--black);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;flex-shrink:0;margin-top:0.1rem;}
+.guide-text{font-size:0.85rem;color:var(--text);line-height:1.5;}
+
+/* POSTING TIMES */
+.platform-time{display:flex;align-items:center;gap:0.75rem;padding:0.85rem 0;border-bottom:1px solid var(--border);}
+.platform-time:last-child{border-bottom:none;}
+.platform-icon{font-size:1.2rem;flex-shrink:0;}
+.platform-name{font-weight:600;font-size:0.88rem;flex:1;}
+.platform-time-text{font-size:0.78rem;color:var(--muted);}
+
+/* HOME TOOL ROW */
+.tool-row{display:flex;align-items:center;padding:0.9rem 1.25rem;gap:1rem;cursor:pointer;border-bottom:1px solid var(--border);transition:background 0.1s;-webkit-user-select:none;}
+.tool-row:active{background:var(--off);}
+.tool-emoji{font-size:1.2rem;width:34px;text-align:center;flex-shrink:0;}
+.tool-info{flex:1;min-width:0;}
+.tool-name{font-weight:600;font-size:0.9rem;margin-bottom:0.15rem;}
+.tool-desc{font-size:0.73rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     ONBOARDING
+════════════════════════════════════════ -->
+<div class="screen active" id="s-onboard" style="background:#ffffff">
+  <div class="scroll" style="padding:2.5rem 1.5rem 1rem;background:#ffffff">
+    <div class="display" style="margin-bottom:0.4rem">Creator OS</div>
+    <div style="font-size:0.95rem;color:var(--muted);margin-bottom:2rem;line-height:1.5">Your complete short form content studio.</div>
+
+    <div class="card" style="margin-bottom:1rem">
+      <div class="label" style="margin-bottom:0.6rem">Free — no setup needed</div>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+        <span style="background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:0.3rem 0.8rem;font-size:0.8rem;font-weight:500">✍️ Caption Builder</span>
+        <span style="background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:0.3rem 0.8rem;font-size:0.8rem;font-weight:500">⏱ Script Timer</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="label" style="margin-bottom:0.85rem">AI Tools — requires API key</div>
+      <div class="guide-step">
+        <div class="guide-num">1</div>
+        <div class="guide-text"><a href="https://console.anthropic.com" target="_blank" style="color:var(--black);font-weight:600;text-decoration:underline;text-underline-offset:3px">Get your AI API key →</a><br><span style="color:var(--muted);font-size:0.8rem">Sign up free. Add $5 in credits — lasts months.</span></div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-num">2</div>
+        <div class="guide-text">Click <b>API Keys</b> → Create Key<br><span style="color:var(--muted);font-size:0.8rem">Copy the key starting with sk-ant-</span></div>
+      </div>
+      <div class="guide-step" style="border-bottom:none;padding-bottom:0">
+        <div class="guide-num">3</div>
+        <div class="guide-text">Paste below — stays on your device only</div>
+      </div>
+      <div style="margin-top:0.85rem">
+        <input type="password" id="ob-claude-key" placeholder="sk-ant-..." style="background:var(--bg)">
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="label" style="margin-bottom:0.6rem">Voiceover — optional</div>
+      <div style="font-size:0.82rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.5">Add your ElevenLabs key to generate AI voiceovers inside the app. <a href="https://elevenlabs.io" target="_blank" style="color:var(--black);font-weight:600;text-decoration:underline;text-underline-offset:2px">Get key →</a></div>
+      <input type="password" id="ob-el-key" placeholder="ElevenLabs API key..." style="background:var(--bg)">
+    </div>
+  </div>
+  <div style="padding:1rem 1.5rem 2rem;border-top:1px solid #e5e3de;flex-shrink:0;background:#ffffff;display:flex;flex-direction:column;gap:0.6rem">
+    <button class="btn btn-black" onclick="finishOnboard()">Get Started →</button>
+    <button class="btn btn-outline" onclick="skipOnboard()">Continue with free tools only</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     HOME
+════════════════════════════════════════ -->
+<div class="screen" id="s-home" style="background:#ffffff">
+  <div style="padding:1.25rem 1.25rem 0.75rem;border-bottom:1px solid #e5e3de;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;background:#ffffff">
+    <div>
+      <div class="serif" style="font-size:1.4rem;letter-spacing:-0.01em">Creator OS</div>
+      <div style="font-size:0.75rem;color:var(--muted)">Short form content studio</div>
+    </div>
+    <button class="nav-settings" onclick="goScreen('s-settings')">⚙️</button>
+  </div>
+
+  <div class="scroll" style="padding-bottom:2rem;background:#ffffff">
+    <!-- API status -->
+    <div style="padding:0.75rem 1.25rem;border-bottom:1px solid #e5e3de;background:#ffffff">
+      <div class="status-pill" onclick="goScreen('s-settings')" id="home-key-status">
+        <div class="status-dot" id="home-dot"></div>
+        <div class="status-text" id="home-dot-text">No API key</div>
+        <div class="status-action">Manage</div>
+      </div>
+    </div>
+
+    <!-- WORKFLOW CARD -->
+    <div style="padding:1.25rem 1.25rem 0;background:#ffffff">
+      <div style="background:#2c2a26;border-radius:var(--radius);padding:1.5rem;cursor:pointer;margin-bottom:1.25rem" onclick="startWorkflow()">
+        <div style="font-size:2rem;margin-bottom:0.75rem">🎬</div>
+        <div style="font-family:'Instrument Serif',serif;font-size:1.5rem;color:#fff;margin-bottom:0.35rem;line-height:1.1">Content Creator</div>
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.5">Discover trends → build your script → generate assets → distribute everywhere</div>
+        <div style="margin-top:1.1rem;display:flex;align-items:center;gap:0.5rem">
+          <div style="font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:0.08em">FULL PIPELINE</div>
+          <div style="flex:1;height:1px;background:rgba(255,255,255,0.1)"></div>
+          <div style="color:rgba(255,255,255,0.5);font-size:0.9rem">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOLS -->
+    <div style="padding:0 1.25rem;background:#ffffff !important">
+      <div style="height:0.25rem"></div>
+      <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#96938d;margin-bottom:0.75rem;background:#ffffff">Script & Content</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1.25rem;background:#ffffff">
+        <div onclick="goTool('caption')" style="background:#2c2a26;border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;position:relative;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.5rem">
+          <span style="position:absolute;top:0.6rem;right:0.7rem;font-size:0.55rem;font-weight:600;background:rgba(34,197,94,0.15);color:#22c55e;padding:0.15rem 0.5rem;border-radius:10px">FREE</span>
+          <div style="font-size:1.75rem">✍️</div>
+          <div style="font-weight:600;font-size:0.82rem;color:#fff;line-height:1.2">Caption Builder</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.3">Animated captions + live preview</div>
+        </div>
+        <div onclick="goTool('repurpose')" style="background:#2c2a26;border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.5rem">
+          <div style="font-size:1.75rem">♻️</div>
+          <div style="font-weight:600;font-size:0.82rem;color:#fff;line-height:1.2">Repurposer</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.3">Script → X, YouTube, TikTok</div>
+        </div>
+        <div onclick="goTool('hook')" style="background:#2c2a26;border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.5rem">
+          <div style="font-size:1.75rem">🎣</div>
+          <div style="font-weight:600;font-size:0.82rem;color:#fff;line-height:1.2">Hook Generator</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.3">Scroll-stopping opening lines</div>
+        </div>
+        <div onclick="goTool('voicefmt')" style="background:#2c2a26;border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.5rem">
+          <div style="font-size:1.75rem">🎙</div>
+          <div style="font-weight:600;font-size:0.82rem;color:#fff;line-height:1.2">Voiceover Formatter</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.3">Pause & emphasis cues</div>
+        </div>
+        <div onclick="goTool('timer')" style="background:#2c2a26;border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;position:relative;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.5rem">
+          <span style="position:absolute;top:0.6rem;right:0.7rem;font-size:0.55rem;font-weight:600;background:rgba(34,197,94,0.15);color:#22c55e;padding:0.15rem 0.5rem;border-radius:10px">FREE</span>
+          <div style="font-size:1.75rem">⏱</div>
+          <div style="font-weight:600;font-size:0.82rem;color:#fff;line-height:1.2">Script Timer</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.3">How long does it run?</div>
+        </div>
+      </div>
+
+      <div class="label" style="margin-bottom:0.75rem">Ideas & Research</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1.25rem;background:#ffffff">
+        <div onclick="goTool('trends')" style="background:#2c2a26;border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.5rem">
+          <div style="font-size:1.75rem">📈</div>
+          <div style="font-weight:600;font-size:0.82rem;color:#fff;line-height:1.2">Trend Scanner</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.3">What's trending right now</div>
+        </div>
+        <div onclick="goTool('calendar')" style="background:#2c2a26;border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.5rem">
+          <div style="font-size:1.75rem">📅</div>
+          <div style="font-weight:600;font-size:0.82rem;color:#fff;line-height:1.2">30-Day Calendar</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.3">Full month of ideas</div>
+        </div>
+        <div onclick="goTool('imgprompt')" style="background:#2c2a26;border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.5rem">
+          <div style="font-size:1.75rem">🎨</div>
+          <div style="font-weight:600;font-size:0.82rem;color:#fff;line-height:1.2">Image Prompts</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.3">Midjourney / Leonardo</div>
+        </div>
+        <div onclick="goTool('quote')" style="background:#2c2a26;border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.5rem">
+          <div style="font-size:1.75rem">✅</div>
+          <div style="font-weight:600;font-size:0.82rem;color:#fff;line-height:1.2">Quote Validator</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.3">Real or misattributed?</div>
+        </div>
+      </div>
+
+      <div class="label" style="margin-bottom:0.75rem">Optimize & Grow</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1.5rem;background:#ffffff">
+        <div onclick="goTool('title')" style="background:#2c2a26;border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.5rem">
+          <div style="font-size:1.75rem">🆚</div>
+          <div style="font-weight:600;font-size:0.82rem;color:#fff;line-height:1.2">Title A/B Tester</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.3">Which title wins?</div>
+        </div>
+        <div onclick="goTool('thumbnail')" style="background:#2c2a26;border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.5rem">
+          <div style="font-size:1.75rem">🖼</div>
+          <div style="font-weight:600;font-size:0.82rem;color:#fff;line-height:1.2">Thumbnail Text</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.3">Punchy 3–5 word text</div>
+        </div>
+        <div onclick="goTool('reply')" style="background:#2c2a26;border-radius:14px;padding:1.1rem 0.9rem;cursor:pointer;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0.5rem">
+          <div style="font-size:1.75rem">💬</div>
+          <div style="font-weight:600;font-size:0.82rem;color:#fff;line-height:1.2">Comment Reply</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.3">Boost engagement</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SETTINGS
+════════════════════════════════════════ -->
+<div class="screen" id="s-settings" style="background:#ffffff">
+  <div class="nav">
+    <button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button>
+    <div class="nav-title">Settings</div>
+    <div style="width:34px"></div>
+  </div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff">
+    <div class="card-border" style="background:#ffffff">
+      <div class="out-label" style="margin-bottom:0.75rem">AI API Key</div>
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.5">Powers all AI tools. <a href="https://console.anthropic.com" target="_blank" style="color:var(--black);font-weight:600;text-decoration:underline;text-underline-offset:2px">Get key →</a> Add $5 credits to start.</div>
+      <div class="field"><input type="password" id="set-claude-key" placeholder="sk-ant-..."></div>
+      <div style="display:flex;gap:0.5rem">
+        <button class="btn btn-black" style="flex:2" onclick="saveClaudeKey()">Save Key</button>
+        <button class="btn btn-ghost" style="flex:1" onclick="clearClaudeKey()">Clear</button>
+      </div>
+    </div>
+    <div class="card-border" style="background:#ffffff">
+      <div class="out-label" style="margin-bottom:0.5rem">ElevenLabs Key <span class="tag tag-opt" style="font-size:0.6rem;margin-left:0.25rem">optional</span></div>
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.5">Generate AI voiceovers inside the app. <a href="https://elevenlabs.io" target="_blank" style="color:var(--black);font-weight:600;text-decoration:underline;text-underline-offset:2px">Get key →</a> Free tier = 10 min/month.</div>
+      <div class="field"><input type="password" id="set-el-key" placeholder="ElevenLabs API key..."></div>
+      <div style="display:flex;gap:0.5rem">
+        <button class="btn btn-black" style="flex:2" onclick="saveELKey()">Save Key</button>
+        <button class="btn btn-ghost" style="flex:1" onclick="clearELKey()">Clear</button>
+      </div>
+    </div>
+    <button class="btn btn-outline" onclick="clearAll()" style="margin-top:0.5rem">Clear All Data</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     WORKFLOW
+════════════════════════════════════════ -->
+<div class="screen" id="s-workflow" style="background:#ffffff">
+  <div class="nav">
+    <button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button>
+    <div class="nav-title">Content Creator</div>
+    <div style="width:34px"></div>
+  </div>
+  <div class="wf-step-bar" style="background:#ffffff" id="wf-bar">
+    <div class="wf-step"><div class="wf-dot active" id="wd-1">1</div><div class="wf-label active" id="wl-1">Discover</div></div>
+    <div class="wf-sep"></div>
+    <div class="wf-step"><div class="wf-dot" id="wd-2">2</div><div class="wf-label" id="wl-2">Ideate</div></div>
+    <div class="wf-sep"></div>
+    <div class="wf-step"><div class="wf-dot" id="wd-3">3</div><div class="wf-label" id="wl-3">Build</div></div>
+    <div class="wf-sep"></div>
+    <div class="wf-step"><div class="wf-dot" id="wd-4">4</div><div class="wf-label" id="wl-4">Distribute</div></div>
+  </div>
+  <div class="scroll" id="wf-scroll" style="padding:1.25rem;background:#ffffff">
+
+    <!-- STEP 1: DISCOVER -->
+    <div id="wf-s1">
+      <div style="margin-bottom:1.25rem">
+        <div class="serif" style="font-size:1.4rem;margin-bottom:0.3rem">What's your niche?</div>
+        <div style="font-size:0.85rem;color:var(--muted)">Enter a keyword and we'll find what's trending right now.</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Keyword or niche</div>
+        <input type="text" id="wf-keyword" placeholder="e.g. anime, stoicism, fashion, fitness...">
+      </div>
+      <div class="field">
+        <div class="field-label">Platform focus</div>
+        <select id="wf-platform">
+          <option value="short video">Short Video (TikTok / Shorts / Reels)</option>
+          <option value="X / Twitter">X / Twitter</option>
+          <option value="all platforms">All Platforms</option>
+        </select>
+      </div>
+      <button class="btn btn-black" id="wf-s1-btn" onclick="wfDiscover()" style="margin-bottom:1.5rem">Find Trending Topics →</button>
+      <div id="wf-s1-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Scanning trends...</div></div></div>
+      <div id="wf-s1-results" style="display:none">
+        <div class="label" style="margin-bottom:0.6rem">Pick a topic</div>
+        <div id="wf-s1-list"></div>
+        <button class="btn btn-black" id="wf-s1-next" disabled onclick="wfNextStep(2)" style="margin-top:0.5rem">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: IDEATE -->
+    <div id="wf-s2" style="display:none">
+      <div style="margin-bottom:1.25rem">
+        <div class="serif" style="font-size:1.4rem;margin-bottom:0.3rem">Choose an angle</div>
+        <div style="font-size:0.85rem;color:var(--muted)" id="wf-s2-sub">Based on your topic.</div>
+      </div>
+      <div id="wf-s2-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Generating ideas...</div></div></div>
+      <div id="wf-s2-results" style="display:none">
+        <div class="label" style="margin-bottom:0.6rem">Pick a content angle</div>
+        <div id="wf-s2-list"></div>
+        <button class="btn btn-black" id="wf-s2-next" disabled onclick="wfBuildScript()" style="margin-top:0.5rem">Build Script →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: BUILD -->
+    <div id="wf-s3" style="display:none">
+      <div style="margin-bottom:1rem">
+        <div class="serif" style="font-size:1.4rem;margin-bottom:0.3rem">Build your content</div>
+        <div style="font-size:0.85rem;color:var(--muted)">Script generated. Customize and build your video.</div>
+      </div>
+
+      <!-- Script layers -->
+      <div class="label" style="margin-bottom:0.5rem">Script Layers</div>
+      <div id="wf-s3-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Writing your script...</div></div></div>
+      <div id="wf-layers"></div>
+      <button class="btn btn-outline" style="margin-bottom:1.25rem" onclick="wfAddLayer()">+ Add Layer</button>
+
+      <div class="divider"></div>
+
+      <!-- Image prompt -->
+      <div class="label" style="margin-bottom:0.5rem">Image Prompt</div>
+      <div class="card" style="margin-bottom:0.5rem">
+        <div style="font-size:0.85rem;line-height:1.6;color:var(--text)" id="wf-img-prompt">Generating...</div>
+      </div>
+      <button class="btn-sm" style="margin-bottom:1.25rem" onclick="copyEl('wf-img-prompt')">Copy Prompt</button>
+
+      <div class="divider"></div>
+
+      <!-- Caption Builder -->
+      <div class="label" style="margin-bottom:0.75rem">Caption Style</div>
+
+      <div class="field">
+        <div class="field-label">Upload your image (optional)</div>
+        <div id="wf-upload-zone" style="border:1.5px dashed var(--border-dark);border-radius:var(--radius);padding:1.25rem;text-align:center;cursor:pointer;background:var(--off);margin-bottom:0.75rem" onclick="document.getElementById('wf-file-input').click()">
+          <div style="font-size:1.5rem;margin-bottom:0.35rem">🖼</div>
+          <div style="font-size:0.78rem;color:var(--muted)">Tap to upload your image</div>
+        </div>
+        <input type="file" id="wf-file-input" accept="image/*" style="display:none" onchange="wfHandleImage(this)">
+      </div>
+
+      <div class="field">
+        <div class="field-label">Animation style</div>
+        <div class="style-grid">
+          <button class="style-chip on" data-anim="typewriter" onclick="setAnim(this)">Typewriter<br><span style="color:var(--muted2);font-size:0.62rem">Character by character</span></button>
+          <button class="style-chip" data-anim="fadein" onclick="setAnim(this)">Fade In<br><span style="color:var(--muted2);font-size:0.62rem">Whole line appears</span></button>
+          <button class="style-chip" data-anim="wordbyword" onclick="setAnim(this)">Word by Word<br><span style="color:var(--muted2);font-size:0.62rem">One word at a time</span></button>
+          <button class="style-chip" data-anim="none" onclick="setAnim(this)">Static<br><span style="color:var(--muted2);font-size:0.62rem">No animation</span></button>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Text style</div>
+        <div class="style-grid">
+          <button class="style-chip on" data-style="serif-italic" onclick="setStyle(this)">Serif Italic<br><span style="color:var(--muted2);font-size:0.62rem">Cinematic / Philosophical</span></button>
+          <button class="style-chip" data-style="bold-sans" onclick="setStyle(this)">Bold Sans<br><span style="color:var(--muted2);font-size:0.62rem">Anime / Hype</span></button>
+          <button class="style-chip" data-style="clean" onclick="setStyle(this)">Clean<br><span style="color:var(--muted2);font-size:0.62rem">General / Minimal</span></button>
+          <button class="style-chip" data-style="all-caps" onclick="setStyle(this)">All Caps<br><span style="color:var(--muted2);font-size:0.62rem">Motivational</span></button>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Text position</div>
+        <div class="pos-row">
+          <button class="pos-chip" data-pos="top" onclick="setPos(this)">Top</button>
+          <button class="pos-chip" data-pos="middle" onclick="setPos(this)">Middle</button>
+          <button class="pos-chip on" data-pos="bottom" onclick="setPos(this)">Bottom</button>
+        </div>
+      </div>
+
+      <!-- PREVIEW -->
+      <div class="label" style="margin-bottom:0.75rem">Live Preview</div>
+      <div class="preview-frame" id="wf-preview">
+        <div class="no-image-placeholder" id="wf-no-img" onclick="document.getElementById('wf-file-input').click()">
+          <div style="font-size:2rem">🖼</div>
+          <div class="no-image-text">Tap to add your image</div>
+        </div>
+        <img id="wf-preview-img" class="preview-img" style="display:none">
+        <div class="preview-grad"></div>
+        <div class="preview-dots" id="wf-dots"></div>
+        <div class="preview-caption-wrap bottom" id="wf-caption-wrap">
+          <div class="preview-caption serif-italic" id="wf-caption-text"><span class="cursor-blink"></span></div>
+        </div>
+      </div>
+      <div class="playbar">
+        <button class="play-btn" id="wf-play-btn" onclick="wfTogglePlay()">▶</button>
+        <div class="progress-track"><div class="progress-fill" id="wf-progress"></div></div>
+        <div class="time-label" id="wf-time">0s / 0s</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- VOICEOVER -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem">
+        <div class="label">Voiceover</div>
+        <div class="tag tag-opt" id="el-status-tag">Not set up</div>
+      </div>
+      <div id="wf-voice-no-key" style="display:none">
+        <div class="card" style="margin-bottom:0.75rem">
+          <div style="font-size:0.82rem;color:var(--muted);line-height:1.5">Add your ElevenLabs API key in settings to generate voiceovers inside the app.</div>
+          <button class="btn btn-ghost" style="margin-top:0.75rem;width:100%" onclick="goScreen('s-settings')">Add in Settings →</button>
+        </div>
+      </div>
+      <div id="wf-voice-panel" style="display:none">
+        <div class="field">
+          <div class="field-label">Voice</div>
+          <select id="wf-voice-select">
+            <option value="onwK4e9ZLuTAKqWW03F9">Daniel — Deep, Authoritative</option>
+            <option value="N2lVS1w4EtoT3dr4eOWO">Callum — Intense, Dramatic</option>
+            <option value="TX3LPaxmHKxFdv7VOQHJ">Liam — Calm, Contemplative</option>
+            <option value="XB0fDUnXU5powFXDhCwa">Charlotte — Soft, Cinematic</option>
+            <option value="pqHfZKP75CvOlQylNhV4">Bill — Rich, Warm</option>
+          </select>
+        </div>
+        <button class="btn btn-black" id="wf-gen-voice-btn" onclick="wfGenerateAllVoice()" style="margin-bottom:0.75rem">Generate Voiceovers →</button>
+        <div class="card-border" style="background:#ffffff" id="wf-voice-list"></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <button class="btn btn-black" onclick="wfNextStep(4)">Continue to Distribute →</button>
+      <div style="height:1rem"></div>
+    </div>
+
+    <!-- STEP 4: DISTRIBUTE -->
+    <div id="wf-s4" style="display:none">
+      <div style="margin-bottom:1.25rem">
+        <div class="serif" style="font-size:1.4rem;margin-bottom:0.3rem">Distribute</div>
+        <div style="font-size:0.85rem;color:var(--muted)">Everything ready to post across all platforms.</div>
+      </div>
+
+      <!-- Export options -->
+      <div class="label" style="margin-bottom:0.75rem">Export Your Video</div>
+      <div class="export-opt" onclick="doScreenRecord()">
+        <div class="export-icon">📱</div>
+        <div class="export-info">
+          <div class="export-title">Screen Record</div>
+          <div class="export-desc">Guided fullscreen mode — just record your screen. Works on every device.</div>
+        </div>
+        <div class="export-arrow">›</div>
+      </div>
+      <div class="export-opt" onclick="doMP4Export()">
+        <div class="export-icon">💾</div>
+        <div class="export-info">
+          <div class="export-title">Export MP4</div>
+          <div class="export-desc">Direct video download. May vary by browser.</div>
+        </div>
+        <div class="export-arrow">›</div>
+      </div>
+      <div class="export-opt" onclick="doFrameExport()">
+        <div class="export-icon">🗂</div>
+        <div class="export-info">
+          <div class="export-title">Export Frames + Audio</div>
+          <div class="export-desc">Get all assets to assemble in CapCut. Most reliable option.</div>
+        </div>
+        <div class="export-arrow">›</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Posting times -->
+      <div class="label" style="margin-bottom:0.75rem">Best Posting Times</div>
+      <div id="wf-times-loading" style="display:none"><div class="loading" style="padding:1.5rem"><div class="spinner"></div><div class="loading-text">Analyzing...</div></div></div>
+      <div class="card-border" style="background:#ffffff" id="wf-times-card" style="display:none">
+        <div id="wf-times-list"></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Platform captions -->
+      <div class="label" style="margin-bottom:0.75rem">Platform Captions</div>
+      <div id="wf-captions-loading" style="display:none"><div class="loading" style="padding:1.5rem"><div class="spinner"></div><div class="loading-text">Writing captions...</div></div></div>
+      <div id="wf-captions-out" style="display:none">
+        <div class="card-border" style="background:#ffffff" style="margin-bottom:0.6rem"><div class="out-label">𝕏 Twitter / X</div><div class="out-text" id="wf-cap-x"></div><div class="out-footer"><button class="btn-sm" onclick="copyEl('wf-cap-x')">Copy</button></div></div>
+        <div class="card-border" style="background:#ffffff" style="margin-bottom:0.6rem"><div class="out-label">▶ YouTube</div><div class="out-text" id="wf-cap-yt"></div><div class="out-footer"><button class="btn-sm" onclick="copyEl('wf-cap-yt')">Copy</button></div></div>
+        <div class="card-border" style="background:#ffffff" style="margin-bottom:0.6rem"><div class="out-label">♪ TikTok</div><div class="out-text" id="wf-cap-tt"></div><div class="out-footer"><button class="btn-sm" onclick="copyEl('wf-cap-tt')">Copy</button></div></div>
+      </div>
+
+      <div class="divider"></div>
+      <button class="btn btn-black" onclick="goScreen('s-home')">Done — Back to Home</button>
+      <div style="height:1.5rem"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SCREEN RECORD MODE
+════════════════════════════════════════ -->
+<div class="screen" id="s-record" style="background:#000">
+  <div class="preview-frame" id="sr-frame" style="max-height:100vh;height:100vh;border-radius:0;margin:0">
+    <img id="sr-img" class="preview-img" style="display:none">
+    <div class="preview-grad"></div>
+    <div class="preview-caption-wrap bottom" id="sr-caption-wrap">
+      <div class="preview-caption serif-italic" id="sr-caption"></div>
+    </div>
+  </div>
+  <div style="position:fixed;bottom:1.5rem;left:0;right:0;display:flex;gap:0.75rem;padding:0 1.5rem;z-index:10">
+    <button class="btn btn-black" style="flex:1" onclick="srTogglePlay()" id="sr-play-btn">▶ Play</button>
+    <button class="btn btn-ghost" onclick="goScreen('s-workflow');wfScrollTo(3)">✕ Exit</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     TOOLS
+════════════════════════════════════════ -->
+
+<!-- CAPTION BUILDER (standalone) -->
+<div class="screen" id="s-caption" style="background:#ffffff">
+  <div class="nav" style="background:#ffffff"><button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button><div class="nav-title">Caption Builder</div><div style="width:34px"></div></div>
+  <div style="display:flex;border-bottom:1px solid #e5e3de;flex-shrink:0;padding:0 1.25rem;background:#ffffff">
+    <button class="tab-btn active" onclick="capTab('build',this)" id="cap-tab-build">Build</button>
+    <button class="tab-btn" onclick="capTab('preview',this)" id="cap-tab-prev">Preview</button>
+    <button class="tab-btn" onclick="capTab('export',this)" id="cap-tab-exp">Export</button>
+  </div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff" id="cap-scroll">
+    <div id="cap-build">
+      <div id="cap-layers-wrap"></div>
+      <button class="btn btn-outline" style="margin-bottom:1rem" onclick="capAddLayer()">+ Add Layer</button>
+      <div class="field">
+        <div class="field-label">Animation style</div>
+        <div class="style-grid">
+          <button class="style-chip on" data-anim="typewriter" onclick="setCapAnim(this)">Typewriter</button>
+          <button class="style-chip" data-anim="fadein" onclick="setCapAnim(this)">Fade In</button>
+          <button class="style-chip" data-anim="wordbyword" onclick="setCapAnim(this)">Word by Word</button>
+          <button class="style-chip" data-anim="none" onclick="setCapAnim(this)">Static</button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">Text style</div>
+        <div class="style-grid">
+          <button class="style-chip on" data-style="serif-italic" onclick="setCapStyle(this)">Serif Italic</button>
+          <button class="style-chip" data-style="bold-sans" onclick="setCapStyle(this)">Bold Sans</button>
+          <button class="style-chip" data-style="clean" onclick="setCapStyle(this)">Clean</button>
+          <button class="style-chip" data-style="all-caps" onclick="setCapStyle(this)">All Caps</button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">Text position</div>
+        <div class="pos-row">
+          <button class="pos-chip" data-pos="top" onclick="setCapPos(this)">Top</button>
+          <button class="pos-chip" data-pos="middle" onclick="setCapPos(this)">Middle</button>
+          <button class="pos-chip on" data-pos="bottom" onclick="setCapPos(this)">Bottom</button>
+        </div>
+      </div>
+      <button class="btn btn-black" onclick="capTab('preview',document.getElementById('cap-tab-prev'))">Preview →</button>
+    </div>
+    <div id="cap-preview" style="display:none">
+      <div class="preview-frame" id="cap-pframe">
+        <div class="no-image-placeholder" id="cap-no-img" onclick="document.getElementById('cap-file').click()">
+          <div style="font-size:2rem">🖼</div>
+          <div class="no-image-text">Tap to add image</div>
+        </div>
+        <input type="file" id="cap-file" accept="image/*" style="display:none" onchange="capHandleImg(this)">
+        <img id="cap-pimg" class="preview-img" style="display:none">
+        <div class="preview-grad"></div>
+        <div class="preview-dots" id="cap-dots"></div>
+        <div class="preview-caption-wrap bottom" id="cap-caption-wrap">
+          <div class="preview-caption serif-italic" id="cap-caption"><span class="cursor-blink"></span></div>
+        </div>
+      </div>
+      <div class="playbar">
+        <button class="play-btn" id="cap-play-btn" onclick="capTogglePlay()">▶</button>
+        <div class="progress-track"><div class="progress-fill" id="cap-prog"></div></div>
+        <div class="time-label" id="cap-time">0s / 0s</div>
+      </div>
+      <button class="btn btn-black" onclick="capTab('export',document.getElementById('cap-tab-exp'))">Export →</button>
+    </div>
+    <div id="cap-export" style="display:none">
+      <div class="export-opt" onclick="doCapScreenRecord()"><div class="export-icon">📱</div><div class="export-info"><div class="export-title">Screen Record</div><div class="export-desc">Fullscreen preview — record your screen</div></div><div class="export-arrow">›</div></div>
+      <div class="export-opt" onclick="doCapMP4()"><div class="export-icon">💾</div><div class="export-info"><div class="export-title">Export MP4</div><div class="export-desc">Direct video download</div></div><div class="export-arrow">›</div></div>
+      <div class="export-opt" onclick="doCapSRT()"><div class="export-icon">📄</div><div class="export-info"><div class="export-title">Export SRT</div><div class="export-desc">Caption file for CapCut</div></div><div class="export-arrow">›</div></div>
+      <div id="cap-srt-block" style="display:none">
+        <div class="srt-box" id="cap-srt-text"></div>
+        <button class="btn btn-black" onclick="copySRT()">Copy SRT</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REPURPOSE -->
+<div class="screen" id="s-repurpose" style="background:#ffffff">
+  <div class="nav" style="background:#ffffff"><button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button><div class="nav-title">Content Repurposer</div><div style="width:34px"></div></div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff">
+    <div id="repurpose-warn" class="key-warn" style="display:none"></div>
+    <div class="field"><div class="field-label">Script or Idea</div><textarea id="repurpose-in" rows="5" placeholder="Paste your script, idea, or topic..."></textarea></div>
+    <div class="field"><div class="field-label">Style</div><select id="repurpose-style"><option value="philosophical">Philosophical / Cinematic</option><option value="anime">Anime / Pop Culture</option><option value="motivational">Motivational / Stoic</option><option value="spiritual">Spiritual / Biblical</option><option value="general">General</option></select></div>
+    <button class="btn btn-black" id="repurpose-btn" onclick="runRepurpose()" style="margin-bottom:1.5rem">Repurpose →</button>
+    <div id="repurpose-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Repurposing...</div></div></div>
+    <div id="repurpose-out" style="display:none">
+      <div class="card-border" style="background:#ffffff"><div class="out-label">𝕏 Tweet Thread</div><div class="out-text" id="r-tweet"></div><div class="out-footer"><button class="btn-sm" onclick="copyEl('r-tweet')">Copy</button></div></div>
+      <div class="card-border" style="background:#ffffff"><div class="out-label">▶ YouTube</div><div class="out-text" id="r-yt"></div><div class="out-footer"><button class="btn-sm" onclick="copyEl('r-yt')">Copy</button></div></div>
+      <div class="card-border" style="background:#ffffff"><div class="out-label">♪ TikTok</div><div class="out-text" id="r-tt"></div><div class="out-footer"><button class="btn-sm" onclick="copyEl('r-tt')">Copy</button></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- HOOK -->
+<div class="screen" id="s-hook" style="background:#ffffff">
+  <div class="nav" style="background:#ffffff"><button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button><div class="nav-title">Hook Generator</div><div style="width:34px"></div></div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff">
+    <div id="hook-warn" class="key-warn" style="display:none"></div>
+    <div class="field"><div class="field-label">Topic or Script</div><textarea id="hook-in" rows="4" placeholder="What's your video about?"></textarea></div>
+    <div class="field"><div class="field-label">Platform</div><select id="hook-plat"><option value="TikTok / Reels">TikTok / Reels</option><option value="X (Twitter)">X / Twitter</option><option value="YouTube">YouTube</option><option value="all platforms">All Platforms</option></select></div>
+    <button class="btn btn-black" id="hook-btn" onclick="runHook()" style="margin-bottom:1.5rem">Generate Hooks →</button>
+    <div id="hook-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Writing hooks...</div></div></div>
+    <div id="hook-out"></div>
+  </div>
+</div>
+
+<!-- VOICEOVER FORMATTER -->
+<div class="screen" id="s-voicefmt" style="background:#ffffff">
+  <div class="nav" style="background:#ffffff"><button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button><div class="nav-title">Voiceover Formatter</div><div style="width:34px"></div></div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff">
+    <div id="voicefmt-warn" class="key-warn" style="display:none"></div>
+    <div class="field"><div class="field-label">Raw Script</div><textarea id="vf-in" rows="7" placeholder="Paste your script..."></textarea></div>
+    <div class="field"><div class="field-label">Tone</div><select id="vf-tone"><option value="cinematic">Cinematic / Dramatic</option><option value="calm">Calm / Meditative</option><option value="intense">Intense / Powerful</option><option value="warm">Warm / Intimate</option></select></div>
+    <button class="btn btn-black" id="voicefmt-btn" onclick="runVoicefmt()" style="margin-bottom:1.5rem">Format Script →</button>
+    <div id="voicefmt-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Formatting...</div></div></div>
+    <div id="vf-out" style="display:none"><div class="card-border" style="background:#ffffff"><div class="out-label">Formatted Script</div><div class="out-text" id="vf-result"></div><div class="out-footer"><button class="btn-sm" onclick="copyEl('vf-result')">Copy</button></div></div></div>
+  </div>
+</div>
+
+<!-- TIMER -->
+<div class="screen" id="s-timer" style="background:#ffffff">
+  <div class="nav" style="background:#ffffff"><button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button><div class="nav-title">Script Timer</div><div style="width:34px"></div></div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff">
+    <div class="field"><div class="field-label">Your Script</div><textarea id="timer-in" rows="8" placeholder="Paste your script..." oninput="runTimer()"></textarea></div>
+    <div class="field"><div class="field-label">Speaking Pace</div><select id="timer-pace" onchange="runTimer()"><option value="130">Slow / Dramatic (130 wpm)</option><option value="150" selected>Normal Narration (150 wpm)</option><option value="180">Conversational (180 wpm)</option><option value="200">Fast / Energetic (200 wpm)</option></select></div>
+    <div id="timer-out" style="display:none">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem">
+        <div class="card" style="text-align:center;margin-bottom:0"><div style="font-family:'Instrument Serif',serif;font-size:2rem;line-height:1" id="t-dur">0:00</div><div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem">Duration</div></div>
+        <div class="card" style="text-align:center;margin-bottom:0"><div style="font-family:'Instrument Serif',serif;font-size:2rem;line-height:1" id="t-words">0</div><div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem">Words</div></div>
+      </div>
+      <div class="card-border" style="background:#ffffff"><div class="out-label">Platform Fit</div><div class="out-text" id="t-fit" style="font-size:0.85rem;line-height:2"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TRENDS -->
+<div class="screen" id="s-trends" style="background:#ffffff">
+  <div class="nav" style="background:#ffffff"><button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button><div class="nav-title">Trend Scanner</div><div style="width:34px"></div></div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff">
+    <div id="trends-warn" class="key-warn" style="display:none"></div>
+    <div class="field"><div class="field-label">Your Niche</div><input type="text" id="trends-in" placeholder="e.g. anime, philosophy, fitness..."></div>
+    <div class="field"><div class="field-label">Platform</div><select id="trends-plat"><option value="short video">Short Video</option><option value="X / Twitter">X / Twitter</option><option value="all platforms">All Platforms</option></select></div>
+    <button class="btn btn-black" id="trends-btn" onclick="runTrends()" style="margin-bottom:1.5rem">Scan →</button>
+    <div id="trends-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Scanning trends...</div></div></div>
+    <div id="trends-out"></div>
+  </div>
+</div>
+
+<!-- CALENDAR -->
+<div class="screen" id="s-calendar" style="background:#ffffff">
+  <div class="nav" style="background:#ffffff"><button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button><div class="nav-title">30-Day Calendar</div><div style="width:34px"></div></div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff">
+    <div id="calendar-warn" class="key-warn" style="display:none"></div>
+    <div class="field"><div class="field-label">Your Niche</div><input type="text" id="cal-in" placeholder="e.g. philosophical anime content"></div>
+    <div class="field"><div class="field-label">Frequency</div><select id="cal-freq"><option value="daily">Daily</option><option value="5x per week">5x per week</option><option value="3x per week">3x per week</option></select></div>
+    <button class="btn btn-black" id="calendar-btn" onclick="runCalendar()" style="margin-bottom:1.5rem">Build Calendar →</button>
+    <div id="calendar-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Building calendar...</div></div></div>
+    <div id="cal-out"></div>
+  </div>
+</div>
+
+<!-- IMG PROMPTS -->
+<div class="screen" id="s-imgprompt" style="background:#ffffff">
+  <div class="nav" style="background:#ffffff"><button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button><div class="nav-title">AI Image Prompts</div><div style="width:34px"></div></div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff">
+    <div id="imgprompt-warn" class="key-warn" style="display:none"></div>
+    <div class="field"><div class="field-label">Quote or Vibe</div><textarea id="img-in" rows="3" placeholder="e.g. the gate is narrow for both rich and poor"></textarea></div>
+    <div class="field"><div class="field-label">Visual Style</div><select id="img-style"><option value="cinematic painting">Cinematic Painting</option><option value="lofi illustration">Lofi Illustration</option><option value="dark anime art">Dark Anime Art</option><option value="renaissance oil painting">Renaissance Oil Painting</option><option value="moody atmospheric photography">Moody Photography</option></select></div>
+    <button class="btn btn-black" id="imgprompt-btn" onclick="runImgPrompt()" style="margin-bottom:1.5rem">Generate Prompts →</button>
+    <div id="imgprompt-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Crafting prompts...</div></div></div>
+    <div id="img-out"></div>
+  </div>
+</div>
+
+<!-- QUOTE VALIDATOR -->
+<div class="screen" id="s-quote" style="background:#ffffff">
+  <div class="nav" style="background:#ffffff"><button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button><div class="nav-title">Quote Validator</div><div style="width:34px"></div></div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff">
+    <div id="quote-warn" class="key-warn" style="display:none"></div>
+    <div class="field"><div class="field-label">The Quote</div><textarea id="q-text" rows="4" placeholder="Paste the quote..."></textarea></div>
+    <div class="field"><div class="field-label">Attributed To</div><input type="text" id="q-author" placeholder="e.g. Marcus Aurelius, Bukowski..."></div>
+    <button class="btn btn-black" id="quote-btn" onclick="runQuote()" style="margin-bottom:1.5rem">Validate →</button>
+    <div id="quote-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Fact checking...</div></div></div>
+    <div id="q-out" style="display:none">
+      <div class="card-border" style="background:#ffffff"><div class="out-label">Verdict</div><div id="q-verdict"></div></div>
+      <div class="card-border" style="background:#ffffff"><div class="out-label">Details</div><div class="out-text" id="q-details"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TITLE AB -->
+<div class="screen" id="s-title" style="background:#ffffff">
+  <div class="nav" style="background:#ffffff"><button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button><div class="nav-title">Title A/B Tester</div><div style="width:34px"></div></div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff">
+    <div id="title-warn" class="key-warn" style="display:none"></div>
+    <div class="field"><div class="field-label">Title A</div><input type="text" id="title-a" placeholder="First option..."></div>
+    <div class="field"><div class="field-label">Title B</div><input type="text" id="title-b" placeholder="Second option..."></div>
+    <div class="field"><div class="field-label">Platform</div><select id="title-plat"><option value="YouTube">YouTube</option><option value="TikTok">TikTok</option><option value="X">X</option></select></div>
+    <button class="btn btn-black" id="title-btn" onclick="runTitle()" style="margin-bottom:1.5rem">Analyze →</button>
+    <div id="title-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Analyzing...</div></div></div>
+    <div id="title-out" style="display:none">
+      <div class="card-border" style="background:#ffffff"><div class="out-label">Winner</div><div class="out-text" id="title-winner" style="font-weight:600"></div></div>
+      <div class="card-border" style="background:#ffffff"><div class="out-label">Analysis</div><div class="out-text" id="title-analysis"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- THUMBNAIL -->
+<div class="screen" id="s-thumbnail" style="background:#ffffff">
+  <div class="nav" style="background:#ffffff"><button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button><div class="nav-title">Thumbnail Text</div><div style="width:34px"></div></div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff">
+    <div id="thumbnail-warn" class="key-warn" style="display:none"></div>
+    <div class="field"><div class="field-label">Video Topic</div><input type="text" id="thumb-in" placeholder="e.g. Why rich people are always lonely"></div>
+    <div class="field"><div class="field-label">Emotion</div><select id="thumb-emo"><option value="curiosity">Curiosity</option><option value="shock">Shock</option><option value="melancholy">Melancholy</option><option value="outrage">Outrage</option><option value="inspiration">Inspiration</option></select></div>
+    <button class="btn btn-black" id="thumbnail-btn" onclick="runThumbnail()" style="margin-bottom:1.5rem">Generate →</button>
+    <div id="thumbnail-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Generating...</div></div></div>
+    <div id="thumb-out"></div>
+  </div>
+</div>
+
+<!-- REPLY -->
+<div class="screen" id="s-reply" style="background:#ffffff">
+  <div class="nav" style="background:#ffffff"><button class="nav-back" style="background:#f5f4f1" onclick="goScreen('s-home')">←</button><div class="nav-title">Comment Reply</div><div style="width:34px"></div></div>
+  <div class="scroll" style="padding:1.25rem;background:#ffffff">
+    <div id="reply-warn" class="key-warn" style="display:none"></div>
+    <div class="field"><div class="field-label">The Comment</div><textarea id="reply-in" rows="3" placeholder="Paste the comment..."></textarea></div>
+    <div class="field"><div class="field-label">Your Voice</div><select id="reply-vibe"><option value="philosophical and deep">Philosophical</option><option value="anime and pop culture">Anime / Pop Culture</option><option value="witty and sharp">Witty</option><option value="warm and community-focused">Warm / Community</option></select></div>
+    <button class="btn btn-black" id="reply-btn" onclick="runReply()" style="margin-bottom:1.5rem">Get Replies →</button>
+    <div id="reply-loading" style="display:none"><div class="loading"><div class="spinner"></div><div class="loading-text">Crafting replies...</div></div></div>
+    <div id="reply-out"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- TAB BTN STYLE -->
+<style>
+.tab-btn{padding:0.85rem 0;margin-right:1.75rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;margin-bottom:-1px;transition:all 0.15s;white-space:nowrap;}
+.tab-btn.active{color:var(--black);border-bottom-color:var(--black);}
+</style>
+
+<script>
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let claudeKey = localStorage.getItem('cos_claude') || '';
+let elKey = localStorage.getItem('cos_el') || '';
+
+// Caption state (standalone)
+const capLayers = [];
+let capAnim = 'typewriter';
+let capStyle = 'serif-italic';
+let capPos = 'bottom';
+let capPlaying = false;
+let capTimer = null;
+let capTime = 0;
+let capLastIdx = -1;
+let capTypeTimer = null;
+let capTypePos = 0;
+let capWords = [];
+let capWordIdx = 0;
+let capFadeTimer = null;
+
+// Workflow state
+const wfLayers = [];
+let wfAnim = 'typewriter';
+let wfStyle = 'serif-italic';
+let wfPos = 'bottom';
+let wfPlaying = false;
+let wfTimer = null;
+let wfTime = 0;
+let wfLastIdx = -1;
+let wfTypeTimer = null;
+let wfTypePos = 0;
+let wfWords = [];
+let wfWordIdx = 0;
+let wfImageURL = null;
+let wfAudioBuffers = {};
+let wfAudioCtx = null;
+let wfCurrentStep = 1;
+let wfSelectedTopic = '';
+let wfSelectedAngle = '';
+let wfScript = '';
+let wfNiche = '';
+
+// Screen record state
+let srPlaying = false;
+let srTimer = null;
+let srTime = 0;
+let srLastIdx = -1;
+let srTypeTimer = null;
+let srTypePos = 0;
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+if (claudeKey) {
+  goScreen('s-home');
+  updateHomeStatus();
+  initCapLayers();
+} else {
+  goScreen('s-onboard');
+}
+
+function initCapLayers() {
+  if (!capLayers.length) {
+    capAddLayer('When Jesus said\u2026', 0, 7);
+    capAddLayer('It is easier for a camel\nto pass through the eye of a needle\nthan for a rich man\nto enter the kingdom of God.', 8, 18);
+    capAddLayer('His riches had become his god \u2014\na silent master that owned his soul.', 19, 28);
+    renderCapLayers();
+  }
+}
+
+// ═══════════════════════════════════════
+// ONBOARDING
+// ═══════════════════════════════════════
+function finishOnboard() {
+  const ck = document.getElementById('ob-claude-key').value.trim();
+  if (!ck || !ck.startsWith('sk-')) { showToast('Paste a valid API key (starts with sk-)'); return; }
+  claudeKey = ck;
+  localStorage.setItem('cos_claude', ck);
+  const ek = document.getElementById('ob-el-key').value.trim();
+  if (ek) { elKey = ek; localStorage.setItem('cos_el', ek); }
+  updateHomeStatus();
+  goScreen('s-home');
+  initCapLayers();
+}
+
+function skipOnboard() {
+  claudeKey = '';
+  elKey = '';
+  localStorage.removeItem('cos_claude');
+  localStorage.removeItem('cos_el');
+  updateHomeStatus();
+  goScreen('s-home');
+  initCapLayers();
+}
+
+// ═══════════════════════════════════════
+// SETTINGS
+// ═══════════════════════════════════════
+function saveClaudeKey() {
+  const k = document.getElementById('set-claude-key').value.trim();
+  if (!k) { showToast('Paste your key first'); return; }
+  claudeKey = k; localStorage.setItem('cos_claude', k);
+  updateHomeStatus(); showToast('Claude key saved!');
+  document.getElementById('set-claude-key').value = '';
+}
+function clearClaudeKey() {
+  claudeKey = ''; localStorage.removeItem('cos_claude');
+  updateHomeStatus(); showToast('Key cleared');
+}
+function saveELKey() {
+  const k = document.getElementById('set-el-key').value.trim();
+  if (!k) { showToast('Paste your key first'); return; }
+  elKey = k; localStorage.setItem('cos_el', k);
+  showToast('ElevenLabs key saved!');
+  document.getElementById('set-el-key').value = '';
+}
+function clearELKey() {
+  elKey = ''; localStorage.removeItem('cos_el');
+  showToast('EL key cleared');
+}
+function clearAll() {
+  if (!confirm('Clear all saved data?')) return;
+  claudeKey = ''; elKey = '';
+  localStorage.clear();
+  updateHomeStatus();
+  goScreen('s-onboard');
+}
+function updateHomeStatus() {
+  const dot = document.getElementById('home-dot');
+  const txt = document.getElementById('home-dot-text');
+  if (dot) dot.classList.toggle('on', !!claudeKey);
+  if (txt) txt.textContent = claudeKey ? 'AI tools active' : 'No API key — free tools only';
+}
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+function goScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const sc = document.getElementById(id).querySelector('.scroll');
+  if (sc) sc.scrollTop = 0;
+}
+
+function goTool(id) {
+  const screenId = 's-' + id;
+  const warn = document.getElementById(id + '-warn');
+  if (warn) {
+    if (!claudeKey) {
+      warn.style.display = 'block';
+      warn.innerHTML = '🔒 This tool needs an AI API key. <strong style="cursor:pointer;text-decoration:underline" onclick="goScreen(\'s-settings\')">Set it up →</strong>';
+    } else {
+      warn.style.display = 'none';
+    }
+  }
+  goScreen(screenId);
+}
+
+// ═══════════════════════════════════════
+// CLAUDE API
+// ═══════════════════════════════════════
+async function callClaude(system, user, maxTokens) {
+  if (!claudeKey) { showToast('Add your API key first'); return null; }
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': claudeKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-3-5-sonnet-20241022',
+      max_tokens: maxTokens || 1500,
+      system: system,
+      messages: [{ role: 'user', content: user }]
+    })
+  });
+  if (!res.ok) {
+    const errText = await res.text();
+    let errMsg = 'API error ' + res.status;
+    try { const errJ = JSON.parse(errText); errMsg = errJ.error ? errJ.error.message : errText; } catch(e2) { errMsg = errText.substring(0,120); }
+    throw new Error(errMsg);
+  }
+  const d = await res.json();
+  if (!d.content || !d.content[0]) throw new Error('Empty response from API');
+  if (d.content[0].type !== 'text') throw new Error('Unexpected response type: ' + d.content[0].type);
+  return d.content[0].text;
+}
+
+function setLoad(id, on) {
+  const el = document.getElementById(id + '-loading');
+  if (el) el.style.display = on ? 'block' : 'none';
+  const btn = document.getElementById(id + '-btn');
+  if (btn) btn.disabled = on;
+}
+
+// ═══════════════════════════════════════
+// WORKFLOW
+// ═══════════════════════════════════════
+function startWorkflow() {
+  if (!claudeKey) {
+    showToast('Add your API key first');
+    goScreen('s-settings');
+    return;
+  }
+  wfCurrentStep = 1;
+  wfSelectedTopic = '';
+  wfSelectedAngle = '';
+  wfScript = '';
+  wfLayers.length = 0;
+  document.getElementById('wf-s1-results').style.display = 'none';
+  document.getElementById('wf-s1-loading').style.display = 'none';
+  document.getElementById('wf-s1-btn').disabled = false;
+  document.getElementById('wf-keyword').value = '';
+  updateWFBar(1);
+  showWFStep(1);
+  goScreen('s-workflow');
+}
+
+function showWFStep(n) {
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('wf-s' + i).style.display = i === n ? 'block' : 'none';
+  }
+  document.getElementById('wf-scroll').scrollTop = 0;
+}
+
+function updateWFBar(active) {
+  for (let i = 1; i <= 4; i++) {
+    const dot = document.getElementById('wd-' + i);
+    const lbl = document.getElementById('wl-' + i);
+    dot.classList.remove('active', 'done');
+    lbl.classList.remove('active');
+    if (i < active) dot.classList.add('done');
+    else if (i === active) { dot.classList.add('active'); lbl.classList.add('active'); }
+  }
+}
+
+function wfNextStep(n) {
+  wfCurrentStep = n;
+  updateWFBar(n);
+  showWFStep(n);
+  if (n === 2) wfIdeate();
+  if (n === 4) wfDistribute();
+}
+
+function wfScrollTo(n) {
+  wfCurrentStep = n;
+  updateWFBar(n);
+  showWFStep(n);
+}
+
+// STEP 1: DISCOVER
+async function wfDiscover() {
+  const keyword = document.getElementById('wf-keyword').value.trim();
+  if (!keyword) { showToast('Enter a keyword first'); return; }
+  const plat = document.getElementById('wf-platform').value;
+  wfNiche = keyword;
+  document.getElementById('wf-s1-btn').disabled = true;
+  document.getElementById('wf-s1-loading').style.display = 'block';
+  document.getElementById('wf-s1-results').style.display = 'none';
+  try {
+    const r = await callClaude(
+      'You are a social media trend analyst. Return ONLY 5 trending topics numbered 1-5. Format: "TOPIC: one line description". One per line. No other text.',
+      'Top 5 trending content topics in ' + keyword + ' for ' + plat + ' creators right now.'
+    );
+    if (!r) return;
+    const items = r.split('\n').filter(l => l.trim() && /^\d/.test(l.trim()));
+    const list = document.getElementById('wf-s1-list');
+    list.innerHTML = '';
+    items.forEach((item, i) => {
+      const parts = item.replace(/^\d+[\.\)]\s*/, '').split(':');
+      const title = parts[0] ? parts[0].trim() : item;
+      const desc = parts[1] ? parts[1].trim() : '';
+      const div = document.createElement('div');
+      div.className = 'result-item';
+      div.innerHTML = '<div class="result-num">TOPIC ' + (i + 1) + '</div><div class="result-text">' + title + '</div>' + (desc ? '<div style="font-size:0.78rem;color:var(--muted);margin-top:0.25rem;line-height:1.4">' + desc + '</div>' : '');
+      div.onclick = function() {
+        document.querySelectorAll('#wf-s1-list .result-item').forEach(el => el.classList.remove('selected'));
+        div.classList.add('selected');
+        wfSelectedTopic = title + (desc ? ': ' + desc : '');
+        document.getElementById('wf-s1-next').disabled = false;
+      };
+      list.appendChild(div);
+    });
+    document.getElementById('wf-s1-results').style.display = 'block';
+  } catch (e) { showToast('Error: ' + e.message); }
+  document.getElementById('wf-s1-btn').disabled = false;
+  document.getElementById('wf-s1-loading').style.display = 'none';
+}
+
+// STEP 2: IDEATE
+async function wfIdeate() {
+  document.getElementById('wf-s2-sub').textContent = 'Based on: ' + wfSelectedTopic.substring(0, 50);
+  document.getElementById('wf-s2-loading').style.display = 'block';
+  document.getElementById('wf-s2-results').style.display = 'none';
+  try {
+    const r = await callClaude(
+      'You are a content strategist. Return ONLY 5 content angles numbered 1-5. Each should be a specific, compelling angle a creator could make a short video about. Format: just the angle idea, one per line, numbered. No extra text.',
+      'Generate 5 different short-form video content angles for this topic: "' + wfSelectedTopic + '" in the niche of ' + wfNiche + '.'
+    );
+    if (!r) return;
+    const items = r.split('\n').filter(l => l.trim() && /^\d/.test(l.trim()));
+    const list = document.getElementById('wf-s2-list');
+    list.innerHTML = '';
+    items.forEach((item, i) => {
+      const text = item.replace(/^\d+[\.\)]\s*/, '');
+      const div = document.createElement('div');
+      div.className = 'result-item';
+      div.innerHTML = '<div class="result-num">ANGLE ' + (i + 1) + '</div><div class="result-text">' + text + '</div>';
+      div.onclick = function() {
+        document.querySelectorAll('#wf-s2-list .result-item').forEach(el => el.classList.remove('selected'));
+        div.classList.add('selected');
+        wfSelectedAngle = text;
+        document.getElementById('wf-s2-next').disabled = false;
+      };
+      list.appendChild(div);
+    });
+    document.getElementById('wf-s2-results').style.display = 'block';
+  } catch (e) { showToast('Error: ' + e.message); }
+  document.getElementById('wf-s2-loading').style.display = 'none';
+}
+
+// STEP 3: BUILD SCRIPT
+async function wfBuildScript() {
+  wfCurrentStep = 3;
+  updateWFBar(3);
+  showWFStep(3);
+  document.getElementById('wf-s3-loading').style.display = 'block';
+  document.getElementById('wf-layers').innerHTML = '';
+  document.getElementById('wf-img-prompt').textContent = 'Generating...';
+
+  // Update EL status
+  if (elKey) {
+    document.getElementById('el-status-tag').textContent = 'ElevenLabs Active';
+    document.getElementById('el-status-tag').style.background = '#f0fdf4';
+    document.getElementById('el-status-tag').style.color = '#16a34a';
+    document.getElementById('wf-voice-no-key').style.display = 'none';
+    document.getElementById('wf-voice-panel').style.display = 'block';
+  } else {
+    document.getElementById('el-status-tag').textContent = 'Not set up';
+    document.getElementById('wf-voice-no-key').style.display = 'block';
+    document.getElementById('wf-voice-panel').style.display = 'none';
+  }
+
+  try {
+    const r = await callClaude(
+      'You are a philosophical/cinematic short video scriptwriter. Create a layered video script. Respond in this EXACT format with layers separated by "---LAYER---":\n[start_sec]-[end_sec]: text\n\nExample:\n0-7: Opening hook line here\n---LAYER---\n8-18: Second deeper layer here\n---LAYER---\n19-28: Third layer here\n---LAYER---\n29-40: Fourth layer here\n---LAYER---\n41-52: Final closing line here\n\nReturn ONLY the layers in this format, nothing else.',
+      'Write a 5-layer short video script about: "' + wfSelectedAngle + '"'
+    );
+    if (!r) return;
+    wfLayers.length = 0;
+    const rawLayers = r.split('---LAYER---');
+    rawLayers.forEach(raw => {
+      const line = raw.trim();
+      if (!line) return;
+      const match = line.match(/^(\d+)-(\d+):\s*([\s\S]+)$/);
+      if (match) {
+        wfLayers.push({ id: 'wl' + Date.now() + Math.random(), text: match[3].trim(), start: parseInt(match[1]), end: parseInt(match[2]) });
+      }
+    });
+    if (!wfLayers.length) {
+      // fallback parse
+      const lines = r.split('\n').filter(l => l.trim());
+      lines.forEach((line, i) => {
+        const s = i * 11;
+        wfLayers.push({ id: 'wl' + i, text: line.replace(/^\d+-\d+:\s*/, '').trim(), start: s, end: s + 10 });
+      });
+    }
+    renderWFLayers();
+
+    // Generate image prompt
+    const imgR = await callClaude(
+      'You are an AI art director. Generate ONE detailed Midjourney/Leonardo prompt in the cinematic painting style that visually represents this content. Return ONLY the prompt with --ar 9:16 --q 2 at the end. No other text.',
+      'Generate an image prompt for: "' + wfSelectedAngle + '"'
+    );
+    if (imgR) document.getElementById('wf-img-prompt').textContent = imgR.trim();
+
+  } catch (e) { showToast('Error: ' + e.message); }
+  document.getElementById('wf-s3-loading').style.display = 'none';
+}
+
+function wfAddLayer() {
+  wfLayers.push({ id: 'wl' + Date.now(), text: '', start: 0, end: 10 });
+  renderWFLayers();
+}
+
+function renderWFLayers() {
+  const c = document.getElementById('wf-layers');
+  if (!wfLayers.length) { c.innerHTML = ''; return; }
+  c.innerHTML = wfLayers.map((l, i) => '<div class="layer-card"><div class="layer-head" onclick="toggleWFLayer(\'' + l.id + '\')"><div class="layer-badge">' + (i + 1) + '</div><div class="layer-prev" id="wfprev_' + l.id + '">' + (l.text.substring(0, 45) || 'Empty') + '</div><div class="layer-time">' + l.start + '\u2013' + l.end + 's</div><button class="layer-del" onclick="event.stopPropagation();delWFLayer(\'' + l.id + '\')">×</button></div><div class="layer-body" id="wfbody_' + l.id + '"><div class="time-grid"><div><div class="field-label">Start (sec)</div><input type="number" min="0" step="0.5" value="' + l.start + '" oninput="updateWFLayer(\'' + l.id + '\',\'start\',this.value)"></div><div><div class="field-label">End (sec)</div><input type="number" min="0" step="0.5" value="' + l.end + '" oninput="updateWFLayer(\'' + l.id + '\',\'end\',this.value)"></div></div><div class="field-label">Text</div><textarea rows="3" oninput="updateWFLayer(\'' + l.id + '\',\'text\',this.value)">' + l.text + '</textarea></div></div>').join('');
+}
+
+function toggleWFLayer(id) { document.getElementById('wfbody_' + id).classList.toggle('open'); }
+function delWFLayer(id) { const i = wfLayers.findIndex(l => l.id === id); if (i > -1) wfLayers.splice(i, 1); renderWFLayers(); }
+function updateWFLayer(id, f, v) {
+  const l = wfLayers.find(l => l.id === id);
+  if (!l) return;
+  l[f] = f === 'text' ? v : parseFloat(v) || 0;
+  if (f === 'text') { const p = document.getElementById('wfprev_' + id); if (p) p.textContent = v.substring(0, 45) || 'Empty'; }
+}
+
+// WF style pickers
+function setAnim(btn) { wfAnim = btn.dataset.anim; document.querySelectorAll('[data-anim]').forEach(b => b.classList.remove('on')); btn.classList.add('on'); }
+function setStyle(btn) { wfStyle = btn.dataset.style; document.querySelectorAll('#wf-s3 [data-style]').forEach(b => b.classList.remove('on')); btn.classList.add('on'); applyWFStyle(); }
+function setPos(btn) { wfPos = btn.dataset.pos; document.querySelectorAll('#wf-s3 [data-pos]').forEach(b => b.classList.remove('on')); btn.classList.add('on'); applyWFPos(); }
+
+function applyWFStyle() {
+  const cap = document.getElementById('wf-caption-text');
+  const sr = document.getElementById('sr-caption');
+  [cap, sr].forEach(el => { if (el) { el.className = 'preview-caption ' + wfStyle; } });
+}
+function applyWFPos() {
+  const wrap = document.getElementById('wf-caption-wrap');
+  const srWrap = document.getElementById('sr-caption-wrap');
+  [wrap, srWrap].forEach(el => { if (el) { el.className = 'preview-caption-wrap ' + wfPos; } });
+}
+
+function wfHandleImage(input) {
+  const file = input.files[0];
+  if (!file) return;
+  wfImageURL = URL.createObjectURL(file);
+  const img = document.getElementById('wf-preview-img');
+  const noImg = document.getElementById('wf-no-img');
+  const srImg = document.getElementById('sr-img');
+  img.src = wfImageURL; img.style.display = 'block';
+  srImg.src = wfImageURL; srImg.style.display = 'block';
+  if (noImg) noImg.style.display = 'none';
+}
+
+// WF PREVIEW PLAYBACK
+function wfTogglePlay() { wfPlaying ? stopWFPlay() : startWFPlay(); }
+function startWFPlay() {
+  if (!wfLayers.length) return;
+  wfPlaying = true;
+  document.getElementById('wf-play-btn').textContent = '\u23F8';
+  const max = Math.max(...wfLayers.map(l => l.end));
+  if (wfTime >= max) wfTime = 0;
+  tickWF();
+}
+function stopWFPlay() {
+  wfPlaying = false;
+  clearTimeout(wfTimer);
+  clearInterval(wfTypeTimer);
+  const b = document.getElementById('wf-play-btn');
+  if (b) b.textContent = '\u25B6';
+}
+function tickWF() {
+  if (!wfPlaying) return;
+  wfTime += 0.1;
+  const max = wfLayers.length ? Math.max(...wfLayers.map(l => l.end)) : 0;
+  if (wfTime > max) { stopWFPlay(); wfTime = 0; updateWFProg(); return; }
+  updateWFProg();
+  const idx = wfLayers.findIndex(l => wfTime >= l.start && wfTime <= l.end);
+  updateWFDots(idx);
+  if (idx >= 0 && idx !== wfLastIdx) {
+    wfLastIdx = idx;
+    animateCaption(wfLayers[idx], wfAnim, 'wf-caption-text', wfLayers[idx].end - wfLayers[idx].start);
+  } else if (idx < 0 && wfLastIdx >= 0) {
+    wfLastIdx = -1;
+    clearInterval(wfTypeTimer);
+    const el = document.getElementById('wf-caption-text');
+    if (el) el.innerHTML = '<span class="cursor-blink"></span>';
+  }
+  wfTimer = setTimeout(tickWF, 100);
+}
+
+function animateCaption(layer, anim, elId, duration) {
+  clearInterval(wfTypeTimer);
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const full = layer.text;
+  if (anim === 'typewriter') {
+    wfTypePos = 0;
+    const delay = Math.max(25, (duration * 1000) / Math.max(full.length, 1));
+    wfTypeTimer = setInterval(() => {
+      if (wfTypePos < full.length) { wfTypePos++; el.innerHTML = full.slice(0, wfTypePos).replace(/\n/g, '<br>') + '<span class="cursor-blink"></span>'; }
+      else clearInterval(wfTypeTimer);
+    }, delay);
+  } else if (anim === 'wordbyword') {
+    const words = full.split(' ');
+    let wi = 0;
+    const delay = Math.max(200, (duration * 1000) / Math.max(words.length, 1));
+    el.innerHTML = '';
+    wfTypeTimer = setInterval(() => {
+      if (wi < words.length) { wi++; el.innerHTML = words.slice(0, wi).join(' ').replace(/\n/g, '<br>'); }
+      else clearInterval(wfTypeTimer);
+    }, delay);
+  } else if (anim === 'fadein') {
+    el.style.opacity = '0';
+    el.innerHTML = full.replace(/\n/g, '<br>');
+    el.style.transition = 'opacity 0.6s ease';
+    setTimeout(() => { el.style.opacity = '1'; }, 50);
+  } else {
+    el.innerHTML = full.replace(/\n/g, '<br>');
+  }
+}
+
+function updateWFDots(a) {
+  const c = document.getElementById('wf-dots');
+  if (!c) return;
+  c.innerHTML = wfLayers.map((_, i) => '<div class="pdot ' + (i === a ? 'on' : '') + '"></div>').join('');
+}
+function updateWFProg() {
+  const max = wfLayers.length ? Math.max(...wfLayers.map(l => l.end)) : 0;
+  const p = document.getElementById('wf-progress');
+  const t = document.getElementById('wf-time');
+  if (p) p.style.width = (max ? (wfTime / max * 100) : 0) + '%';
+  if (t) t.textContent = wfTime.toFixed(0) + 's / ' + max.toFixed(0) + 's';
+}
+
+// VOICEOVER
+async function wfGenerateAllVoice() {
+  if (!elKey) { showToast('Add ElevenLabs key in settings'); return; }
+  const voiceId = document.getElementById('wf-voice-select').value;
+  document.getElementById('wf-gen-voice-btn').disabled = true;
+  const listEl = document.getElementById('wf-voice-list');
+  listEl.innerHTML = '';
+  wfAudioBuffers = {};
+
+  for (let i = 0; i < wfLayers.length; i++) {
+    const layer = wfLayers[i];
+    const row = document.createElement('div');
+    row.className = 'voice-item';
+    row.id = 'vrow_' + i;
+    row.innerHTML = '<div class="voice-num">' + (i + 1) + '</div><div class="voice-text">' + layer.text.substring(0, 50) + '</div><div class="voice-status loading" id="vstatus_' + i + '">Generating...</div>';
+    listEl.appendChild(row);
+
+    try {
+      const res = await fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voiceId, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'xi-api-key': elKey },
+        body: JSON.stringify({ text: layer.text, model_id: 'eleven_monolingual_v1', voice_settings: { stability: 0.5, similarity_boost: 0.75 } })
+      });
+      if (!res.ok) throw new Error('EL error');
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      wfAudioBuffers[i] = url;
+      const statusEl = document.getElementById('vstatus_' + i);
+      if (statusEl) { statusEl.textContent = '\u25B6 Play'; statusEl.className = 'voice-status ready'; statusEl.style.cursor = 'pointer'; statusEl.onclick = () => new Audio(url).play(); }
+    } catch (e) {
+      const statusEl = document.getElementById('vstatus_' + i);
+      if (statusEl) { statusEl.textContent = 'Failed'; statusEl.className = 'voice-status'; statusEl.style.color = 'var(--muted)'; }
+    }
+  }
+  document.getElementById('wf-gen-voice-btn').disabled = false;
+  showToast('Voiceovers ready!');
+}
+
+// STEP 4: DISTRIBUTE
+async function wfDistribute() {
+  document.getElementById('wf-times-loading').style.display = 'block';
+  document.getElementById('wf-times-card').style.display = 'none';
+  document.getElementById('wf-captions-loading').style.display = 'block';
+  document.getElementById('wf-captions-out').style.display = 'none';
+
+  try {
+    const timesR = await callClaude(
+      'You are a social media strategist. Return ONLY posting time recommendations in this exact format, one per line:\nPLATFORM|BEST TIMES|WHY\n\nCover: TikTok, YouTube Shorts, X (Twitter). No other text.',
+      'Best posting times for ' + wfNiche + ' content creators to maximize reach.'
+    );
+    if (timesR) {
+      const lines = timesR.split('\n').filter(l => l.includes('|'));
+      const icons = { 'tiktok': '\u266A', 'youtube': '\u25B6', 'x': '\uD835\uDD4F', 'twitter': '\uD835\uDD4F' };
+      document.getElementById('wf-times-list').innerHTML = lines.map(line => {
+        const parts = line.split('|');
+        const plat = parts[0] ? parts[0].trim() : '';
+        const times = parts[1] ? parts[1].trim() : '';
+        const why = parts[2] ? parts[2].trim() : '';
+        const icon = icons[plat.toLowerCase().split(' ')[0]] || '\uD83D\uDCF1';
+        return '<div class="platform-time"><div class="platform-icon">' + icon + '</div><div><div class="platform-name">' + plat + '</div><div style="font-size:0.75rem;color:var(--muted);line-height:1.4">' + times + (why ? ' \u2014 ' + why : '') + '</div></div></div>';
+      }).join('');
+      document.getElementById('wf-times-card').style.display = 'block';
+    }
+  } catch (e) { showToast('Could not load posting times'); }
+  document.getElementById('wf-times-loading').style.display = 'none';
+
+  const script = wfLayers.map(l => l.text).join(' ');
+  try {
+    const capR = await callClaude(
+      'You are a social media copywriter. Write platform-specific captions. Respond in this exact format separated by |||:\nX_CAPTION:\n[tweet under 280 chars with hashtags]\n|||\nYOUTUBE_DESC:\n[3-4 sentences with hashtags]\n|||\nTIKTOK_CAPTION:\n[punchy 1-2 sentences with hashtags]',
+      'Write captions for this ' + wfNiche + ' video script: "' + script.substring(0, 500) + '"'
+    );
+    if (capR) {
+      const parts = capR.split('|||');
+      document.getElementById('wf-cap-x').textContent = (parts[0] || '').replace('X_CAPTION:', '').trim();
+      document.getElementById('wf-cap-yt').textContent = (parts[1] || '').replace('YOUTUBE_DESC:', '').trim();
+      document.getElementById('wf-cap-tt').textContent = (parts[2] || '').replace('TIKTOK_CAPTION:', '').trim();
+      document.getElementById('wf-captions-out').style.display = 'block';
+    }
+  } catch (e) { showToast('Could not generate captions'); }
+  document.getElementById('wf-captions-loading').style.display = 'none';
+}
+
+// ═══════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════
+function doScreenRecord() {
+  const srImg = document.getElementById('sr-img');
+  if (wfImageURL) { srImg.src = wfImageURL; srImg.style.display = 'block'; }
+  else srImg.style.display = 'none';
+  applyWFStyle();
+  applyWFPos();
+  document.getElementById('sr-caption').innerHTML = '<span class="cursor-blink"></span>';
+  srTime = 0; srLastIdx = -1;
+  goScreen('s-record');
+}
+
+function srTogglePlay() {
+  srPlaying ? stopSRPlay() : startSRPlay();
+}
+function startSRPlay() {
+  if (!wfLayers.length) return;
+  srPlaying = true;
+  document.getElementById('sr-play-btn').textContent = '\u23F8 Pause';
+  if (srTime >= Math.max(...wfLayers.map(l => l.end))) srTime = 0;
+  tickSR();
+}
+function stopSRPlay() {
+  srPlaying = false;
+  clearTimeout(srTimer);
+  clearInterval(srTypeTimer);
+  document.getElementById('sr-play-btn').textContent = '\u25B6 Play';
+}
+function tickSR() {
+  if (!srPlaying) return;
+  srTime += 0.1;
+  const max = Math.max(...wfLayers.map(l => l.end));
+  if (srTime > max) { stopSRPlay(); return; }
+  const idx = wfLayers.findIndex(l => srTime >= l.start && srTime <= l.end);
+  if (idx >= 0 && idx !== srLastIdx) {
+    srLastIdx = idx;
+    animateSRCaption(wfLayers[idx]);
+  } else if (idx < 0 && srLastIdx >= 0) {
+    srLastIdx = -1;
+    clearInterval(srTypeTimer);
+    const el = document.getElementById('sr-caption');
+    if (el) el.innerHTML = '';
+    // play audio
+    if (wfAudioBuffers[idx + 1]) new Audio(wfAudioBuffers[idx + 1]).play().catch(() => {});
+  }
+  srTimer = setTimeout(tickSR, 100);
+}
+function animateSRCaption(layer) {
+  clearInterval(srTypeTimer);
+  const el = document.getElementById('sr-caption');
+  if (!el) return;
+  animateCaption(layer, wfAnim, 'sr-caption', layer.end - layer.start);
+  // play audio for this layer
+  const layerIdx = wfLayers.indexOf(layer);
+  if (wfAudioBuffers[layerIdx]) new Audio(wfAudioBuffers[layerIdx]).play().catch(() => {});
+}
+
+function doMP4Export() {
+  if (!wfImageURL) { showToast('Add an image first in the Build step'); return; }
+  showToast('Attempting MP4 export...');
+  try {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1080; canvas.height = 1920;
+    const ctx = canvas.getContext('2d');
+    const stream = canvas.captureStream(30);
+    const recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
+    const chunks = [];
+    recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+    recorder.onstop = () => {
+      const blob = new Blob(chunks, { type: 'video/webm' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'creator-os-video.webm'; a.click();
+      showToast('Video downloaded!');
+    };
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const max = wfLayers.length ? Math.max(...wfLayers.map(l => l.end)) : 10;
+      let t = 0;
+      const fps = 30;
+      const total = max * fps;
+      let frame = 0;
+      recorder.start();
+      const draw = () => {
+        if (frame >= total) { recorder.stop(); return; }
+        t = frame / fps;
+        ctx.drawImage(img, 0, 0, 1080, 1920);
+        ctx.fillStyle = 'rgba(0,0,0,0.35)';
+        ctx.fillRect(0, 1920 * 0.4, 1080, 1920 * 0.6);
+        const layer = wfLayers.find(l => t >= l.start && t <= l.end);
+        if (layer) {
+          const progress = (t - layer.start) / (layer.end - layer.start);
+          const chars = Math.floor(progress * layer.text.length);
+          const txt = wfAnim === 'typewriter' ? layer.text.substring(0, chars) : layer.text;
+          ctx.fillStyle = '#ffffff';
+          ctx.font = wfStyle === 'bold-sans' ? 'bold 52px DM Sans' : 'italic 56px Georgia';
+          ctx.textAlign = 'center';
+          ctx.shadowColor = 'rgba(0,0,0,0.8)';
+          ctx.shadowBlur = 20;
+          const lines = txt.split('\n');
+          const yBase = wfPos === 'top' ? 400 : wfPos === 'middle' ? 960 : 1580;
+          lines.forEach((line, li) => { ctx.fillText(line, 540, yBase + li * 70); });
+        }
+        frame++;
+        requestAnimationFrame(draw);
+      };
+      draw();
+    };
+    img.onerror = () => showToast('Could not load image for export');
+    img.src = wfImageURL;
+  } catch (e) {
+    showToast('MP4 export not supported on this browser. Try Screen Record instead.');
+  }
+}
+
+function doFrameExport() {
+  showToast('Generating frame assets...');
+  const canvas = document.createElement('canvas');
+  canvas.width = 1080; canvas.height = 1920;
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => {
+    wfLayers.forEach((layer, i) => {
+      ctx.drawImage(img, 0, 0, 1080, 1920);
+      ctx.fillStyle = 'rgba(0,0,0,0.35)';
+      ctx.fillRect(0, 1920 * 0.4, 1080, 1920 * 0.6);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'italic 56px Georgia';
+      ctx.textAlign = 'center';
+      ctx.shadowColor = 'rgba(0,0,0,0.8)';
+      ctx.shadowBlur = 20;
+      const lines = layer.text.split('\n');
+      const yBase = 1580;
+      lines.forEach((line, li) => { ctx.fillText(line, 540, yBase + li * 70); });
+      canvas.toBlob(blob => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'frame-' + (i + 1) + '.png';
+        a.click();
+      });
+    });
+    showToast('Frames downloaded! Import to CapCut.');
+  };
+  if (!wfImageURL) { showToast('Add your image first in Build step'); return; }
+  img.src = wfImageURL;
+}
+
+function doCapScreenRecord() { showToast('Use screen record — hit play in Preview tab'); capTab('preview', document.getElementById('cap-tab-prev')); }
+function doCapMP4() { showToast('Coming soon — use Screen Record for now'); }
+function doCapSRT() {
+  document.getElementById('cap-srt-block').style.display = 'block';
+  genSRT();
+}
+
+// ═══════════════════════════════════════
+// CAPTION BUILDER (standalone)
+// ═══════════════════════════════════════
+function capAddLayer(text, start, end) {
+  text = text || '';
+  start = start !== undefined ? start : 0;
+  end = end !== undefined ? end : 10;
+  capLayers.push({ id: 'cl' + Date.now() + Math.random(), text: text, start: start, end: end });
+  renderCapLayers();
+}
+
+function capDelLayer(id) {
+  const i = capLayers.findIndex(l => l.id === id);
+  if (i > -1) capLayers.splice(i, 1);
+  renderCapLayers();
+}
+
+function updateCapLayer(id, f, v) {
+  const l = capLayers.find(l => l.id === id);
+  if (!l) return;
+  l[f] = f === 'text' ? v : parseFloat(v) || 0;
+  if (f === 'text') { const p = document.getElementById('cprev_' + id); if (p) p.textContent = v.substring(0, 45) || 'Empty'; }
+}
+
+function toggleCapLayer(id) { document.getElementById('cbody_' + id).classList.toggle('open'); }
+
+function renderCapLayers() {
+  const c = document.getElementById('cap-layers-wrap');
+  if (!c) return;
+  if (!capLayers.length) { c.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted);font-size:0.85rem">No layers yet</div>'; return; }
+  c.innerHTML = capLayers.map((l, i) => '<div class="layer-card"><div class="layer-head" onclick="toggleCapLayer(\'' + l.id + '\')"><div class="layer-badge">' + (i + 1) + '</div><div class="layer-prev" id="cprev_' + l.id + '">' + (l.text.substring(0, 45) || 'Empty') + '</div><div class="layer-time">' + l.start + '\u2013' + l.end + 's</div><button class="layer-del" onclick="event.stopPropagation();capDelLayer(\'' + l.id + '\')">×</button></div><div class="layer-body" id="cbody_' + l.id + '"><div class="time-grid"><div><div class="field-label">Start (sec)</div><input type="number" min="0" step="0.5" value="' + l.start + '" oninput="updateCapLayer(\'' + l.id + '\',\'start\',this.value)"></div><div><div class="field-label">End (sec)</div><input type="number" min="0" step="0.5" value="' + l.end + '" oninput="updateCapLayer(\'' + l.id + '\',\'end\',this.value)"></div></div><div class="field-label">Text</div><textarea rows="3" oninput="updateCapLayer(\'' + l.id + '\',\'text\',this.value)">' + l.text + '</textarea></div></div>').join('');
+}
+
+function setCapAnim(btn) { capAnim = btn.dataset.anim; document.querySelectorAll('#cap-build [data-anim]').forEach(b => b.classList.remove('on')); btn.classList.add('on'); }
+function setCapStyle(btn) { capStyle = btn.dataset.style; document.querySelectorAll('#cap-build [data-style]').forEach(b => b.classList.remove('on')); btn.classList.add('on'); applyCapStyle(); }
+function setCapPos(btn) { capPos = btn.dataset.pos; document.querySelectorAll('#cap-build [data-pos]').forEach(b => b.classList.remove('on')); btn.classList.add('on'); applyCapPos(); }
+function applyCapStyle() { const el = document.getElementById('cap-caption'); if (el) el.className = 'preview-caption ' + capStyle; }
+function applyCapPos() { const w = document.getElementById('cap-caption-wrap'); if (w) w.className = 'preview-caption-wrap ' + capPos; }
+
+function capHandleImg(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+  const img = document.getElementById('cap-pimg');
+  const noImg = document.getElementById('cap-no-img');
+  img.src = url; img.style.display = 'block';
+  if (noImg) noImg.style.display = 'none';
+}
+
+function capTab(t, btn) {
+  document.querySelectorAll('#s-caption .tab-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('cap-build').style.display = t === 'build' ? 'block' : 'none';
+  document.getElementById('cap-preview').style.display = t === 'preview' ? 'block' : 'none';
+  document.getElementById('cap-export').style.display = t === 'export' ? 'block' : 'none';
+  if (t === 'preview') initCapPreview();
+  if (t === 'export') { document.getElementById('cap-srt-block').style.display = 'none'; }
+  stopCapPlay();
+}
+
+function initCapPreview() {
+  capTime = 0; capLastIdx = -1;
+  updateCapDots(-1); updateCapProg();
+  const el = document.getElementById('cap-caption');
+  if (el) { el.className = 'preview-caption ' + capStyle; el.innerHTML = '<span class="cursor-blink"></span>'; }
+}
+
+function capTogglePlay() { capPlaying ? stopCapPlay() : startCapPlay(); }
+function startCapPlay() {
+  if (!capLayers.length) return;
+  capPlaying = true;
+  document.getElementById('cap-play-btn').textContent = '\u23F8';
+  const max = Math.max(...capLayers.map(l => l.end));
+  if (capTime >= max) capTime = 0;
+  tickCap();
+}
+function stopCapPlay() {
+  capPlaying = false;
+  clearTimeout(capTimer);
+  clearInterval(capTypeTimer);
+  const b = document.getElementById('cap-play-btn');
+  if (b) b.textContent = '\u25B6';
+}
+function tickCap() {
+  if (!capPlaying) return;
+  capTime += 0.1;
+  const max = capLayers.length ? Math.max(...capLayers.map(l => l.end)) : 0;
+  if (capTime > max) { stopCapPlay(); capTime = 0; updateCapProg(); return; }
+  updateCapProg();
+  const idx = capLayers.findIndex(l => capTime >= l.start && capTime <= l.end);
+  updateCapDots(idx);
+  if (idx >= 0 && idx !== capLastIdx) {
+    capLastIdx = idx;
+    animateCaption(capLayers[idx], capAnim, 'cap-caption', capLayers[idx].end - capLayers[idx].start);
+  } else if (idx < 0 && capLastIdx >= 0) {
+    capLastIdx = -1;
+    clearInterval(capTypeTimer);
+    const el = document.getElementById('cap-caption');
+    if (el) el.innerHTML = '<span class="cursor-blink"></span>';
+  }
+  capTimer = setTimeout(tickCap, 100);
+}
+function updateCapDots(a) { const c = document.getElementById('cap-dots'); if (!c) return; c.innerHTML = capLayers.map((_, i) => '<div class="pdot ' + (i === a ? 'on' : '') + '"></div>').join(''); }
+function updateCapProg() {
+  const max = capLayers.length ? Math.max(...capLayers.map(l => l.end)) : 0;
+  const p = document.getElementById('cap-prog');
+  const t = document.getElementById('cap-time');
+  if (p) p.style.width = (max ? (capTime / max * 100) : 0) + '%';
+  if (t) t.textContent = capTime.toFixed(0) + 's / ' + max.toFixed(0) + 's';
+}
+
+function p2(n) { return String(Math.floor(n)).padStart(2, '0'); }
+function toSRT(s) { const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = Math.floor(s % 60), ms = Math.round((s - Math.floor(s)) * 1000); return p2(h) + ':' + p2(m) + ':' + p2(sec) + ',' + String(ms).padStart(3, '0'); }
+function genSRT() {
+  const b = document.getElementById('cap-srt-text');
+  if (!b) return;
+  if (!capLayers.length) { b.textContent = 'No layers yet.'; return; }
+  b.textContent = capLayers.map((l, i) => (i + 1) + '\n' + toSRT(l.start) + ' --> ' + toSRT(l.end) + '\n' + l.text + '\n').join('\n');
+}
+function copySRT() { copyText(document.getElementById('cap-srt-text').textContent); showToast('SRT copied!'); }
+
+// ═══════════════════════════════════════
+// TOOLS
+// ═══════════════════════════════════════
+async function runRepurpose() {
+  if (!claudeKey) { return; }
+  const input = document.getElementById('repurpose-in').value.trim();
+  if (!input) { showToast('Enter your script first'); return; }
+  setLoad('repurpose', true);
+  document.getElementById('repurpose-out').style.display = 'none';
+  try {
+    const r = await callClaude(
+      'You are a social media strategist. Respond in this format separated by |||:\nTWEET_THREAD:\n[3-5 numbered tweets]\n|||\nYOUTUBE_DESC:\n[3-4 sentences + hashtags]\n|||\nTIKTOK_CAPTION:\n[1-2 punchy sentences + hashtags]',
+      'Repurpose this content in ' + document.getElementById('repurpose-style').value + ' style: "' + input + '"'
+    );
+    if (!r) return;
+    const parts = r.split('|||');
+    document.getElementById('r-tweet').textContent = (parts[0] || '').replace('TWEET_THREAD:', '').trim();
+    document.getElementById('r-yt').textContent = (parts[1] || '').replace('YOUTUBE_DESC:', '').trim();
+    document.getElementById('r-tt').textContent = (parts[2] || '').replace('TIKTOK_CAPTION:', '').trim();
+    document.getElementById('repurpose-out').style.display = 'block';
+  } catch (e) { showToast('Error: ' + e.message); }
+  setLoad('repurpose', false);
+}
+
+async function runHook() {
+  if (!claudeKey) return;
+  const input = document.getElementById('hook-in').value.trim();
+  if (!input) { showToast('Enter your topic first'); return; }
+  setLoad('hook', true);
+  document.getElementById('hook-out').innerHTML = '';
+  try {
+    const r = await callClaude(
+      'Write 5 scroll-stopping hooks for ' + document.getElementById('hook-plat').value + '. Return ONLY hooks numbered 1-5, one per line.',
+      'Hooks for: "' + input + '"'
+    );
+    if (!r) return;
+    const hooks = r.split('\n').filter(l => l.trim() && /^\d/.test(l.trim()));
+    document.getElementById('hook-out').innerHTML = hooks.map((h, i) => {
+      const text = h.replace(/^\d+[\.\)]\s*/, '');
+      return '<div class="result-item"><div class="result-num">Hook ' + (i + 1) + '</div><div class="result-text">' + text + '</div><div style="display:flex;justify-content:flex-end;margin-top:0.5rem"><button class="btn-sm" onclick="copyText(\`' + text.replace(/`/g, "'") + '\`);showToast(\'Copied!\')">Copy</button></div></div>';
+    }).join('');
+  } catch (e) { showToast('Error: ' + e.message); }
+  setLoad('hook', false);
+}
+
+async function runVoicefmt() {
+  if (!claudeKey) return;
+  const input = document.getElementById('vf-in').value.trim();
+  if (!input) { showToast('Paste your script first'); return; }
+  setLoad('voicefmt', true);
+  document.getElementById('vf-out').style.display = 'none';
+  try {
+    const r = await callClaude(
+      'Format this script for ' + document.getElementById('vf-tone').value + ' voiceover. Use markers: [PAUSE] [LONG PAUSE] [SLOW] [EMPHASIS] [BREATH]. Keep original text intact.',
+      input
+    );
+    if (!r) return;
+    document.getElementById('vf-result').textContent = r;
+    document.getElementById('vf-out').style.display = 'block';
+  } catch (e) { showToast('Error: ' + e.message); }
+  setLoad('voicefmt', false);
+}
+
+function runTimer() {
+  const text = document.getElementById('timer-in').value.trim();
+  if (!text) { document.getElementById('timer-out').style.display = 'none'; return; }
+  const wpm = parseInt(document.getElementById('timer-pace').value);
+  const words = text.split(/\s+/).length;
+  const secs = Math.round((words / wpm) * 60);
+  document.getElementById('t-dur').textContent = Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0');
+  document.getElementById('t-words').textContent = words;
+  document.getElementById('t-fit').innerHTML = [
+    secs <= 60 ? '\u2705 TikTok / Reels' : secs <= 90 ? '\u26A0\uFE0F TikTok (slightly long)' : '\u274C Too long for TikTok',
+    secs <= 60 ? '\u2705 YouTube Shorts' : '\u2705 YouTube long-form',
+    secs <= 280 ? '\u2705 X Video' : '\u26A0\uFE0F Too long for X free tier'
+  ].join('<br>');
+  document.getElementById('timer-out').style.display = 'block';
+}
+
+async function runTrends() {
+  if (!claudeKey) return;
+  const niche = document.getElementById('trends-in').value.trim();
+  if (!niche) { showToast('Enter your niche'); return; }
+  setLoad('trends', true);
+  document.getElementById('trends-out').innerHTML = '';
+  try {
+    const r = await callClaude(
+      'You are a trend analyst. Return ONLY 5 trending topics numbered 1-5. Format: "TOPIC: description". One per line.',
+      'Top 5 trending content topics in ' + niche + ' for ' + document.getElementById('trends-plat').value + ' creators.'
+    );
+    if (!r) return;
+    const items = r.split('\n').filter(l => l.trim() && /^\d/.test(l.trim()));
+    document.getElementById('trends-out').innerHTML = items.map((t, i) => {
+      const parts = t.replace(/^\d+[\.\)]\s*/, '').split(':');
+      const title = parts[0] ? parts[0].trim() : t;
+      const desc = parts[1] ? parts[1].trim() : '';
+      return '<div class="result-item"><div class="result-num">Trend ' + (i + 1) + '</div><div class="result-text">' + title + '</div>' + (desc ? '<div style="font-size:0.78rem;color:var(--muted);margin-top:0.25rem;line-height:1.4">' + desc + '</div>' : '') + '<div style="display:flex;justify-content:flex-end;margin-top:0.5rem"><button class="btn-sm" onclick="copyText(\`' + (title + (desc ? ': ' + desc : '')).replace(/`/g, "'") + '\`);showToast(\'Copied!\')">Copy</button></div></div>';
+    }).join('');
+  } catch (e) { showToast('Error: ' + e.message); }
+  setLoad('trends', false);
+}
+
+async function runCalendar() {
+  if (!claudeKey) return;
+  const niche = document.getElementById('cal-in').value.trim();
+  if (!niche) { showToast('Enter your niche'); return; }
+  const freq = document.getElementById('cal-freq').value;
+  const days = freq === 'daily' ? 30 : freq === '5x per week' ? 22 : 13;
+  setLoad('calendar', true);
+  document.getElementById('cal-out').innerHTML = '';
+  try {
+    const r = await callClaude(
+      'You are a content strategist. Return ONLY ' + days + ' ideas numbered as "DAY X: [idea]". One per line.',
+      days + '-post calendar for ' + niche + ' creator posting ' + freq + '. Mix quotes, debates, storytelling, tutorials.'
+    );
+    if (!r) return;
+    const items = r.split('\n').filter(l => /^day\s*\d+/i.test(l.trim()));
+    document.getElementById('cal-out').innerHTML = '<div class="card-border" style="background:#ffffff">' + items.map(item => {
+      const parts = item.split(':');
+      const day = parts[0] ? parts[0].trim() : '';
+      const content = parts.slice(1).join(':').trim();
+      return '<div style="padding:0.75rem 0;border-bottom:1px solid var(--border)"><div class="label" style="margin-bottom:0.2rem">' + day.toUpperCase() + '</div><div style="font-size:0.88rem;line-height:1.5">' + content + '</div></div>';
+    }).join('') + '</div>' + '<button class="btn btn-ghost" onclick="copyEl(\'cal-out\')">Copy All</button>';
+  } catch (e) { showToast('Error: ' + e.message); }
+  setLoad('calendar', false);
+}
+
+async function runImgPrompt() {
+  if (!claudeKey) return;
+  const input = document.getElementById('img-in').value.trim();
+  if (!input) { showToast('Enter a quote or vibe'); return; }
+  setLoad('imgprompt', true);
+  document.getElementById('img-out').innerHTML = '';
+  try {
+    const r = await callClaude(
+      'You are an AI art director. Return ONLY 5 detailed prompts numbered 1-5, one per line, with --ar 9:16 --q 2 at the end of each.',
+      '5 ' + document.getElementById('img-style').value + ' prompts for: "' + input + '"'
+    );
+    if (!r) return;
+    const prompts = r.split('\n').filter(l => l.trim() && /^\d/.test(l.trim()));
+    document.getElementById('img-out').innerHTML = prompts.map((p, i) => {
+      const text = p.replace(/^\d+[\.\)]\s*/, '');
+      return '<div class="result-item"><div class="result-num">Prompt ' + (i + 1) + '</div><div class="result-text" style="font-family:\'DM Sans\',sans-serif;font-size:0.85rem">' + text + '</div><div style="display:flex;justify-content:flex-end;margin-top:0.5rem"><button class="btn-sm" onclick="copyText(\`' + text.replace(/`/g, "'") + '\`);showToast(\'Prompt copied!\')">Copy</button></div></div>';
+    }).join('');
+  } catch (e) { showToast('Error: ' + e.message); }
+  setLoad('imgprompt', false);
+}
+
+async function runQuote() {
+  if (!claudeKey) return;
+  const text = document.getElementById('q-text').value.trim();
+  const author = document.getElementById('q-author').value.trim();
+  if (!text || !author) { showToast('Enter both quote and author'); return; }
+  setLoad('quote', true);
+  document.getElementById('q-out').style.display = 'none';
+  try {
+    const r = await callClaude(
+      'You are a quote fact-checker. Format response:\nVERDICT: [VERIFIED / MISATTRIBUTED / DISPUTED / UNKNOWN]\n|||\nDETAILS: [2-3 sentences about origin]',
+      'Is this correctly attributed? Quote: "' + text + '" — Author: ' + author
+    );
+    if (!r) return;
+    const parts = r.split('|||');
+    const v = (parts[0] || '').replace('VERDICT:', '').trim();
+    const cls = v.includes('VERIF') ? 'verified' : v.includes('MISATTR') ? 'misattributed' : v.includes('DISPUT') ? 'disputed' : 'unknown';
+    const colors = { verified: '#f0fdf4', misattributed: '#fef2f2', disputed: '#fffbeb', unknown: 'var(--off)' };
+    const textColors = { verified: '#16a34a', misattributed: '#dc2626', disputed: '#d97706', unknown: 'var(--muted)' };
+    document.getElementById('q-verdict').innerHTML = '<div style="display:inline-block;padding:0.4rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:600;background:' + (colors[cls] || 'var(--off)') + ';color:' + (textColors[cls] || 'var(--muted)') + '">' + v + '</div>';
+    document.getElementById('q-details').textContent = (parts[1] || '').replace('DETAILS:', '').trim();
+    document.getElementById('q-out').style.display = 'block';
+  } catch (e) { showToast('Error: ' + e.message); }
+  setLoad('quote', false);
+}
+
+async function runTitle() {
+  if (!claudeKey) return;
+  const a = document.getElementById('title-a').value.trim();
+  const b = document.getElementById('title-b').value.trim();
+  if (!a || !b) { showToast('Enter both titles'); return; }
+  setLoad('title', true);
+  document.getElementById('title-out').style.display = 'none';
+  try {
+    const r = await callClaude(
+      'You are a ' + document.getElementById('title-plat').value + ' growth expert. Format:\nWINNER: [Title A or B — one sentence why]\n|||\nANALYSIS: [2-3 sentences on psychology and platform factors]',
+      'Which performs better on ' + document.getElementById('title-plat').value + '? A: "' + a + '" | B: "' + b + '"'
+    );
+    if (!r) return;
+    const parts = r.split('|||');
+    document.getElementById('title-winner').textContent = (parts[0] || '').replace('WINNER:', '').trim();
+    document.getElementById('title-analysis').textContent = (parts[1] || '').replace('ANALYSIS:', '').trim();
+    document.getElementById('title-out').style.display = 'block';
+  } catch (e) { showToast('Error: ' + e.message); }
+  setLoad('title', false);
+}
+
+async function runThumbnail() {
+  if (!claudeKey) return;
+  const input = document.getElementById('thumb-in').value.trim();
+  if (!input) { showToast('Enter your topic'); return; }
+  setLoad('thumbnail', true);
+  document.getElementById('thumb-out').innerHTML = '';
+  try {
+    const r = await callClaude(
+      'Generate 6 thumbnail text options triggering ' + document.getElementById('thumb-emo').value + '. Return ONLY 6 options numbered 1-6. Max 5 words each. ALL CAPS.',
+      'Thumbnail text for: "' + input + '"'
+    );
+    if (!r) return;
+    const opts = r.split('\n').filter(l => l.trim() && /^\d/.test(l.trim()));
+    document.getElementById('thumb-out').innerHTML = opts.map(o => {
+      const text = o.replace(/^\d+[\.\)]\s*/, '');
+      return '<div class="result-item" style="text-align:center"><div style="font-family:\'Instrument Serif\',serif;font-size:1.5rem;font-weight:600;padding:0.5rem 0">' + text + '</div><div style="display:flex;justify-content:center"><button class="btn-sm" onclick="copyText(\'' + text.replace(/'/g, "\\'") + '\');showToast(\'Copied!\')">Copy</button></div></div>';
+    }).join('');
+  } catch (e) { showToast('Error: ' + e.message); }
+  setLoad('thumbnail', false);
+}
+
+async function runReply() {
+  if (!claudeKey) return;
+  const input = document.getElementById('reply-in').value.trim();
+  if (!input) { showToast('Paste a comment first'); return; }
+  setLoad('reply', true);
+  document.getElementById('reply-out').innerHTML = '';
+  try {
+    const r = await callClaude(
+      'Write 3 engaging replies with ' + document.getElementById('reply-vibe').value + ' brand voice. Return ONLY 3 replies numbered 1-3. Under 280 chars each.',
+      'Replies to: "' + input + '"'
+    );
+    if (!r) return;
+    const replies = r.split('\n').filter(l => l.trim() && /^\d/.test(l.trim()));
+    document.getElementById('reply-out').innerHTML = replies.map((rep, i) => {
+      const text = rep.replace(/^\d+[\.\)]\s*/, '');
+      return '<div class="result-item"><div class="result-num">Reply ' + (i + 1) + '</div><div class="result-text">' + text + '</div><div style="display:flex;justify-content:flex-end;margin-top:0.5rem"><button class="btn-sm" onclick="copyText(\`' + text.replace(/`/g, "'") + '\`);showToast(\'Copied!\')">Copy</button></div></div>';
+    }).join('');
+  } catch (e) { showToast('Error: ' + e.message); }
+  setLoad('reply', false);
+}
+
+// ═══════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════
+function copyText(t) {
+  if (navigator.clipboard) { navigator.clipboard.writeText(t).catch(() => fbCopy(t)); }
+  else fbCopy(t);
+}
+function fbCopy(t) { const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
+function copyEl(id) { const el = document.getElementById(id); if (el) copyText(el.textContent || el.innerText); showToast('Copied!'); }
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
+</script>
+</body>
+</html>
