@@ -288,9 +288,14 @@
 
   function doName(){
     var name = document.getElementById('ni').value.trim();
-    localStorage.setItem('cos_name', name || '');
+    if (name) localStorage.setItem('cos_name', name);
     localStorage.setItem('cos_welcomed','1');
-    window.location.href = 'niche.html';
+    // Clear previous niche/platform so they go through setup fresh
+    if (!localStorage.getItem('cos_niches')) {
+      window.location.href = 'niche.html';
+    } else {
+      window.location.href = 'dashboard.html';
+    }
   }
 
   function showDash(name){
