@@ -202,9 +202,9 @@
     setTimeout(function(){ window.location.href = 'welcome.html'; }, 300);
   }
   function handleSkip() { 
-    localStorage.removeItem('cos_key'); 
-    localStorage.setItem('cos_welcomed','1');
-    window.location.href = 'dashboard.html'; 
+    localStorage.removeItem('cos_key');
+    localStorage.removeItem('cos_welcomed');
+    window.location.href = 'welcome.html'; 
   }
 </script>
 </body>
