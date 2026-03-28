@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -17,6 +18,8 @@
   .coming-title { font-family:'Fredoka',sans-serif; font-size:28px; font-weight:700; color:#2C1A06; }
   .coming-sub { font-size:14px; color:#9B9489; line-height:1.6; }
   .coming-badge { background:#2C1A06; color:#fff; font-family:'Fredoka',sans-serif; font-size:13px; font-weight:600; padding:8px 20px; border-radius:999px; }
+  .reset-btn { background:none; border:1.5px solid #C1440E; color:#C1440E; font-family:'Fredoka',sans-serif; font-size:13px; font-weight:600; padding:8px 20px; border-radius:999px; cursor:pointer; margin-top:8px; }
+  .reset-btn:active { background:#FFF5F2; }
 </style>
 </head>
 <body>
@@ -30,7 +33,15 @@
     <div class="coming-title">Coming soon</div>
     <div class="coming-sub">We're building Settings right now.<br>It's going to be 🔥</div>
     <div class="coming-badge">In development</div>
+    <button class="reset-btn" onclick="resetApp()">🔄 Reset app (testing)</button>
   </div>
 </div>
+<script>
+  function resetApp() {
+    if (!confirm('Reset everything and start fresh?')) return;
+    localStorage.clear();
+    window.location.href = 'index.html';
+  }
+</script>
 </body>
 </html>
