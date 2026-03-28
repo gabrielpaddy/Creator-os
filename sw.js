@@ -1,57 +1,70 @@
 const VERSION = 'v2';
-const CACHE = 'creator-os-' + VERSION;
+const CACHE = `creator-os-${VERSION}`;
 
-// Install — no pre-caching, instant activation
-self.addEventListener('install', e => {
+self.addEventListener('install', () => {
   self.skipWaiting();
 });
 
-// Activate — wipe old caches, take control instantly
 self.addEventListener('activate', e => {
   e.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(
-        keys.filter(k => k !== CACHE).map(k => caches.delete(k))
-      ))
-      .then(() => self.clients.claim())
+    Promise.all([
+      caches.keys().then(keys =>
+        Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+      ),
+      'navigationPreload' in self.registration
+        ? self.registration.navigationPreload.enable()
+        : Promise.resolve()
+    ]).then(() => self.clients.claim())
   );
 });
 
-// Fetch:
-//   API / fonts  → always pass through, never cache
-//   HTML pages   → network first (fresh on every deploy), cache as offline fallback
-//   Assets       → cache first, lazy-fill on miss
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
 
   const url = e.request.url;
 
-  if (url.includes('api.anthropic.com')) return;
-  if (url.includes('fonts.googleapis.com')) return;
-  if (url.includes('fonts.gstatic.com')) return;
+  if (url.includes('api.anthropic.com') ||
+      url.includes('fonts.googleapis.com') ||
+      url.includes('fonts.gstatic.com')) return;
 
   const isHTML = e.request.destination === 'document' || url.endsWith('.html');
 
   if (isHTML) {
-    e.respondWith(
-      fetch(e.request)
-        .then(res => {
-          const clone = res.clone();
-          caches.open(CACHE).then(c => c.put(e.request, clone));
-          return res;
-        })
-        .catch(() => caches.match(e.request))
-    );
+    e.respondWith((async () => {
+      try {
+        const networkResponse = e.preloadResponse
+          ? await e.preloadResponse
+          : await fetch(e.request);
+
+        if (networkResponse?.ok) {
+          const cache = await caches.open(CACHE);
+          await cache.put(e.request, networkResponse.clone());
+        }
+
+        return networkResponse;
+      } catch {
+        const cached = await caches.match(e.request);
+        return cached || new Response(
+          '<h1>Offline</h1><p>Check your connection and try again.</p>',
+          { status: 503, headers: { 'Content-Type': 'text/html' } }
+        );
+      }
+    })());
   } else {
-    e.respondWith(
-      caches.match(e.request).then(cached => {
-        if (cached) return cached;
-        return fetch(e.request).then(res => {
-          const clone = res.clone();
-          caches.open(CACHE).then(c => c.put(e.request, clone));
-          return res;
-        });
-      })
-    );
+    e.respondWith((async () => {
+      const cached = await caches.match(e.request);
+      if (cached) return cached;
+
+      try {
+        const networkResponse = await fetch(e.request);
+        if (networkResponse?.ok) {
+          const cache = await caches.open(CACHE);
+          await cache.put(e.request, networkResponse.clone());
+        }
+        return networkResponse;
+      } catch {
+        return new Response('Asset unavailable offline', { status: 503 });
+      }
+    })());
   }
 });
