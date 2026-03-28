@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -30,7 +29,7 @@
   }
 
 .logo-row { display:flex; justify-content:center; padding-bottom:2px; flex-shrink:0; }
-.logo { font-family:‘Fredoka’, sans-serif; font-size:20px; font-weight:600; color:#2C1A06; letter-spacing:0.3px; }
+.logo { font-family:'Fredoka', sans-serif; font-size:20px; font-weight:600; color:#2C1A06; letter-spacing:0.3px; }
 .logo .O { color:#C1440E; }
 .logo .S { color:#E8A838; }
 
@@ -43,13 +42,13 @@ display:flex; flex-direction:column; justify-content:space-between;
 position:relative; overflow:hidden;
 }
 .hero-card::before {
-content:’’; position:absolute;
+content:''; position:absolute;
 width:180px; height:180px;
 background:rgba(255,255,255,0.11); border-radius:50%;
 top:-50px; right:-40px;
 }
 .hero-card::after {
-content:’’; position:absolute;
+content:''; position:absolute;
 width:80px; height:80px;
 background:rgba(255,255,255,0.07); border-radius:50%;
 bottom:-20px; left:24px;
@@ -60,7 +59,7 @@ font-size:10px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase
 color:rgba(60,30,0,0.4); margin-bottom:8px;
 }
 .hero-title {
-font-family:‘Fredoka’, sans-serif; font-size:34px; font-weight:700;
+font-family:'Fredoka', sans-serif; font-size:34px; font-weight:700;
 color:#2C1A06; line-height:1.1; letter-spacing:-0.3px;
 }
 .chips-row { display:flex; gap:7px; flex-wrap:wrap; position:relative; z-index:1; }
@@ -82,7 +81,7 @@ border-radius:24px; padding:16px 18px 14px;
 position:relative; overflow:hidden; flex-shrink:0;
 }
 .key-card::before {
-content:’’; position:absolute; width:120px; height:120px;
+content:''; position:absolute; width:120px; height:120px;
 background:rgba(255,255,255,0.07); border-radius:50%;
 bottom:-35px; left:-20px;
 }
@@ -100,7 +99,7 @@ margin-bottom:6px; position:relative; z-index:1; transition:border-color 0.2s;
 @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
 .input-field input {
 flex:1; background:none; border:none; outline:none;
-font-size:15px; font-family:‘Plus Jakarta Sans’, sans-serif; color:#FFF0DC; font-weight:500;
+font-size:15px; font-family:'Plus Jakarta Sans', sans-serif; color:#FFF0DC; font-weight:500;
 }
 .input-field input::placeholder { color:rgba(255,220,180,0.3); }
 .card-hint { font-size:11px; color:rgba(255,200,150,0.6); position:relative; z-index:1; }
@@ -113,7 +112,7 @@ border-radius:24px; padding:14px 18px 12px;
 position:relative; overflow:hidden; flex-shrink:0;
 }
 .el-card::before {
-content:’’; position:absolute; width:100px; height:100px;
+content:''; position:absolute; width:100px; height:100px;
 background:rgba(255,255,255,0.06); border-radius:50%;
 top:-28px; right:-18px;
 }
@@ -123,16 +122,16 @@ background:rgba(255,220,150,0.1); border-radius:999px; padding:2px 9px;
 font-size:10px; font-weight:700; color:rgba(255,200,120,0.6); letter-spacing:0.06em;
 }
 
-/* BUTTON */
+/* BUTTON CARD — now fully rounded like the other cards (no square bottom) */
 .btn-card {
-background:#2C1A06; border-radius:22px 22px 0 0;
+background:#2C1A06; 
+border-radius:24px; /* changed from 22px 22px 0 0 → full rounded to match API key / ElevenLabs tabs */
 flex-shrink:0;
-/* no overflow:hidden — was clipping safe area padding on iOS */
 }
 .btn-main {
 width:100%; background:none; border:none;
 padding:18px 16px; font-size:16px; font-weight:700;
-font-family:‘Plus Jakarta Sans’, sans-serif;
+font-family:'Plus Jakarta Sans', sans-serif;
 color:#F2C94C; cursor:pointer; letter-spacing:-0.2px; transition:opacity 0.15s;
 }
 .btn-main:active { opacity:0.7; }
@@ -142,7 +141,7 @@ border-top:1px solid rgba(255,200,100,0.06);
 padding:12px 16px;
 padding-bottom:max(28px, env(safe-area-inset-bottom, 28px));
 font-size:13px; font-weight:500;
-font-family:‘Plus Jakarta Sans’, sans-serif;
+font-family:'Plus Jakarta Sans', sans-serif;
 color:#6B5A3E; cursor:pointer;
 }
 </style>
@@ -161,96 +160,75 @@ color:#6B5A3E; cursor:pointer;
       <div class="hero-title">Create smarter.<br>Post faster.</div>
     </div>
 
-```
-<!-- Creator: void → life illustration -->
-<svg class="hero-art" viewBox="0 0 300 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <defs>
-    <!-- left=void, right=alive -->
-    <linearGradient id="fadeIn" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%"   stop-color="#2C1A06" stop-opacity="0.04"/>
-      <stop offset="40%"  stop-color="#2C1A06" stop-opacity="0.13"/>
-      <stop offset="100%" stop-color="#2C1A06" stop-opacity="0.22"/>
-    </linearGradient>
-    <!-- figure fill fades in left→right -->
-    <linearGradient id="figFade" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%"   stop-color="#2C1A06" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#2C1A06" stop-opacity="0.22"/>
-    </linearGradient>
-    <!-- glow behind figure on right -->
-    <radialGradient id="glow" cx="65%" cy="50%" r="38%">
-      <stop offset="0%"   stop-color="#fff" stop-opacity="0.13"/>
-      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-    </radialGradient>
-    <!-- mask: everything fades in left to right -->
-    <linearGradient id="alphaMask" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%"   stop-color="#fff" stop-opacity="0"/>
-      <stop offset="30%"  stop-color="#fff" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#fff" stop-opacity="1"/>
-    </linearGradient>
-    <mask id="revealMask">
-      <rect width="300" height="96" fill="url(#alphaMask)"/>
-    </mask>
-  </defs>
+    <!-- NEW ABSTRACT SILHOUETTE ILLUSTRATION (guy + bike + girl being photographed) -->
+    <svg class="hero-art" viewBox="0 0 300 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="figFade" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2C1A06" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#2C1A06" stop-opacity="0.22"/>
+        </linearGradient>
+        <radialGradient id="glow" cx="80%" cy="45%" r="35%">
+          <stop offset="0%" stop-color="#F2C94C" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#F2C94C" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
 
-  <!-- ambient glow right side -->
-  <ellipse cx="210" cy="48" rx="90" ry="50" fill="url(#glow)"/>
+      <!-- Ambient glow for the "photo moment" -->
+      <ellipse cx="195" cy="45" rx="75" ry="38" fill="url(#glow)" opacity="0.6"/>
 
-  <!-- void side: single faint dashed circle, lonely dot -->
-  <circle cx="52" cy="48" r="22" stroke="rgba(44,26,6,0.08)" stroke-width="1" stroke-dasharray="3 4" fill="none"/>
-  <circle cx="52" cy="48" r="3"  fill="rgba(44,26,6,0.07)"/>
+      <!-- BICYCLE (parked on the left) -->
+      <!-- Rear wheel -->
+      <circle cx="38" cy="68" r="15" fill="none" stroke="#2C1A06" stroke-width="3.5" stroke-opacity="0.25"/>
+      <!-- Front wheel -->
+      <circle cx="78" cy="68" r="15" fill="none" stroke="#2C1A06" stroke-width="3.5" stroke-opacity="0.25"/>
+      <!-- Frame -->
+      <path d="M38,68 L58,48 L78,68" fill="none" stroke="#2C1A06" stroke-width="5" stroke-opacity="0.2" stroke-linejoin="round"/>
+      <path d="M58,48 L58,38" fill="none" stroke="#2C1A06" stroke-width="3.5" stroke-opacity="0.22"/>
+      <!-- Seat -->
+      <rect x="49" y="37" width="18" height="4" rx="2" fill="#2C1A06" opacity="0.28"/>
+      <!-- Handlebar -->
+      <path d="M70 40 Q80 33 88 40" fill="none" stroke="#2C1A06" stroke-width="3" stroke-opacity="0.25" stroke-linecap="round"/>
 
-  <!-- FIGURE — centred slightly right, emerges from void -->
-  <!-- body -->
-  <rect x="130" y="44" width="40" height="44" rx="14" fill="url(#figFade)"/>
-  <!-- head -->
-  <circle cx="150" cy="33" r="16" fill="url(#figFade)"/>
-  <!-- headphone band -->
-  <path d="M136 31 Q150 18 164 31" stroke="rgba(44,26,6,0.28)" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <!-- ear cups -->
-  <rect x="132" y="28" width="7" height="12" rx="3.5" fill="rgba(44,26,6,0.26)"/>
-  <rect x="161" y="28" width="7" height="12" rx="3.5" fill="rgba(44,26,6,0.26)"/>
-  <!-- mic boom -->
-  <path d="M161 38 Q172 40 172 48" stroke="rgba(44,26,6,0.2)" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <circle cx="172" cy="50" r="3" fill="rgba(44,26,6,0.22)"/>
+      <!-- GUY (center-left, next to bike) – taking photo -->
+      <!-- Legs -->
+      <rect x="105" y="47" width="9" height="29" rx="4" fill="url(#figFade)"/>
+      <!-- Body -->
+      <rect x="100" y="29" width="19" height="23" rx="7" fill="url(#figFade)"/>
+      <!-- Head -->
+      <circle cx="109.5" cy="24" r="10" fill="url(#figFade)"/>
+      <!-- Arm raised with phone -->
+      <path d="M115 35 Q130 25 145 20" stroke="#2C1A06" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-opacity="0.3"/>
+      <!-- Phone -->
+      <rect x="143" y="15" width="9" height="14" rx="1.5" fill="#2C1A06" opacity="0.35"/>
+      <!-- Phone screen + camera lens -->
+      <rect x="145" y="17" width="5" height="10" fill="#F2C94C" opacity="0.25"/>
+      <circle cx="147" cy="19" r="1" fill="#C1440E" opacity="0.6"/>
 
-  <!-- content world emerging right — masked to fade in -->
-  <g mask="url(#revealMask)">
-    <!-- floating script card -->
-    <rect x="188" y="10" width="56" height="28" rx="8" fill="rgba(44,26,6,0.13)"/>
-    <rect x="194" y="16" width="30" height="3" rx="1.5" fill="rgba(44,26,6,0.22)"/>
-    <rect x="194" y="21" width="22" height="3" rx="1.5" fill="rgba(44,26,6,0.14)"/>
-    <rect x="194" y="26" width="26" height="3" rx="1.5" fill="rgba(44,26,6,0.14)"/>
-    <!-- script label dot -->
-    <circle cx="238" cy="14" r="3" fill="rgba(193,68,14,0.45)"/>
+      <!-- GIRL (right side, smaller + further away) – posing for the photo -->
+      <!-- Legs -->
+      <rect x="225" y="52" width="7" height="22" rx="3" fill="url(#figFade)" opacity="0.75"/>
+      <!-- Body -->
+      <rect x="221" y="37" width="13" height="18" rx="5" fill="url(#figFade)" opacity="0.75"/>
+      <!-- Head -->
+      <circle cx="227.5" cy="32" r="7" fill="url(#figFade)" opacity="0.75"/>
+      <!-- Pose arm (posing) -->
+      <path d="M227 38 Q235 33 242 37" stroke="#2C1A06" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.75"/>
 
-    <!-- floating views pill -->
-    <rect x="200" y="52" width="60" height="20" rx="10" fill="rgba(255,255,255,0.18)"/>
-    <circle cx="212" cy="62" r="4" fill="rgba(193,68,14,0.5)"/>
-    <rect x="220" y="59" width="18" height="3" rx="1.5" fill="rgba(44,26,6,0.25)"/>
-    <rect x="220" y="64" width="12" height="2.5" rx="1.25" fill="rgba(44,26,6,0.15)"/>
+      <!-- Photo flash / connection line (camera → girl) -->
+      <line x1="148" y1="22" x2="215" y2="37" stroke="#F2C94C" stroke-width="1.2" opacity="0.25" stroke-dasharray="2,3"/>
 
-    <!-- sound waves right -->
-    <path d="M272 36 Q278 48 272 60" stroke="rgba(44,26,6,0.16)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    <path d="M280 28 Q290 48 280 68" stroke="rgba(44,26,6,0.09)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- Content-creation sparkles (near the photo moment) -->
+      <circle cx="255" cy="18" r="2" fill="#F2C94C" opacity="0.4"/>
+      <circle cx="265" cy="25" r="1.5" fill="#E8A838" opacity="0.35"/>
+      <circle cx="272" cy="15" r="1.8" fill="#F2C94C" opacity="0.3"/>
+    </svg>
 
-    <!-- sparkle dots top right -->
-    <circle cx="268" cy="14" r="3"   fill="rgba(44,26,6,0.12)"/>
-    <circle cx="280" cy="20" r="2"   fill="rgba(255,255,255,0.2)"/>
-    <circle cx="292" cy="10" r="1.5" fill="rgba(44,26,6,0.09)"/>
-  </g>
-
-  <!-- transition line — the moment everything starts -->
-  <line x1="118" y1="8" x2="118" y2="88" stroke="rgba(44,26,6,0.08)" stroke-width="1" stroke-dasharray="2 4"/>
-</svg>
-
-<div class="chips-row">
-  <div class="chip">🎬 Scripts</div>
-  <div class="chip">🎙 Voiceovers</div>
-  <div class="chip">✍️ Captions</div>
-  <div class="chip">💡 Ideas</div>
-</div>
-```
-
+    <div class="chips-row">
+      <div class="chip">🎬 Scripts</div>
+      <div class="chip">🎙 Voiceovers</div>
+      <div class="chip">✍️ Captions</div>
+      <div class="chip">💡 Ideas</div>
+    </div>
   </div>
 
   <div class="key-card">
@@ -278,84 +256,85 @@ color:#6B5A3E; cursor:pointer;
   </div>
 
 </div>
+
 <script>
   async function handleStart() {
     const key = document.getElementById('api-key').value.trim();
     const field = document.getElementById('api-field');
     const btn = document.getElementById('go-btn');
 
-```
-if (!key) {
-  showErr(field, btn, 'Paste your API key first');
-  return;
-}
+    if (!key) {
+      showErr(field, btn, 'Paste your API key first');
+      return;
+    }
 
-// Show validating state
-btn.textContent = '⏳ Validating key...';
-btn.style.color = '#F2C94C';
-btn.style.opacity = '0.7';
-btn.disabled = true;
+    // Show validating state
+    btn.textContent = '⏳ Validating key...';
+    btn.style.color = '#F2C94C';
+    btn.style.opacity = '0.7';
+    btn.disabled = true;
 
-try {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': key,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true'
-    },
-    body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 5,
-      messages: [{ role: 'user', content: 'hi' }]
-    })
-  });
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': key,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 5,
+          messages: [{ role: 'user', content: 'hi' }]
+        })
+      });
 
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    const msg = err?.error?.type === 'authentication_error'
-      ? 'Invalid API key' : 'Key check failed — try again';
-    showErr(field, btn, msg);
-    return;
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        const msg = err?.error?.type === 'authentication_error'
+          ? 'Invalid API key' : 'Key check failed — try again';
+        showErr(field, btn, msg);
+        return;
+      }
+
+      // Key is valid
+      localStorage.setItem('cos_key', key);
+      const elKey = document.getElementById('el-key').value.trim();
+      if (elKey) localStorage.setItem('cos_el', elKey);
+      btn.textContent = '✓ Key verified!';
+      btn.style.color = '#4ade80';
+      btn.style.opacity = '1';
+      setTimeout(() => { window.location.href = 'welcome.html'; }, 500);
+
+    } catch(e) {
+      showErr(field, btn, 'Network error — check connection');
+    }
   }
 
-  // Key is valid
-  localStorage.setItem('cos_key', key);
-  const elKey = document.getElementById('el-key').value.trim();
-  if (elKey) localStorage.setItem('cos_el', elKey);
-  btn.textContent = '✓ Key verified!';
-  btn.style.color = '#4ade80';
-  btn.style.opacity = '1';
-  setTimeout(() => { window.location.href = 'welcome.html'; }, 500);
+  function showErr(field, btn, msg) {
+    field.classList.add('err');
+    btn.textContent = msg;
+    btn.style.color = '#ff6b6b';
+    btn.style.opacity = '1';
+    btn.disabled = false;
+    setTimeout(() => {
+      field.classList.remove('err');
+      btn.style.color = '#F2C94C';
+      btn.textContent = 'Get Started →';
+    }, 2500);
+  }
 
-} catch(e) {
-  showErr(field, btn, 'Network error — check connection');
-}
-```
-
-}
-
-function showErr(field, btn, msg) {
-field.classList.add(‘err’);
-btn.textContent = msg;
-btn.style.color = ‘#ff6b6b’;
-btn.style.opacity = ‘1’;
-btn.disabled = false;
-setTimeout(() => {
-field.classList.remove(‘err’);
-btn.style.color = ‘#F2C94C’;
-btn.textContent = ‘Get Started →’;
-}, 2500);
-}
-function handleSkip() {
-localStorage.removeItem(‘cos_key’);
-window.location.href = ‘welcome.html’;
-}
+  function handleSkip() {
+    localStorage.removeItem('cos_key');
+    window.location.href = 'welcome.html';
+  }
 </script>
 
 <script>
-  if ("serviceWorker" in navigator) { navigator.serviceWorker.register("/sw.js").catch(() => {}); }
+  if ("serviceWorker" in navigator) { 
+    navigator.serviceWorker.register("/sw.js").catch(() => {}); 
+  }
 </script>
 
 </body>
