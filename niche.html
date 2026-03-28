@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Creator OS</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#C1440E">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Creator OS">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html, body {
+    height:100%; height:100dvh;
+    overflow:hidden; background:#EDEBE6;
+    font-family:'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .page {
+    height:100vh; height:100dvh;
+    background:#EDEBE6;
+    display:flex; flex-direction:column;
+    padding: env(safe-area-inset-top,52px) 16px 0;
+    overflow:hidden;
+  }
+
+  /* TOP */
+  .top {
+    flex-shrink:0;
+    display:flex; align-items:center;
+    justify-content:space-between;
+    margin-bottom:24px;
+  }
+  .logo { font-family:'Fredoka', sans-serif; font-size:18px; font-weight:600; color:#2C1A06; }
+  .logo .O { color:#C1440E; }
+  .logo .S { color:#E8A838; }
+  .step-pills { display:flex; gap:5px; }
+  .step-pill {
+    width:28px; height:5px; border-radius:999px;
+    background:#D4C9B8;
+  }
+  .step-pill.on { background:#C1440E; }
+
+  /* HEADER CARD */
+  .header-card {
+    background: linear-gradient(145deg, #F2C94C 0%, #E8A838 55%, #D4892A 100%);
+    border-radius:24px; padding:20px 20px 18px;
+    margin-bottom:12px; flex-shrink:0;
+    position:relative; overflow:hidden;
+  }
+  .header-card::before {
+    content:''; position:absolute;
+    width:140px; height:140px;
+    background:rgba(255,255,255,0.1);
+    border-radius:50%; top:-40px; right:-30px;
+  }
+  .h-eyebrow {
+    font-family:'Fredoka', sans-serif;
+    font-size:11px; font-weight:500;
+    color:rgba(44,26,6,0.45); letter-spacing:0.1em;
+    text-transform:uppercase; margin-bottom:6px;
+  }
+  .h-title {
+    font-family:'Fredoka', sans-serif;
+    font-size:26px; font-weight:700;
+    color:#2C1A06; line-height:1.2;
+    position:relative; z-index:1;
+  }
+  .h-sub {
+    font-size:13px; color:rgba(44,26,6,0.5);
+    margin-top:4px; font-weight:500;
+    position:relative; z-index:1;
+  }
+
+  /* GRID */
+  .grid-wrap {
+    flex:1; overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none; min-height:0;
+  }
+  .grid-wrap::-webkit-scrollbar { display:none; }
+  .grid {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:10px; padding-bottom:12px;
+  }
+
+  .niche-card {
+    background:#fff;
+    border:2.5px solid transparent;
+    border-radius:20px;
+    padding:16px 14px;
+    cursor:pointer;
+    transition:all 0.18s cubic-bezier(0.16,1,0.3,1);
+    position:relative; overflow:hidden;
+    -webkit-user-select:none;
+  }
+  .niche-card::before {
+    content:''; position:absolute; inset:0;
+    background:transparent;
+    transition:background 0.18s;
+    border-radius:18px;
+  }
+  .niche-card.selected {
+    border-color:#C1440E;
+    background:#FFF5F2;
+    transform:scale(0.97);
+  }
+  .niche-card.disabled {
+    opacity:0.4; pointer-events:none;
+  }
+  .niche-emoji {
+    font-size:28px; margin-bottom:8px;
+    display:block; line-height:1;
+  }
+  .niche-name {
+    font-family:'Fredoka', sans-serif;
+    font-size:15px; font-weight:600;
+    color:#2C1A06; line-height:1.2;
+  }
+  .niche-desc {
+    font-size:11px; color:#9B9489;
+    margin-top:2px; font-weight:500;
+    line-height:1.3;
+  }
+  .check {
+    position:absolute; top:10px; right:10px;
+    width:20px; height:20px;
+    background:#C1440E; border-radius:50%;
+    display:none; align-items:center; justify-content:center;
+    color:#fff; font-size:11px; font-weight:700;
+  }
+  .niche-card.selected .check { display:flex; }
+
+  /* COUNTER */
+  .counter {
+    font-family:'Fredoka', sans-serif;
+    font-size:13px; font-weight:500;
+    color:#9B9489; text-align:center;
+    padding:8px 0 6px; flex-shrink:0;
+    transition:color 0.2s;
+  }
+  .counter.maxed { color:#C1440E; font-weight:600; }
+
+  /* BUTTON */
+  .btn-card {
+    background:#2C1A06; border-radius:22px 22px 0 0;
+    flex-shrink:0; overflow:hidden;
+  }
+  .btn-main {
+    width:100%; background:none; border:none;
+    padding:18px 16px; font-size:17px; font-weight:700;
+    font-family:'Fredoka', sans-serif;
+    color:#F2C94C; cursor:pointer;
+    transition:opacity 0.15s;
+    opacity:0.35; pointer-events:none;
+  }
+  .btn-main.ready { opacity:1; pointer-events:auto; }
+  .btn-main.ready:active { opacity:0.7; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP -->
+  <div class="top">
+    <div class="logo">creator <span class="O">O</span><span class="S">S</span></div>
+    <div class="step-pills">
+      <div class="step-pill on"></div>
+      <div class="step-pill on"></div>
+      <div class="step-pill"></div>
+      <div class="step-pill"></div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header-card">
+    <div class="h-eyebrow">Step 2 of 4</div>
+    <div class="h-title">What kind of content<br>do you make?</div>
+    <div class="h-sub">Pick up to 3 that feel like you.</div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid-wrap">
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <!-- COUNTER -->
+  <div class="counter" id="counter">0 of 3 selected</div>
+
+  <!-- BUTTON -->
+  <div class="btn-card">
+    <button class="btn-main" id="btn" onclick="goNext()">Continue →</button>
+  </div>
+
+</div>
+<script>
+  // If already set up, go to dashboard
+  if (localStorage.getItem('cos_niches')) {
+    window.location.href = 'dashboard.html';
+  }
+
+  var NICHES = [
+    { id:'anime',       emoji:'🎌', name:'Anime & Manga',        desc:'edits, breakdowns, fan content' },
+    { id:'movies',      emoji:'🎬', name:'Movies & TV',          desc:'scene breakdowns, reviews' },
+    { id:'philosophy',  emoji:'💭', name:'Philosophy',           desc:'deep thoughts, cinematic quotes' },
+    { id:'comedy',      emoji:'😂', name:'Comedy',               desc:'skits, memes, entertainment' },
+    { id:'fitness',     emoji:'💪', name:'Fitness',              desc:'workouts, transformation' },
+    { id:'fashion',     emoji:'✨', name:'Fashion & Beauty',     desc:'style, looks, tutorials' },
+    { id:'tech',        emoji:'📱', name:'Tech & Gaming',        desc:'reviews, gameplay, tips' },
+    { id:'music',       emoji:'🎵', name:'Music',                desc:'covers, production, playlists' },
+    { id:'motivation',  emoji:'🔥', name:'Motivation',           desc:'mindset, growth, hustle' },
+    { id:'lifestyle',   emoji:'🌿', name:'Lifestyle',            desc:'vlogs, travel, daily life' },
+    { id:'education',   emoji:'📚', name:'Education',            desc:'tutorials, explainers, tips' },
+    { id:'other',       emoji:'🎨', name:'Something else',       desc:'my own unique thing' },
+  ];
+
+  var selected = [];
+  var MAX = 3;
+
+  var grid = document.getElementById('grid');
+  NICHES.forEach(function(n) {
+    var card = document.createElement('div');
+    card.className = 'niche-card';
+    card.id = 'nc_' + n.id;
+    card.innerHTML =
+      '<span class="niche-emoji">' + n.emoji + '</span>' +
+      '<div class="niche-name">' + n.name + '</div>' +
+      '<div class="niche-desc">' + n.desc + '</div>' +
+      '<div class="check">✓</div>';
+    card.onclick = function() { toggle(n.id); };
+    grid.appendChild(card);
+  });
+
+  function toggle(id) {
+    var idx = selected.indexOf(id);
+    if (idx >= 0) {
+      selected.splice(idx, 1);
+    } else {
+      if (selected.length >= MAX) return;
+      selected.push(id);
+    }
+    render();
+    if (navigator.vibrate) navigator.vibrate(8);
+  }
+
+  function render() {
+    var atMax = selected.length >= MAX;
+    NICHES.forEach(function(n) {
+      var card = document.getElementById('nc_' + n.id);
+      var isSel = selected.indexOf(n.id) >= 0;
+      card.classList.toggle('selected', isSel);
+      card.classList.toggle('disabled', atMax && !isSel);
+    });
+    var counter = document.getElementById('counter');
+    counter.textContent = selected.length + ' of ' + MAX + ' selected';
+    counter.classList.toggle('maxed', atMax);
+    var btn = document.getElementById('btn');
+    btn.classList.toggle('ready', selected.length > 0);
+  }
+
+  function goNext() {
+    if (!selected.length) return;
+    localStorage.setItem('cos_niches', JSON.stringify(selected));
+    window.location.href = 'platforms.html';
+  }
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  }
+</script>
+</body>
+</html>
