@@ -141,6 +141,11 @@ font-family:‘Plus Jakarta Sans’, sans-serif;
 color:#6B5A3E; cursor:pointer;
 }
 </style>
+<script>
+  if (localStorage.getItem('cos_welcomed') === '1') {
+    window.location.replace('dashboard.html');
+  }
+</script>
 
 </head>
 <body>
