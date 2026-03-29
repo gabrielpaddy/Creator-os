@@ -1,4 +1,4 @@
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE = `creator-os-${VERSION}`;
 
 self.addEventListener('install', () => {
@@ -20,9 +20,7 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
-
   const url = e.request.url;
-
   if (url.includes('api.anthropic.com') ||
       url.includes('fonts.googleapis.com') ||
       url.includes('fonts.gstatic.com')) return;
@@ -35,14 +33,12 @@ self.addEventListener('fetch', e => {
         const networkResponse = e.preloadResponse
           ? await e.preloadResponse
           : await fetch(e.request);
-
         if (networkResponse?.ok) {
           const cache = await caches.open(CACHE);
           await cache.put(e.request, networkResponse.clone());
         }
-
         return networkResponse;
-      } catch {
+      } catch(e) {
         const cached = await caches.match(e.request);
         return cached || new Response(
           '<h1>Offline</h1><p>Check your connection and try again.</p>',
@@ -54,7 +50,6 @@ self.addEventListener('fetch', e => {
     e.respondWith((async () => {
       const cached = await caches.match(e.request);
       if (cached) return cached;
-
       try {
         const networkResponse = await fetch(e.request);
         if (networkResponse?.ok) {
@@ -62,7 +57,7 @@ self.addEventListener('fetch', e => {
           await cache.put(e.request, networkResponse.clone());
         }
         return networkResponse;
-      } catch {
+      } catch(e) {
         return new Response('Asset unavailable offline', { status: 503 });
       }
     })());
