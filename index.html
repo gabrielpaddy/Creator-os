@@ -5,18 +5,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Creator OS</title>
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#C1440E">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Creator OS">
-<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#C1440E">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Creator OS">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   html, body {
     height:100%; height:100dvh;
-    overflow:hidden; background:#EDEBE6;
+    overflow:hidden;
+    background:#EDEBE6;
     font-family:'Plus Jakarta Sans', sans-serif;
     -webkit-font-smoothing:antialiased;
   }
@@ -27,112 +28,120 @@
     padding: env(safe-area-inset-top,52px) 16px 0;
     gap:10px; overflow:hidden;
   }
-  .logo-row { display:flex; justify-content:center; padding-bottom:2px; flex-shrink:0; }
-  .logo { font-family:'Fredoka', sans-serif; font-size:20px; font-weight:600; color:#2C1A06; letter-spacing:0.3px; }
-  .logo .O { color:#C1440E; }
-  .logo .S { color:#E8A838; }
-  .hero-card {
-    background: linear-gradient(145deg, #F2C94C 0%, #E8A838 55%, #D4892A 100%);
-    border-radius:26px; padding:22px 22px 20px;
-    flex:1; min-height:0;
-    display:flex; flex-direction:column; justify-content:space-between;
-    position:relative; overflow:hidden;
-  }
-  .hero-card::before {
-    content:''; position:absolute;
-    width:180px; height:180px;
-    background:rgba(255,255,255,0.11); border-radius:50%;
-    top:-50px; right:-40px;
-  }
-  .hero-card::after {
-    content:''; position:absolute;
-    width:80px; height:80px;
-    background:rgba(255,255,255,0.07); border-radius:50%;
-    bottom:-20px; left:24px;
-  }
-  .hero-top { position:relative; z-index:1; }
-  .hero-eyebrow {
-    font-size:10px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase;
-    color:rgba(60,30,0,0.4); margin-bottom:8px;
-  }
-  .hero-title {
-    font-family:'Fredoka', sans-serif; font-size:34px; font-weight:700;
-    color:#2C1A06; line-height:1.1; letter-spacing:-0.3px;
-  }
-  .hero-art {
-    flex:1; min-height:0; width:100%;
-    display:block; position:relative; z-index:1;
-  }
-  .chips-row { display:flex; gap:7px; flex-wrap:wrap; position:relative; z-index:1; }
-  .chip {
-    background:rgba(44,26,6,0.11); border-radius:999px; padding:6px 13px;
-    font-size:12px; font-weight:700; color:#2C1A06;
-  }
-  .key-card {
-    background: linear-gradient(135deg, #C1440E 0%, #A83510 100%);
-    border-radius:24px; padding:16px 18px 14px;
-    position:relative; overflow:hidden; flex-shrink:0;
-  }
-  .key-card::before {
-    content:''; position:absolute; width:120px; height:120px;
-    background:rgba(255,255,255,0.07); border-radius:50%;
-    bottom:-35px; left:-20px;
-  }
-  .card-label {
-    font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
-    color:rgba(255,220,180,0.55); margin-bottom:8px; position:relative; z-index:1;
-  }
-  .input-field {
-    background:rgba(255,255,255,0.13); border:1.5px solid rgba(255,220,180,0.2);
-    border-radius:12px; padding:11px 14px; display:flex; align-items:center;
-    margin-bottom:6px; position:relative; z-index:1; transition:border-color 0.2s;
-  }
-  .input-field:focus-within { border-color:rgba(255,220,180,0.65); background:rgba(255,255,255,0.18); }
-  .input-field.err { border-color:#FFD93D; animation:shake 0.3s ease; }
-  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
-  .input-field input {
-    flex:1; background:none; border:none; outline:none;
-    font-size:15px; font-family:'Plus Jakarta Sans', sans-serif; color:#FFF0DC; font-weight:500;
-  }
-  .input-field input::placeholder { color:rgba(255,220,180,0.3); }
-  .card-hint { font-size:11px; color:rgba(255,200,150,0.6); position:relative; z-index:1; }
-  .card-hint a { color:#FFD093; font-weight:700; text-decoration:underline; text-underline-offset:2px; }
-  .el-card {
-    background: linear-gradient(135deg, #6B4C2A 0%, #543C20 100%);
-    border-radius:24px; padding:14px 18px 12px;
-    position:relative; overflow:hidden; flex-shrink:0;
-  }
-  .el-card::before {
-    content:''; position:absolute; width:100px; height:100px;
-    background:rgba(255,255,255,0.06); border-radius:50%;
-    top:-28px; right:-18px;
-  }
-  .el-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-  .opt-badge {
-    background:rgba(255,220,150,0.1); border-radius:999px; padding:2px 9px;
-    font-size:10px; font-weight:700; color:rgba(255,200,120,0.6); letter-spacing:0.06em;
-  }
-  .btn-card {
-    background:#2C1A06; border-radius:24px;
-    flex-shrink:0;
-  }
-  .btn-main {
-    width:100%; background:none; border:none;
-    padding:18px 16px; font-size:16px; font-weight:700;
-    font-family:'Plus Jakarta Sans', sans-serif;
-    color:#F2C94C; cursor:pointer; letter-spacing:-0.2px; transition:opacity 0.15s;
-  }
-  .btn-main:active { opacity:0.7; }
-  .btn-skip {
-    width:100%; background:none; border:none;
-    border-top:1px solid rgba(255,200,100,0.06);
-    padding:12px 16px;
-    padding-bottom:max(20px, env(safe-area-inset-bottom, 20px));
-    font-size:13px; font-weight:500;
-    font-family:'Plus Jakarta Sans', sans-serif;
-    color:#6B5A3E; cursor:pointer;
-  }
+
+.logo-row { display:flex; justify-content:center; padding-bottom:2px; flex-shrink:0; }
+.logo { font-family:‘Fredoka’, sans-serif; font-size:20px; font-weight:600; color:#2C1A06; letter-spacing:0.3px; }
+.logo .O { color:#C1440E; }
+.logo .S { color:#E8A838; }
+
+.hero-card {
+background: linear-gradient(145deg, #F2C94C 0%, #E8A838 55%, #D4892A 100%);
+border-radius:26px; padding:22px 22px 20px;
+flex:1; min-height:0;
+display:flex; flex-direction:column; justify-content:space-between;
+position:relative; overflow:hidden;
+}
+.hero-card::before {
+content:’’; position:absolute;
+width:180px; height:180px;
+background:rgba(255,255,255,0.11); border-radius:50%;
+top:-50px; right:-40px;
+}
+.hero-card::after {
+content:’’; position:absolute;
+width:80px; height:80px;
+background:rgba(255,255,255,0.07); border-radius:50%;
+bottom:-20px; left:24px;
+}
+.hero-top { position:relative; z-index:1; }
+.hero-eyebrow {
+font-size:10px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase;
+color:rgba(60,30,0,0.4); margin-bottom:8px;
+}
+.hero-title {
+font-family:‘Fredoka’, sans-serif; font-size:34px; font-weight:700;
+color:#2C1A06; line-height:1.1; letter-spacing:-0.3px;
+}
+.chips-row { display:flex; gap:7px; flex-wrap:wrap; position:relative; z-index:1; }
+.chip {
+background:rgba(44,26,6,0.11); border-radius:999px; padding:6px 13px;
+font-size:12px; font-weight:700; color:#2C1A06;
+}
+.hero-art {
+flex:1; min-height:0; width:100%;
+display:block; position:relative; z-index:1;
+overflow:visible;
+}
+
+.key-card {
+background: linear-gradient(135deg, #C1440E 0%, #A83510 100%);
+border-radius:24px; padding:16px 18px 14px;
+position:relative; overflow:hidden; flex-shrink:0;
+}
+.key-card::before {
+content:’’; position:absolute; width:120px; height:120px;
+background:rgba(255,255,255,0.07); border-radius:50%;
+bottom:-35px; left:-20px;
+}
+.card-label {
+font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+color:rgba(255,220,180,0.55); margin-bottom:8px; position:relative; z-index:1;
+}
+.input-field {
+background:rgba(255,255,255,0.13); border:1.5px solid rgba(255,220,180,0.2);
+border-radius:12px; padding:11px 14px; display:flex; align-items:center;
+margin-bottom:6px; position:relative; z-index:1; transition:border-color 0.2s;
+}
+.input-field:focus-within { border-color:rgba(255,220,180,0.65); background:rgba(255,255,255,0.18); }
+.input-field.err { border-color:#FFD93D; animation:shake 0.3s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+.input-field input {
+flex:1; background:none; border:none; outline:none;
+font-size:15px; font-family:‘Plus Jakarta Sans’, sans-serif; color:#FFF0DC; font-weight:500;
+}
+.input-field input::placeholder { color:rgba(255,220,180,0.3); }
+.card-hint { font-size:11px; color:rgba(255,200,150,0.6); position:relative; z-index:1; }
+.card-hint a { color:#FFD093; font-weight:700; text-decoration:underline; text-underline-offset:2px; }
+
+.el-card {
+background: linear-gradient(135deg, #6B4C2A 0%, #543C20 100%);
+border-radius:24px; padding:14px 18px 12px;
+position:relative; overflow:hidden; flex-shrink:0;
+}
+.el-card::before {
+content:’’; position:absolute; width:100px; height:100px;
+background:rgba(255,255,255,0.06); border-radius:50%;
+top:-28px; right:-18px;
+}
+.el-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.opt-badge {
+background:rgba(255,220,150,0.1); border-radius:999px; padding:2px 9px;
+font-size:10px; font-weight:700; color:rgba(255,200,120,0.6); letter-spacing:0.06em;
+}
+
+.btn-card {
+background:#2C1A06;
+border-radius:24px;
+flex-shrink:0;
+}
+.btn-main {
+width:100%; background:none; border:none;
+padding:18px 16px; font-size:16px; font-weight:700;
+font-family:‘Plus Jakarta Sans’, sans-serif;
+color:#F2C94C; cursor:pointer; letter-spacing:-0.2px; transition:opacity 0.15s;
+}
+.btn-main:active { opacity:0.7; }
+.btn-skip {
+width:100%; background:none; border:none;
+border-top:1px solid rgba(255,200,100,0.06);
+padding:12px 16px;
+padding-bottom:max(28px, env(safe-area-inset-bottom, 28px));
+font-size:13px; font-weight:500;
+font-family:‘Plus Jakarta Sans’, sans-serif;
+color:#6B5A3E; cursor:pointer;
+}
 </style>
+
 </head>
 <body>
 <div class="page">
@@ -149,7 +158,7 @@
 
 ```
 <!-- void → creator → live content -->
-<svg class="hero-art" viewBox="0 0 300 88" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<svg class="hero-art" viewBox="0 0 300 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <defs>
     <linearGradient id="bodyFade" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%"  stop-color="#2C1A06" stop-opacity="0.10"/>
@@ -162,76 +171,77 @@
   </defs>
 
   <!-- warm glow around figure -->
-  <ellipse cx="122" cy="50" rx="52" ry="44" fill="url(#aura)"/>
+  <ellipse cx="130" cy="52" rx="55" ry="46" fill="url(#aura)"/>
 
-  <!-- VOID (left) — empty, unformed -->
-  <rect x="10" y="22" width="30" height="46" rx="6"
+  <!-- VOID left: empty phone outline -->
+  <rect x="10" y="24" width="30" height="46" rx="6"
         fill="none" stroke="#2C1A06" stroke-width="1.5"
         stroke-opacity="0.1" stroke-dasharray="3 3"/>
-  <rect x="14" y="30" width="22" height="2.5" rx="1.25" fill="#2C1A06" opacity="0.06"/>
-  <rect x="14" y="35" width="16" height="2.5" rx="1.25" fill="#2C1A06" opacity="0.06"/>
-  <rect x="14" y="40" width="19" height="2.5" rx="1.25" fill="#2C1A06" opacity="0.06"/>
-  <circle cx="25" cy="54" r="3" fill="#2C1A06" opacity="0.07"/>
+  <rect x="14" y="32" width="22" height="2.5" rx="1.25" fill="#2C1A06" opacity="0.06"/>
+  <rect x="14" y="37" width="16" height="2.5" rx="1.25" fill="#2C1A06" opacity="0.06"/>
+  <rect x="14" y="42" width="19" height="2.5" rx="1.25" fill="#2C1A06" opacity="0.06"/>
+  <circle cx="25" cy="56" r="3" fill="#2C1A06" opacity="0.07"/>
 
-  <!-- divider: the spark moment -->
-  <line x1="60" y1="10" x2="60" y2="82"
+  <!-- spark divider -->
+  <line x1="58" y1="10" x2="58" y2="86"
         stroke="#2C1A06" stroke-width="1"
         stroke-opacity="0.1" stroke-dasharray="2 4"/>
 
-  <!-- CREATOR FIGURE (centre) -->
-  <rect x="102" y="46" width="34" height="38" rx="13" fill="url(#bodyFade)"/>
-  <circle cx="119" cy="33" r="17" fill="url(#bodyFade)"/>
+  <!-- CREATOR FIGURE -->
+  <!-- body -->
+  <rect x="108" y="50" width="36" height="40" rx="14" fill="url(#bodyFade)"/>
+  <!-- head -->
+  <circle cx="126" cy="36" r="18" fill="url(#bodyFade)"/>
   <!-- headphone band -->
-  <path d="M103 31 Q119 16 135 31"
-        stroke="#2C1A06" stroke-width="3.5" fill="none"
-        stroke-linecap="round" stroke-opacity="0.3"/>
+  <path d="M109 34 Q126 18 143 34"
+        stroke="#2C1A06" stroke-width="4" fill="none"
+        stroke-linecap="round" stroke-opacity="0.28"/>
   <!-- ear cups -->
-  <rect x="99"  y="27" width="8" height="13" rx="4" fill="#2C1A06" opacity="0.28"/>
-  <rect x="131" y="27" width="8" height="13" rx="4" fill="#2C1A06" opacity="0.28"/>
+  <rect x="104" y="30" width="9" height="14" rx="4.5" fill="#2C1A06" opacity="0.26"/>
+  <rect x="139" y="30" width="9" height="14" rx="4.5" fill="#2C1A06" opacity="0.26"/>
   <!-- mic boom -->
-  <path d="M137 37 Q148 40 150 50"
+  <path d="M146 40 Q157 44 158 54"
         stroke="#2C1A06" stroke-width="2" fill="none"
-        stroke-linecap="round" stroke-opacity="0.22"/>
-  <circle cx="150" cy="52" r="3.5" fill="#2C1A06" opacity="0.24"/>
-  <!-- arm reaching toward content -->
-  <path d="M133 55 Q155 50 168 46"
+        stroke-linecap="round" stroke-opacity="0.2"/>
+  <circle cx="158" cy="56" r="4" fill="#2C1A06" opacity="0.22"/>
+  <!-- arm reaching right -->
+  <path d="M140 58 Q162 53 176 49"
         stroke="#2C1A06" stroke-width="5" fill="none"
-        stroke-linecap="round" stroke-opacity="0.16"/>
+        stroke-linecap="round" stroke-opacity="0.15"/>
 
-  <!-- CONTENT WORLD (right) — alive -->
+  <!-- CONTENT WORLD right -->
 
-  <!-- Script card -->
-  <rect x="172" y="6" width="62" height="30" rx="9" fill="rgba(44,26,6,0.12)"/>
-  <rect x="179" y="13" width="34" height="3"   rx="1.5" fill="#2C1A06" opacity="0.22"/>
-  <rect x="179" y="19" width="26" height="3"   rx="1.5" fill="#2C1A06" opacity="0.15"/>
-  <rect x="179" y="25" width="30" height="3"   rx="1.5" fill="#2C1A06" opacity="0.15"/>
-  <circle cx="226" cy="11" r="3.5" fill="#C1440E" opacity="0.5"/>
+  <!-- Script card top -->
+  <rect x="180" y="8" width="64" height="32" rx="9" fill="rgba(44,26,6,0.11)"/>
+  <rect x="188" y="15" width="34" height="3"   rx="1.5" fill="#2C1A06" opacity="0.22"/>
+  <rect x="188" y="21" width="26" height="3"   rx="1.5" fill="#2C1A06" opacity="0.15"/>
+  <rect x="188" y="27" width="30" height="3"   rx="1.5" fill="#2C1A06" opacity="0.15"/>
+  <circle cx="235" cy="13" r="4" fill="#C1440E" opacity="0.48"/>
 
-  <!-- Views pill -->
-  <rect x="178" y="46" width="72" height="22" rx="11" fill="rgba(255,255,255,0.2)"/>
-  <polygon points="188,53 188,62 196,57.5" fill="#2C1A06" opacity="0.3"/>
-  <rect x="200" y="52" width="20" height="3"   rx="1.5" fill="#2C1A06" opacity="0.25"/>
-  <rect x="200" y="58" width="14" height="2.5" rx="1.25" fill="#2C1A06" opacity="0.16"/>
-  <rect x="228" y="51" width="16" height="12"  rx="4"   fill="#2C1A06" opacity="0.12"/>
+  <!-- Views pill middle -->
+  <rect x="182" y="50" width="74" height="23" rx="11.5" fill="rgba(255,255,255,0.2)"/>
+  <polygon points="192,57 192,66 201,61.5" fill="#2C1A06" opacity="0.28"/>
+  <rect x="206" y="56" width="20" height="3"   rx="1.5" fill="#2C1A06" opacity="0.24"/>
+  <rect x="206" y="62" width="14" height="2.5" rx="1.25" fill="#2C1A06" opacity="0.15"/>
+  <rect x="233" y="55" width="17" height="13"  rx="4"   fill="#2C1A06" opacity="0.11"/>
 
-  <!-- Caption strip -->
-  <rect x="172" y="76" width="50" height="10" rx="5" fill="rgba(255,255,255,0.15)"/>
-  <rect x="178" y="79" width="22" height="2.5" rx="1.25" fill="#2C1A06" opacity="0.2"/>
-  <rect x="178" y="83" width="16" height="2.5" rx="1.25" fill="#2C1A06" opacity="0.13"/>
+  <!-- Caption strip bottom -->
+  <rect x="180" y="82" width="52" height="10" rx="5" fill="rgba(255,255,255,0.15)"/>
+  <rect x="187" y="85" width="22" height="2.5" rx="1.25" fill="#2C1A06" opacity="0.2"/>
+  <rect x="187" y="89" width="16" height="2.5" rx="1.25" fill="#2C1A06" opacity="0.13"/>
 
   <!-- Sound waves -->
-  <path d="M256 28 Q262 44 256 60"
+  <path d="M262 32 Q268 48 262 64"
         stroke="#2C1A06" stroke-width="2.5" fill="none"
-        stroke-linecap="round" stroke-opacity="0.14"/>
-  <path d="M264 20 Q273 44 264 68"
+        stroke-linecap="round" stroke-opacity="0.13"/>
+  <path d="M271 22 Q280 48 271 74"
         stroke="#2C1A06" stroke-width="2" fill="none"
-        stroke-linecap="round" stroke-opacity="0.08"/>
+        stroke-linecap="round" stroke-opacity="0.07"/>
 
   <!-- Sparkles -->
-  <circle cx="278" cy="12" r="2.5" fill="#2C1A06" opacity="0.12"/>
-  <circle cx="288" cy="20" r="1.8" fill="#fff"    opacity="0.2"/>
-  <circle cx="295" cy="10" r="1.4" fill="#2C1A06" opacity="0.09"/>
-  <circle cx="284" cy="5"  r="1.2" fill="#C1440E" opacity="0.3"/>
+  <circle cx="280" cy="14" r="2.5" fill="#2C1A06" opacity="0.11"/>
+  <circle cx="291" cy="22" r="1.8" fill="#fff"    opacity="0.2"/>
+  <circle cx="297" cy="11" r="1.4" fill="#C1440E" opacity="0.28"/>
 </svg>
 
 <div class="chips-row">
@@ -269,80 +279,83 @@
   </div>
 
 </div>
+
 <script>
   async function handleStart() {
     const key = document.getElementById('api-key').value.trim();
     const field = document.getElementById('api-field');
     const btn = document.getElementById('go-btn');
 
-```
-if (!key) { showErr(field, btn, 'Paste your API key first'); return; }
+    if (!key) {
+      showErr(field, btn, 'Paste your API key first');
+      return;
+    }
 
-btn.textContent = '⏳ Validating key...';
-btn.style.color = '#F2C94C';
-btn.style.opacity = '0.7';
-btn.disabled = true;
+    btn.textContent = '⏳ Validating key...';
+    btn.style.color = '#F2C94C';
+    btn.style.opacity = '0.7';
+    btn.disabled = true;
 
-try {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': key,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true'
-    },
-    body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 5,
-      messages: [{ role: 'user', content: 'hi' }]
-    })
-  });
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': key,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 5,
+          messages: [{ role: 'user', content: 'hi' }]
+        })
+      });
 
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    const msg = err?.error?.type === 'authentication_error'
-      ? 'Invalid API key' : 'Key check failed — try again';
-    showErr(field, btn, msg);
-    return;
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        const msg = err?.error?.type === 'authentication_error'
+          ? 'Invalid API key' : 'Key check failed — try again';
+        showErr(field, btn, msg);
+        return;
+      }
+
+      localStorage.setItem('cos_key', key);
+      const elKey = document.getElementById('el-key').value.trim();
+      if (elKey) localStorage.setItem('cos_el', elKey);
+      btn.textContent = '✓ Key verified!';
+      btn.style.color = '#4ade80';
+      btn.style.opacity = '1';
+      setTimeout(() => { window.location.href = 'welcome.html'; }, 500);
+
+    } catch(e) {
+      showErr(field, btn, 'Network error — check connection');
+    }
   }
 
-  localStorage.setItem('cos_key', key);
-  const elKey = document.getElementById('el-key').value.trim();
-  if (elKey) localStorage.setItem('cos_el', elKey);
-  btn.textContent = '✓ Key verified!';
-  btn.style.color = '#4ade80';
-  btn.style.opacity = '1';
-  setTimeout(() => { window.location.href = 'welcome.html'; }, 500);
+  function showErr(field, btn, msg) {
+    field.classList.add('err');
+    btn.textContent = msg;
+    btn.style.color = '#ff6b6b';
+    btn.style.opacity = '1';
+    btn.disabled = false;
+    setTimeout(() => {
+      field.classList.remove('err');
+      btn.style.color = '#F2C94C';
+      btn.textContent = 'Get Started →';
+    }, 2500);
+  }
 
-} catch(e) {
-  showErr(field, btn, 'Network error — check connection');
-}
-```
-
-}
-
-function showErr(field, btn, msg) {
-field.classList.add(‘err’);
-btn.textContent = msg;
-btn.style.color = ‘#ff6b6b’;
-btn.style.opacity = ‘1’;
-btn.disabled = false;
-setTimeout(() => {
-field.classList.remove(‘err’);
-btn.style.color = ‘#F2C94C’;
-btn.textContent = ‘Get Started →’;
-}, 2500);
-}
-
-function handleSkip() {
-localStorage.removeItem(‘cos_key’);
-window.location.href = ‘welcome.html’;
-}
+  function handleSkip() {
+    localStorage.removeItem('cos_key');
+    window.location.href = 'welcome.html';
+  }
 </script>
 
 <script>
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  }
 </script>
 
 </body>
