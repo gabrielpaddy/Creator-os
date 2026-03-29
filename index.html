@@ -315,7 +315,7 @@ try {
   btn.style.opacity = '1';
   setTimeout(() => { window.location.href = 'welcome.html'; }, 500);
 
-} catch {
+} catch(e) {
   showErr(field, btn, 'Network error — check connection');
 }
 ```
