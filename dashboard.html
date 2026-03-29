@@ -14,139 +14,169 @@
     font-family:'Plus Jakarta Sans', sans-serif;
     -webkit-font-smoothing:antialiased;
   }
-  .page {
-    height:100vh; height:100dvh;
-    background:#EDEBE6;
-    display:flex; flex-direction:column;
-    overflow:hidden;
-  }
-  .topbar {
-    flex-shrink:0;
-    padding: env(safe-area-inset-top,52px) 18px 0;
-    display:flex; align-items:center;
-    justify-content:space-between;
-    margin-bottom:14px;
-  }
-  .logo { font-family:'Fredoka', sans-serif; font-size:18px; font-weight:600; color:#2C1A06; }
-  .logo .O { color:#C1440E; }
-  .logo .S { color:#E8A838; }
-  .settings-btn {
-    width:38px; height:38px;
-    background:#fff; border:none; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer; font-size:18px;
-    box-shadow:0 2px 10px rgba(44,26,6,0.08);
-  }
-  .scroll {
-    flex:1; overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none; min-height:0;
-    padding:0 16px;
-    padding-bottom:90px;
-  }
-  .scroll::-webkit-scrollbar { display:none; }
-  .greet-card {
-    background: linear-gradient(145deg, #F2C94C 0%, #E8A838 55%, #D4892A 100%);
-    border-radius:26px; padding:22px 22px 20px;
-    margin-bottom:12px; position:relative; overflow:hidden;
-  }
-  .greet-card::before {
-    content:''; position:absolute;
-    width:160px; height:160px;
-    background:rgba(255,255,255,0.1);
-    border-radius:50%; top:-50px; right:-30px;
-  }
-  .greet-card::after {
-    content:''; position:absolute;
-    width:80px; height:80px;
-    background:rgba(255,255,255,0.07);
-    border-radius:50%; bottom:-20px; left:20px;
-  }
-  .greet-top {
-    display:flex; align-items:flex-start;
-    justify-content:space-between; margin-bottom:14px;
-    position:relative; z-index:1;
-  }
-  .greet-name {
-    font-family:'Fredoka', sans-serif;
-    font-size:26px; font-weight:700;
-    color:#2C1A06; line-height:1.1;
-  }
-  .greet-sub {
-    font-size:13px; color:rgba(44,26,6,0.5);
-    font-weight:500; margin-top:2px;
-  }
-  .streak-badge {
-    background:rgba(44,26,6,0.12);
-    border-radius:999px; padding:6px 12px;
-    display:flex; align-items:center; gap:5px;
-    flex-shrink:0;
-  }
-  .streak-num { font-family:'Fredoka', sans-serif; font-size:15px; font-weight:700; color:#2C1A06; }
-  .streak-label { font-size:11px; color:rgba(44,26,6,0.5); font-weight:600; }
-  .stats-row { display:flex; gap:8px; position:relative; z-index:1; }
-  .stat {
-    background:rgba(255,255,255,0.25);
-    border-radius:14px; padding:10px 12px; flex:1; text-align:center;
-  }
-  .stat-num { font-family:'Fredoka', sans-serif; font-size:22px; font-weight:700; color:#2C1A06; line-height:1; }
-  .stat-label { font-size:10px; color:rgba(44,26,6,0.5); font-weight:600; margin-top:2px; text-transform:uppercase; letter-spacing:0.05em; }
-  .sec-label {
-    font-family:'Fredoka', sans-serif;
-    font-size:14px; font-weight:600;
-    color:#9B9489; letter-spacing:0.03em;
-    margin:16px 0 8px; display:flex;
-    align-items:center; justify-content:space-between;
-  }
-  .sec-label a { font-size:12px; color:#C1440E; font-weight:600; text-decoration:none; }
-  .trending-card {
-    background: linear-gradient(135deg, #C1440E 0%, #A83510 100%);
-    border-radius:24px; padding:18px 20px;
-    margin-bottom:12px; position:relative; overflow:hidden;
-  }
-  .trending-card::before {
-    content:''; position:absolute;
-    width:120px; height:120px;
-    background:rgba(255,255,255,0.07);
-    border-radius:50%; top:-30px; right:-20px;
-  }
-  .trend-header {
-    display:flex; align-items:center; gap:8px;
-    margin-bottom:12px; position:relative; z-index:1;
-  }
-  .trend-title { font-family:'Fredoka', sans-serif; font-size:15px; font-weight:700; color:#fff; flex:1; }
-  .trend-niche {
-    background:rgba(255,255,255,0.15);
-    border-radius:999px; padding:3px 10px;
-    font-size:11px; font-weight:600; color:rgba(255,255,255,0.8);
-  }
-  .trend-list { position:relative; z-index:1; display:flex; flex-direction:column; gap:8px; }
 
-/* bubbly pills */
+.page {
+height:100vh; height:100dvh;
+background:#EDEBE6;
+display:flex; flex-direction:column;
+overflow:hidden;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+flex-shrink:0;
+padding: env(safe-area-inset-top,52px) 18px 0;
+display:flex; align-items:center;
+justify-content:space-between;
+margin-bottom:14px;
+}
+.logo { font-family:‘Fredoka’, sans-serif; font-size:18px; font-weight:600; color:#2C1A06; }
+.logo .O { color:#C1440E; }
+.logo .S { color:#E8A838; }
+.settings-btn {
+width:38px; height:38px;
+background:#fff; border:none; border-radius:50%;
+display:flex; align-items:center; justify-content:center;
+cursor:pointer; font-size:18px;
+box-shadow:0 2px 10px rgba(44,26,6,0.08);
+}
+
+/* ── SCROLL BODY ── */
+.scroll {
+flex:1; overflow-y:auto;
+-webkit-overflow-scrolling:touch;
+scrollbar-width:none; min-height:0;
+padding:0 16px;
+padding-bottom:90px;
+}
+.scroll::-webkit-scrollbar { display:none; }
+
+/* ── GREETING CARD ── */
+.greet-card {
+background: linear-gradient(145deg, #F2C94C 0%, #E8A838 55%, #D4892A 100%);
+border-radius:26px; padding:22px 22px 20px;
+margin-bottom:12px; position:relative; overflow:hidden;
+}
+.greet-card::before {
+content:’’; position:absolute;
+width:160px; height:160px;
+background:rgba(255,255,255,0.1);
+border-radius:50%; top:-50px; right:-30px;
+}
+.greet-card::after {
+content:’’; position:absolute;
+width:80px; height:80px;
+background:rgba(255,255,255,0.07);
+border-radius:50%; bottom:-20px; left:20px;
+}
+.greet-top {
+display:flex; align-items:flex-start;
+justify-content:space-between; margin-bottom:14px;
+position:relative; z-index:1;
+}
+.greet-name {
+font-family:‘Fredoka’, sans-serif;
+font-size:26px; font-weight:700;
+color:#2C1A06; line-height:1.1;
+}
+.greet-sub {
+font-size:13px; color:rgba(44,26,6,0.5);
+font-weight:500; margin-top:2px;
+}
+.streak-badge {
+background:rgba(44,26,6,0.12);
+border-radius:999px; padding:6px 12px;
+display:flex; align-items:center; gap:5px;
+flex-shrink:0;
+}
+.streak-num {
+font-family:‘Fredoka’, sans-serif;
+font-size:15px; font-weight:700; color:#2C1A06;
+}
+.streak-label {
+font-size:11px; color:rgba(44,26,6,0.5); font-weight:600;
+}
+/* stats row */
+.stats-row {
+display:flex; gap:8px; position:relative; z-index:1;
+}
+.stat {
+background:rgba(255,255,255,0.25);
+border-radius:14px; padding:10px 12px; flex:1; text-align:center;
+}
+.stat-num {
+font-family:‘Fredoka’, sans-serif;
+font-size:22px; font-weight:700; color:#2C1A06; line-height:1;
+}
+.stat-label {
+font-size:10px; color:rgba(44,26,6,0.5);
+font-weight:600; margin-top:2px; text-transform:uppercase; letter-spacing:0.05em;
+}
+
+/* ── SECTION LABEL ── */
+.sec-label {
+font-family:‘Fredoka’, sans-serif;
+font-size:14px; font-weight:600;
+color:#9B9489; letter-spacing:0.03em;
+margin:16px 0 8px; display:flex;
+align-items:center; justify-content:space-between;
+}
+.sec-label a {
+font-size:12px; color:#C1440E;
+font-weight:600; text-decoration:none;
+}
+
+/* ── TRENDING CARD ── */
+.trending-card {
+background: linear-gradient(135deg, #C1440E 0%, #A83510 100%);
+border-radius:24px; padding:18px 20px;
+margin-bottom:12px; position:relative; overflow:hidden;
+}
+.trending-card::before {
+content:’’; position:absolute;
+width:120px; height:120px;
+background:rgba(255,255,255,0.07);
+border-radius:50%; top:-30px; right:-20px;
+}
+.trend-header {
+display:flex; align-items:center; gap:8px;
+margin-bottom:12px; position:relative; z-index:1;
+}
+.trend-title {
+font-family:‘Fredoka’, sans-serif;
+font-size:15px; font-weight:700; color:#fff;
+flex:1;
+}
+.trend-niche {
+background:rgba(255,255,255,0.15);
+border-radius:999px; padding:3px 10px;
+font-size:11px; font-weight:600; color:rgba(255,255,255,0.8);
+}
+.trend-list { position:relative; z-index:1; display:flex; flex-direction:column; gap:8px; }
+
+/* bubbly pill tags */
 .trend-pill {
 background:rgba(255,255,255,0.15);
-border-radius:999px; padding:11px 18px;
-cursor:pointer; display:flex; align-items:center; gap:10px;
+border-radius:999px;
+padding:11px 18px;
+cursor:pointer;
+display:flex; align-items:center; gap:10px;
 transition:transform 0.15s, background 0.15s;
 -webkit-user-select:none; user-select:none;
 }
 .trend-pill:active { transform:scale(0.97); background:rgba(255,255,255,0.22); }
 .trend-pill-emoji { font-size:18px; flex-shrink:0; }
-.trend-pill-title { font-family:‘Fredoka’, sans-serif; font-size:14px; font-weight:600; color:#fff; flex:1; line-height:1.3; }
-.trend-pill-arrow { font-size:14px; color:rgba(255,255,255,0.4); flex-shrink:0; }
-
-/* long press peek */
-.peek-popup {
-position:fixed; left:16px; right:16px;
-background:rgba(44,26,6,0.93); color:#fff;
-font-size:13px; font-weight:500;
-padding:12px 16px; border-radius:16px;
-z-index:300; line-height:1.5;
-pointer-events:none;
-box-shadow:0 8px 28px rgba(0,0,0,0.25);
+.trend-pill-title {
+font-family:‘Fredoka’, sans-serif;
+font-size:14px; font-weight:600; color:#fff;
+flex:1; line-height:1.3;
+}
+.trend-pill-arrow {
+font-size:14px; color:rgba(255,255,255,0.4);
+flex-shrink:0;
 }
 
-/* sheet overlay */
+/* bottom sheet overlay */
 .sheet-overlay {
 position:fixed; inset:0; background:rgba(0,0,0,0.45);
 z-index:200; opacity:0; pointer-events:none;
@@ -158,17 +188,27 @@ transition:opacity 0.25s ease;
 .trend-sheet {
 position:fixed; bottom:0; left:0; right:0;
 background:#fff; border-radius:28px 28px 0 0;
-z-index:201; padding:0 22px;
+z-index:201; padding:0 22px 0;
 padding-bottom:max(32px, env(safe-area-inset-bottom, 32px));
 transform:translateY(100%);
 transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);
 overflow-y:auto; max-height:85vh;
 }
 .trend-sheet.show { transform:translateY(0); }
-.sheet-handle { width:36px; height:4px; background:#E0DBD3; border-radius:999px; margin:14px auto 20px; }
+.sheet-handle {
+width:36px; height:4px; background:#E0DBD3;
+border-radius:999px; margin:14px auto 20px;
+}
 .sheet-emoji { font-size:36px; margin-bottom:10px; display:block; }
-.sheet-title { font-family:‘Fredoka’, sans-serif; font-size:22px; font-weight:700; color:#2C1A06; line-height:1.2; margin-bottom:8px; }
-.sheet-why { font-size:13px; color:#9B9489; line-height:1.6; font-weight:500; margin-bottom:4px; }
+.sheet-title {
+font-family:‘Fredoka’, sans-serif;
+font-size:22px; font-weight:700; color:#2C1A06;
+line-height:1.2; margin-bottom:10px;
+}
+.sheet-why {
+font-size:13px; color:#9B9489; line-height:1.6;
+margin-bottom:8px; font-weight:500;
+}
 .sheet-sec {
 font-family:‘Fredoka’, sans-serif; font-size:11px; font-weight:600;
 color:#C1440E; letter-spacing:0.08em; text-transform:uppercase;
@@ -185,14 +225,25 @@ background:#FFF5F2; border-radius:12px; padding:10px 14px;
 font-size:13px; color:#C1440E; font-weight:600;
 display:flex; align-items:center; gap:6px;
 }
-.sheet-examples { display:flex; flex-direction:column; gap:8px; }
+.sheet-examples { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
 .sheet-example {
 background:#F7F5F2; border-radius:12px; padding:11px 14px;
 font-size:13px; color:#2C1A06; line-height:1.45; font-weight:500;
 }
+.peek-popup {
+position:fixed; left:16px; right:16px;
+background:rgba(44,26,6,0.93); color:#fff;
+font-size:13px; font-weight:500;
+padding:12px 16px; border-radius:16px;
+z-index:300; line-height:1.5; pointer-events:none;
+box-shadow:0 8px 28px rgba(0,0,0,0.25);
+}
 
-/* loading */
-.trend-loading { display:flex; align-items:center; gap:10px; padding:8px 0; position:relative; z-index:1; }
+/* loading state */
+.trend-loading {
+display:flex; align-items:center; gap:10px;
+padding:8px 0; position:relative; z-index:1;
+}
 .spinner {
 width:18px; height:18px;
 border:2px solid rgba(255,255,255,0.2);
@@ -200,44 +251,288 @@ border-top-color:#fff; border-radius:50%;
 animation:spin 0.7s linear infinite; flex-shrink:0;
 }
 @keyframes spin { to { transform:rotate(360deg); } }
-.trend-loading-text { font-size:13px; color:rgba(255,220,180,0.7); font-weight:500; }
+.trend-loading-text {
+font-size:13px; color:rgba(255,220,180,0.7); font-weight:500;
+}
 
-.tools-row { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px; }
+/* ── STUDIOS ROW ── */
+.studios-grid {
+display:grid; grid-template-columns:1fr 1fr;
+gap:10px; margin-bottom:12px;
+}
+.studio-card {
+background:#fff; border-radius:20px;
+padding:16px 14px; cursor:pointer;
+transition:transform 0.15s, box-shadow 0.15s;
+box-shadow:0 2px 12px rgba(44,26,6,0.06);
+}
+.studio-card:active { transform:scale(0.96); }
+.studio-emoji { font-size:28px; margin-bottom:8px; display:block; }
+.studio-name {
+font-family:‘Fredoka’, sans-serif;
+font-size:15px; font-weight:700; color:#2C1A06;
+margin-bottom:2px;
+}
+.studio-desc { font-size:11px; color:#9B9489; font-weight:500; line-height:1.3; }
+
+/* ── QUICK TOOLS ROW ── */
+.tools-row {
+display:flex; gap:8px; overflow-x:auto;
+scrollbar-width:none; padding-bottom:4px;
+}
 .tools-row::-webkit-scrollbar { display:none; }
 .tool-chip {
-background:#fff; border-radius:999px; padding:10px 16px; flex-shrink:0;
+background:#fff; border-radius:999px;
+padding:10px 16px; flex-shrink:0;
 display:flex; align-items:center; gap:7px;
-cursor:pointer; box-shadow:0 2px 8px rgba(44,26,6,0.06); transition:transform 0.15s;
+cursor:pointer; box-shadow:0 2px 8px rgba(44,26,6,0.06);
+transition:transform 0.15s;
 }
 .tool-chip:active { transform:scale(0.95); }
 .tool-chip-emoji { font-size:16px; }
-.tool-chip-name { font-family:‘Fredoka’, sans-serif; font-size:14px; font-weight:600; color:#2C1A06; white-space:nowrap; }
+.tool-chip-name {
+font-family:‘Fredoka’, sans-serif;
+font-size:14px; font-weight:600; color:#2C1A06;
+white-space:nowrap;
+}
 
+/* ── BOTTOM NAV ── */
 .bottom-nav {
 position:fixed; bottom:0; left:0; right:0;
-background:#fff; border-top:1px solid rgba(44,26,6,0.06);
-display:flex; padding-bottom:env(safe-area-inset-bottom,16px);
-z-index:50; box-shadow:0 -4px 24px rgba(44,26,6,0.06);
+background:#fff;
+border-top:1px solid rgba(44,26,6,0.06);
+display:flex;
+padding-bottom:env(safe-area-inset-bottom,16px);
+z-index:50;
+box-shadow:0 -4px 24px rgba(44,26,6,0.06);
 }
 .nav-tab {
 flex:1; display:flex; flex-direction:column;
 align-items:center; justify-content:center;
 padding:10px 4px; cursor:pointer;
-border:none; background:none; gap:3px; transition:opacity 0.15s;
+border:none; background:none; gap:3px;
+transition:opacity 0.15s;
 }
 .nav-tab:active { opacity:0.7; }
 .nav-icon { font-size:20px; line-height:1; }
-.nav-label { font-family:‘Fredoka’, sans-serif; font-size:11px; font-weight:600; color:#C8C2B8; }
+.nav-label {
+font-family:‘Fredoka’, sans-serif;
+font-size:11px; font-weight:600; color:#C8C2B8;
+}
 .nav-tab.on .nav-label { color:#C1440E; }
-.nav-dot { width:4px; height:4px; border-radius:50%; background:#C1440E; margin-top:1px; opacity:0; }
+.nav-tab.on .nav-icon { filter:none; }
+.nav-dot {
+width:4px; height:4px; border-radius:50%;
+background:#C1440E; margin-top:1px;
+opacity:0;
+}
 .nav-tab.on .nav-dot { opacity:1; }
 
-.cc-grid {
-display:grid; grid-template-columns:1fr 1fr;
-grid-template-rows:auto auto auto; gap:8px; margin-bottom:12px;
+/* ── FLAGSHIP CARD ── */
+.flagship-card {
+background: linear-gradient(145deg, #2C1A06 0%, #1a0e03 100%);
+border-radius:26px; padding:0;
+margin-bottom:10px; cursor:pointer;
+position:relative; overflow:hidden;
+min-height:200px;
+transition:transform 0.15s;
+box-shadow:0 8px 32px rgba(44,26,6,0.25);
 }
+.flagship-card:active { transform:scale(0.98); }
+
+/* animated gradient shimmer */
+.flagship-bg {
+position:absolute; inset:0;
+background: radial-gradient(ellipse at 80% 20%, rgba(242,201,76,0.18) 0%, transparent 60%),
+radial-gradient(ellipse at 20% 80%, rgba(193,68,14,0.15) 0%, transparent 50%);
+pointer-events:none;
+}
+.flagship-bg::after {
+content:’’; position:absolute;
+width:220px; height:220px;
+background:rgba(242,201,76,0.06);
+border-radius:50%; top:-60px; right:-50px;
+}
+
+.flagship-content {
+position:relative; z-index:1;
+padding:22px 22px 20px;
+}
+.flagship-top {
+display:flex; align-items:center;
+justify-content:space-between; margin-bottom:16px;
+}
+.flagship-badge {
+background:rgba(242,201,76,0.15);
+border:1px solid rgba(242,201,76,0.3);
+border-radius:999px; padding:4px 12px;
+font-size:10px; font-weight:700;
+color:#F2C94C; letter-spacing:0.1em;
+}
+.flagship-arrow {
+width:34px; height:34px;
+background:rgba(242,201,76,0.12);
+border-radius:50%; display:flex;
+align-items:center; justify-content:center;
+font-size:16px; color:#F2C94C;
+font-weight:700;
+}
+.flagship-title {
+font-family:‘Fredoka’, sans-serif;
+font-size:42px; font-weight:700;
+color:#fff; line-height:1;
+letter-spacing:-0.5px; margin-bottom:10px;
+}
+.flagship-desc {
+font-size:13px; color:rgba(255,255,255,0.5);
+line-height:1.55; margin-bottom:16px;
+font-weight:400; max-width:260px;
+}
+.flagship-pills {
+display:flex; gap:7px; flex-wrap:wrap;
+}
+.fp {
+background:rgba(255,255,255,0.08);
+border-radius:999px; padding:5px 11px;
+font-size:11px; font-weight:600;
+color:rgba(255,255,255,0.5);
+}
+
+/* ── MINI STUDIOS ── */
+.mini-studios {
+display:grid; grid-template-columns:1fr 1fr 1fr;
+gap:8px; margin-bottom:12px;
+}
+.mini-card {
+background:#fff; border-radius:18px;
+padding:14px 10px; cursor:pointer;
+transition:transform 0.15s;
+box-shadow:0 2px 10px rgba(44,26,6,0.05);
+text-align:center;
+}
+.mini-card:active { transform:scale(0.95); }
+.mini-emoji { font-size:24px; display:block; margin-bottom:6px; }
+.mini-name {
+font-family:‘Fredoka’, sans-serif;
+font-size:13px; font-weight:700; color:#2C1A06;
+margin-bottom:2px; line-height:1.2;
+}
+.mini-desc { font-size:10px; color:#9B9489; font-weight:500; line-height:1.3; }
+
+/* ── STUDIOS LAYOUT ── */
+.studios-layout {
+display:grid;
+grid-template-columns:1fr 0.85fr;
+gap:10px;
+margin-bottom:12px;
+}
+
+/* Main — Content Creator */
+.s-main {
+background: linear-gradient(150deg, #2C1A06 0%, #1a0e03 100%);
+border-radius:22px;
+padding:18px 16px;
+cursor:pointer;
+position:relative; overflow:hidden;
+transition:transform 0.15s;
+box-shadow:0 6px 24px rgba(44,26,6,0.2);
+display:flex; flex-direction:column;
+min-height:0;
+}
+.s-main:active { transform:scale(0.97); }
+.s-main-bg {
+position:absolute; inset:0;
+background: radial-gradient(ellipse at 85% 15%, rgba(242,201,76,0.2) 0%, transparent 55%),
+radial-gradient(ellipse at 15% 85%, rgba(193,68,14,0.12) 0%, transparent 50%);
+pointer-events:none;
+}
+.s-main-inner {
+position:relative; z-index:1;
+display:flex; flex-direction:column;
+height:100%; justify-content:space-between;
+}
+.s-main-emoji { font-size:30px; display:block; margin-bottom:10px; }
+.s-main-name {
+font-family:‘Fredoka’, sans-serif;
+font-size:22px; font-weight:700;
+color:#fff; line-height:1.1;
+margin-bottom:6px;
+}
+.s-main-desc {
+font-size:11px; color:rgba(255,255,255,0.4);
+font-weight:500; line-height:1.4;
+flex:1;
+}
+.s-main-arrow {
+margin-top:14px;
+width:30px; height:30px;
+background:rgba(242,201,76,0.15);
+border-radius:50%;
+display:flex; align-items:center; justify-content:center;
+font-size:14px; color:#F2C94C; font-weight:700;
+}
+
+/* Right column */
+.s-col {
+display:flex; flex-direction:column; gap:10px;
+}
+
+.s-small {
+border-radius:18px;
+padding:14px 12px;
+cursor:pointer;
+display:flex; flex-direction:column;
+align-items:flex-start;
+flex:1;
+transition:transform 0.15s;
+position:relative; overflow:hidden;
+}
+.s-small:active { transform:scale(0.96); }
+
+/* Each small studio has its own color */
+.s-clip {
+background: linear-gradient(135deg, #6B4C2A 0%, #543C20 100%);
+box-shadow:0 3px 12px rgba(107,76,42,0.2);
+}
+.s-voice {
+background: linear-gradient(135deg, #C1440E 0%, #8B2E08 100%);
+box-shadow:0 3px 12px rgba(193,68,14,0.2);
+}
+.s-thumb {
+background: linear-gradient(135deg, #D4892A 0%, #B5711A 100%);
+box-shadow:0 3px 12px rgba(212,137,42,0.2);
+}
+
+.s-small::before {
+content:’’; position:absolute;
+width:70px; height:70px;
+background:rgba(255,255,255,0.07);
+border-radius:50%; top:-20px; right:-15px;
+}
+
+.s-sm-emoji {
+font-size:20px; display:block;
+margin-bottom:6px; position:relative; z-index:1;
+}
+.s-sm-name {
+font-family:‘Fredoka’, sans-serif;
+font-size:13px; font-weight:700;
+color:#fff; line-height:1.2;
+position:relative; z-index:1;
+}
+
+/* iOS control center style grid */
+.cc-grid {
+display:grid;
+grid-template-columns:1fr 1fr;
+grid-template-rows:auto auto auto;
+gap:8px;
+margin-bottom:12px;
+}
+.cc-main { grid-row: span 2; }
+
+/* Content Creator spans 2 rows on left — like WiFi button in control center */
 .cc-main {
-grid-row:span 2;
 background:linear-gradient(150deg,#2C1A06 0%,#1a0e03 100%);
 border-radius:20px; padding:14px 14px;
 cursor:pointer; position:relative; overflow:hidden;
@@ -253,50 +548,75 @@ radial-gradient(ellipse at 20% 85%, rgba(193,68,14,0.1) 0%, transparent 50%);
 pointer-events:none;
 }
 .cc-emoji { font-size:22px; margin-bottom:6px; position:relative; z-index:1; }
-.cc-name { font-family:‘Fredoka’, sans-serif; font-size:16px; font-weight:700; color:#fff; line-height:1.1; margin-bottom:6px; position:relative; z-index:1; flex:1; }
-.cc-desc { font-size:10px; color:rgba(255,255,255,0.38); font-weight:500; margin-bottom:10px; position:relative; z-index:1; }
+.cc-name {
+font-family:‘Fredoka’, sans-serif;
+font-size:16px; font-weight:700; color:#fff;
+line-height:1.1; margin-bottom:6px;
+position:relative; z-index:1; flex:1;
+}
+.cc-desc {
+font-size:10px; color:rgba(255,255,255,0.38);
+font-weight:500; margin-bottom:10px;
+position:relative; z-index:1;
+}
 .cc-arr {
-width:24px; height:24px; background:rgba(242,201,76,0.14);
-border-radius:50%; display:flex; align-items:center; justify-content:center;
+width:24px; height:24px;
+background:rgba(242,201,76,0.14);
+border-radius:50%;
+display:flex; align-items:center; justify-content:center;
 font-size:13px; color:#F2C94C; font-weight:700;
 position:relative; z-index:1; align-self:flex-start;
 }
+
+/* Small studio cards */
 .cc-sm {
 border-radius:18px; padding:12px 12px; min-height:80px;
 cursor:pointer; position:relative; overflow:hidden;
-display:flex; flex-direction:column; transition:transform 0.15s;
+display:flex; flex-direction:column;
+transition:transform 0.15s;
 }
 .cc-sm:active { transform:scale(0.96); }
 .cc-sm-glow {
-position:absolute; background:rgba(255,255,255,0.06);
+position:absolute; inset:0;
+background:rgba(255,255,255,0.06);
 border-radius:50%; width:80px; height:80px;
-top:-20px; right:-15px; pointer-events:none;
+top:-20px; right:-15px;
+pointer-events:none;
 }
 .s-clip  { background:linear-gradient(135deg,#6B4C2A,#4a3318); box-shadow:0 3px 10px rgba(107,76,42,0.18); }
 .s-plan  { background:linear-gradient(135deg,#2A5C2A,#1a3d1a); box-shadow:0 3px 10px rgba(42,92,42,0.18); }
 .s-voice { background:linear-gradient(135deg,#C1440E,#8B2E08); box-shadow:0 3px 10px rgba(193,68,14,0.18); }
 .s-thumb { background:linear-gradient(135deg,#D4892A,#A86A18); box-shadow:0 3px 10px rgba(212,137,42,0.18); }
 .cc-sm-emoji { font-size:20px; margin-bottom:5px; position:relative; z-index:1; }
-.cc-sm-name { font-family:‘Fredoka’, sans-serif; font-size:12px; font-weight:700; color:#fff; line-height:1.2; position:relative; z-index:1; }
+.cc-sm-name {
+font-family:‘Fredoka’, sans-serif;
+font-size:12px; font-weight:700; color:#fff;
+line-height:1.2; position:relative; z-index:1;
+}
 </style>
 
 </head>
 <body>
 <div class="page">
 
+  <!-- TOP BAR -->
+
   <div class="topbar">
     <div class="logo">creator <span class="O">O</span><span class="S">S</span></div>
     <button class="settings-btn" onclick="window.location.href='settings.html'">⚙️</button>
   </div>
 
+  <!-- SCROLL -->
+
   <div class="scroll">
 
 ```
+<!-- GREETING -->
 <div class="greet-card">
   <div class="greet-top">
     <div>
       <div class="greet-name" id="greet-name">Good morning 👋</div>
-      <div class="greet-sub">Ready to create something great?</div>
+      <div class="greet-sub" id="greet-sub">Ready to create something great?</div>
     </div>
     <div class="streak-badge">
       <span style="font-size:14px">🔥</span>
@@ -305,15 +625,25 @@ top:-20px; right:-15px; pointer-events:none;
     </div>
   </div>
   <div class="stats-row">
-    <div class="stat"><div class="stat-num" id="stat-week">0</div><div class="stat-label">This week</div></div>
-    <div class="stat"><div class="stat-num" id="stat-month">0</div><div class="stat-label">This month</div></div>
-    <div class="stat"><div class="stat-num" id="stat-saved">0</div><div class="stat-label">Saved ideas</div></div>
+    <div class="stat">
+      <div class="stat-num" id="stat-week">0</div>
+      <div class="stat-label">This week</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="stat-month">0</div>
+      <div class="stat-label">This month</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="stat-saved">0</div>
+      <div class="stat-label">Saved ideas</div>
+    </div>
   </div>
 </div>
 
+<!-- TRENDING -->
 <div class="sec-label">
   <span>🔥 Trending in your niche</span>
-  <a href="#" id="refresh-link">Refresh</a>
+  <a href="#">Refresh</a>
 </div>
 <div class="trending-card">
   <div class="trend-header">
@@ -323,8 +653,10 @@ top:-20px; right:-15px; pointer-events:none;
   <div class="trend-list" id="trend-list"></div>
 </div>
 
+<!-- STUDIOS -->
 <div class="sec-label"><span>⚡ Studios</span></div>
 <div class="cc-grid">
+  <!-- Row 1: Content Creator spans 2 cols -->
   <div class="cc-main" onclick="window.location.href='content-creator.html'">
     <div class="cc-glow"></div>
     <div style="position:relative;z-index:1;display:flex;flex-direction:column;height:100%;">
@@ -334,6 +666,7 @@ top:-20px; right:-15px; pointer-events:none;
       <div class="cc-arr" style="margin-top:auto;">→</div>
     </div>
   </div>
+  <!-- Row 2: 4 equal studios -->
   <div class="cc-sm s-clip" onclick="window.location.href='clip-studio.html'">
     <div class="cc-sm-glow"></div>
     <span class="cc-sm-emoji">🎞</span>
@@ -356,7 +689,10 @@ top:-20px; right:-15px; pointer-events:none;
   </div>
 </div>
 
-<div class="sec-label"><span>🛠 Quick Tools</span></div>
+<!-- QUICK TOOLS -->
+<div class="sec-label">
+  <span>🛠 Quick Tools</span>
+</div>
 <div class="tools-row">
   <div class="tool-chip"><span class="tool-chip-emoji">🎣</span><span class="tool-chip-name">Hook Generator</span></div>
   <div class="tool-chip"><span class="tool-chip-emoji">♻️</span><span class="tool-chip-name">Repurposer</span></div>
@@ -369,7 +705,7 @@ top:-20px; right:-15px; pointer-events:none;
 
   </div>
 
-  <!-- SHEET -->
+  <!-- TREND SHEET -->
 
   <div class="sheet-overlay" id="sheet-overlay" onclick="closeSheet()"></div>
   <div class="trend-sheet" id="trend-sheet">
@@ -379,9 +715,9 @@ top:-20px; right:-15px; pointer-events:none;
     <div class="sheet-why" id="sheet-why"></div>
     <div class="sheet-sec">Trending on</div>
     <div class="sheet-platforms" id="sheet-platforms"></div>
-    <div class="sheet-sec" style="margin-top:16px;">Engagement</div>
+    <div class="sheet-sec">Engagement</div>
     <div class="sheet-signal" id="sheet-signal"></div>
-    <div class="sheet-sec" style="margin-top:16px;">What people are making</div>
+    <div class="sheet-sec">What people are making</div>
     <div class="sheet-examples" id="sheet-examples"></div>
   </div>
 
@@ -416,21 +752,25 @@ top:-20px; right:-15px; pointer-events:none;
   var niches    = JSON.parse(localStorage.getItem('cos_niches') || '[]');
   var platforms = JSON.parse(localStorage.getItem('cos_platforms') || '[]');
   var apiKey    = localStorage.getItem('cos_key') || '';
-  var autoTrend = localStorage.getItem('cos_autotrend') !== '0';
+  var autoTrend = localStorage.getItem('cos_autotrend') !== '0'; // default on
 
+// Greeting
 var hour = new Date().getHours();
 var tod  = hour < 12 ? ‘morning’ : hour < 17 ? ‘afternoon’ : ‘evening’;
 document.getElementById(‘greet-name’).textContent =
 ’Good ’ + tod + (name ? ‘, ’ + name : ‘’) + ’ 👋’;
 
+// If setup incomplete, show banner
 if (!name || !niches.length) {
 var banner = document.createElement(‘div’);
 banner.style.cssText = ‘background:#FFF5F2;border:1.5px solid #C1440E;border-radius:16px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;’;
 banner.innerHTML = ‘<div style="font-family:Fredoka,sans-serif;font-size:14px;color:#C1440E;font-weight:600;">Complete your setup for a personalised experience</div>’ +
 ‘<button onclick="window.location.href=\'welcome.html\'" style="background:#C1440E;color:#fff;border:none;border-radius:999px;padding:7px 14px;font-family:Fredoka,sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">Finish →</button>’;
-document.querySelector(’.scroll’).insertBefore(banner, document.querySelector(’.scroll’).firstChild);
+var scroll = document.querySelector(’.scroll’);
+scroll.insertBefore(banner, scroll.firstChild);
 }
 
+// Niche label
 var NICHE_LABELS = {
 anime:‘Anime’, movies:‘Movies & TV’, philosophy:‘Philosophy’,
 comedy:‘Comedy’, fitness:‘Fitness’, fashion:‘Fashion’,
@@ -440,10 +780,15 @@ lifestyle:‘Lifestyle’, education:‘Education’, other:‘Your niche’
 var nicheLabel = niches.length ? NICHE_LABELS[niches[0]] || niches[0] : ‘your niche’;
 document.getElementById(‘trend-niche’).textContent = nicheLabel;
 
+// Stats from localStorage
 var projects = JSON.parse(localStorage.getItem(‘cos_projects’) || ‘[]’);
 document.getElementById(‘stat-saved’).textContent = projects.length;
-document.getElementById(‘streak-num’).textContent = parseInt(localStorage.getItem(‘cos_streak’) || ‘0’);
 
+// Streak
+var streak = parseInt(localStorage.getItem(‘cos_streak’) || ‘0’);
+document.getElementById(‘streak-num’).textContent = streak;
+
+// Auto-load trends
 if (autoTrend && apiKey && niches.length) {
 loadTrends();
 } else if (!apiKey) {
@@ -455,8 +800,6 @@ document.getElementById(‘trend-list’).innerHTML =
 }
 
 async function loadTrends() {
-document.getElementById(‘trend-list’).innerHTML =
-‘<div class="trend-loading"><div class="spinner"></div><div class="trend-loading-text">Scanning trends for you…</div></div>’;
 try {
 var nicheStr = niches.map(function(n){ return NICHE_LABELS[n]||n; }).join(’, ‘);
 var platStr  = platforms.join(’, ‘) || ‘TikTok’;
@@ -470,18 +813,20 @@ headers:{
 },
 body: JSON.stringify({
 model:‘claude-haiku-4-5-20251001’,
-max_tokens:600,
+max_tokens:500,
 messages:[{ role:‘user’, content:
-‘You are a viral content strategist. Give 3 trends actually blowing up right now for ’ + nicheStr + ’ creators on ’ + platStr + ‘. Each must feel like something real people are doing — challenges, formats, debates, POVs, sounds. Titles: short, punchy, fun, max 7 words. For each include: which platforms it is trending on (only from: TikTok, Instagram, YouTube, X, Facebook), one engagement signal (e.g. “50M+ views on this format” or “Taking over comment sections”), and 3 short examples of actual content people are making (each max 10 words, like real video titles). Format ONLY as a JSON array: [{“emoji”:”…”,“topic”:”…”,“why”:“one casual fun sentence”,“platforms”:[“TikTok”,“X”],“signal”:”…”,“examples”:[”…”,”…”,”…”]}]’
+‘You are a viral content strategist who knows what's actually blowing up on ’ + platStr + ’ right now for ’ + nicheStr + ’ creators. Give 3 trends actually blowing up right now for ’ + nicheStr + ’ creators on ’ + platStr + ‘. Each must feel like something real people are doing — challenges, formats, debates, POVs, sounds. Titles: short, punchy, fun, max 7 words. For each include: which platforms (only from: TikTok, Instagram, YouTube, X, Facebook), one engagement signal (e.g. “50M+ views on this format”), and 3 short examples of actual content people are making (each max 10 words). Format ONLY as JSON array: [{“emoji”:”…”,“topic”:”…”,“why”:“one casual sentence”,“platforms”:[“TikTok”],“signal”:”…”,“examples”:[”…”,”…”,”…”]}]’
 }]
 })
 });
 var data = await res.json();
 var text = data.content[0].text.trim().replace(/`json|`/g,’’).trim();
 var trends = JSON.parse(text);
-window._trends = trends;
 
 ```
+  // store for sheet use
+  window._trends = trends;
+
   var html = trends.map(function(t, i) {
     return '<div class="trend-pill" id="tp'+i+'">' +
       '<span class="trend-pill-emoji">' + t.emoji + '</span>' +
@@ -495,8 +840,7 @@ window._trends = trends;
     var el = document.getElementById('tp'+i);
     var pressTimer = null;
     var didLongPress = false;
-
-    el.addEventListener('touchstart', function(e) {
+    el.addEventListener('touchstart', function() {
       didLongPress = false;
       pressTimer = setTimeout(function() {
         didLongPress = true;
@@ -504,17 +848,15 @@ window._trends = trends;
         if (navigator.vibrate) navigator.vibrate(12);
       }, 400);
     }, {passive:true});
-
-    el.addEventListener('touchend', function(e) {
+    el.addEventListener('touchend', function() {
       clearTimeout(pressTimer);
       hidePeek();
       if (!didLongPress) openSheet(i);
     });
-
     el.addEventListener('touchmove', function() {
       clearTimeout(pressTimer);
       hidePeek();
-      didLongPress = true; // prevent tap firing after move
+      didLongPress = true;
     }, {passive:true});
   });
 
@@ -533,7 +875,7 @@ tip.id = ‘peek-tip’;
 tip.className = ‘peek-popup’;
 tip.textContent = text;
 var rect = el.getBoundingClientRect();
-tip.style.top = (rect.top + window.scrollY - 8) + ‘px’;
+tip.style.top = (rect.top - 8) + ‘px’;
 tip.style.transform = ‘translateY(-100%)’;
 document.body.appendChild(tip);
 }
@@ -568,8 +910,11 @@ document.getElementById(‘sheet-overlay’).classList.remove(‘show’);
 document.getElementById(‘trend-sheet’).classList.remove(‘show’);
 }
 
-document.getElementById(‘refresh-link’).onclick = function(e) {
+// Refresh link
+document.querySelector(’.sec-label a’).onclick = function(e) {
 e.preventDefault();
+document.getElementById(‘trend-list’).innerHTML =
+‘<div class="trend-loading"><div class="spinner"></div><div class="trend-loading-text">Refreshing…</div></div>’;
 loadTrends();
 };
 </script>
